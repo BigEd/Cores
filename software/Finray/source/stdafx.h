@@ -4,20 +4,25 @@
 #pragma once
 
 // TODO: reference additional headers your program requires here
+#define DBL		double
 #define PI		3.141592653589793238
 
 #include <windows.h>
 #include <math.h>
 #include <time.h>
+#include <stdlib.h>
 #include <string>
 #include <iostream>
 #include <fstream>
 #include <iomanip>
 #include "rand.h"
+#include "Math\\Vector.h"
+#include "Math\\Matrix.h"
 #include "Color.h"
-#include "Vector.h"
-#include "Matrix.h"
+#include "Pigment.h"
+#include "Noise.h"
 #include "Finray.h"
+#include "Math\Polynomial.h"
 
 #define BLACK				0.000,0.000,0.000
 #define GOLD				0.800,0.498,0.196

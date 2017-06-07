@@ -28,6 +28,7 @@
 
 //`define SIMULATION      1'b1
 //`define SEGMENTATION	1'b1
+`define SEGMODEL  2
 //`define VECTOROPS     1'b1
 //`define SEGLIMITS       1'b1
 //`define STACKOPS        1'b1
@@ -40,6 +41,7 @@
 //`define TRAP_ILLEGALOPS 1'b1
 //`define PRIVCHKS        1'b1
 //`define PCHIST      1'b1      // Primarily for debugging the processor
+`define COMPRESSED_INSN     1'b1
 
 `define TRUE	1'b1
 `define FALSE	1'b0
@@ -156,6 +158,8 @@
 `define CHKXI   8'h5D
 `define MODUI   8'h5F
 
+`define LEA       8'h68
+`define LEAX      8'h69
 `define LLA       8'h6A       // compute linear address
 `define _2ADDUI		8'h6B
 `define _4ADDUI		8'h6C
@@ -203,6 +207,8 @@
 `define FCX             4'h0D
 `define FEX             4'h0E
 `define FDX             4'h0F
+
+`define LDISEG  8'h7E
 
 `define LB			8'h80
 `define LBU			8'h81
@@ -370,12 +376,12 @@
 `define CREGS			6'h1x
 `define SREGS			6'h2x
 `define USP             6'h31
-`define TICK			6'h32
-`define LCTR			6'h33
+`define TICK			6'd50
+`define LCTR			6'd51
 `define PREGS_ALL		6'd52
 `define ASID			6'd53
 `define VL        6'd54
-`define SR				6'h55
+`define SR				6'd55
 `define FPSCR     6'd56
 `define ARG1      6'd58
 `define IVNO      6'd62

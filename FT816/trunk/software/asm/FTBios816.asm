@@ -1,7 +1,7 @@
 ; ============================================================================
 ; FTBios816.asm
 ;        __
-;   \\__/ o\    (C) 2014  Robert Finch, Stratford
+;   \\__/ o\    (C) 2014-2017  Robert Finch, Waterloo
 ;    \  __ /    All rights reserved.
 ;     \/_//     robfinch<remove>@finitron.ca
 ;       ||
@@ -62,10 +62,14 @@ VideoPos	EQU		$34
 NormAttr	EQU		$36
 StringPos	EQU		$38
 EscState	EQU		$3C
+Vidptr		EQU		$40
+Vidregs		EQU		$46
+Textcols	EQU		$4C
+Textrows	EQU		$4E
 
 reg_cs		EQU		$80
-reg_ds		EQU		reg_cs + 4
-reg_ss		EQU		reg_ds + 4
+reg_ds		EQU		reg_cs + 4	; Yes, these values need 4 bytes as that is
+reg_ss		EQU		reg_ds + 4	; the format read from the INF instruction.
 reg_pc		EQU		reg_ss + 4
 reg_a		EQU		reg_pc + 4
 reg_x		EQU		reg_a + 4
@@ -75,6 +79,7 @@ reg_sr		EQU		reg_sp + 4
 reg_db		EQU		reg_sr + 4
 reg_dp		EQU		reg_db + 4
 reg_bl		EQU		reg_dp + 4
+reg_mp		EQU		reg_bl + 4
 
 cs_save		EQU		$80
 ds_save		EQU		$84
@@ -92,11 +97,24 @@ dpr_save	EQU		$AC
 running_task	EQU		$B8
 
 keybd_char	EQU		$BA
+rw_flag		EQU		$BA
 keybd_cmd	EQU		$BC
 WorkTR		EQU		$BE
+ExitCode	EQU		$C0
+secnum		EQU		$C4
+bufptr		EQU		$C8
+qcnt		EQU		$CC
+IOFocusTask	EQU		$CE
+TaskSwitchEn	EQU	$D0
+numsec		EQU		$D2
+TimeoutList	EQU		$D4
 ldtrec		EQU		$100
+timeout1	EQU		$104
 
+RTCBuf		EQU		$300
+FilenameBuf	EQU		$380
 OutputVec	EQU		$03F0
+spi_rw_vect	EQU		$03F4
 
 PCS0		EQU		$B000
 PCS1		EQU		PCS0 + 2
@@ -110,13 +128,191 @@ CTR1_LMT	EQU		CTR0_CTRL + 1
 CTR1_CTRL	EQU		CTR1_LMT + 3
 MPU_IRQ_STATUS	EQU		$B01F
 
-VIDBUF		EQU		$FD0000
-VIDREGS		EQU		$FEA000
-PRNG		EQU		$FEA100
-KEYBD		EQU		$FEA110
-FAC1		EQU		$FEA200
+VIDBUF		EQU		$D0000		; FD0000
+VIDREGS		EQU		$EA000
+PRNG		EQU		$EA100
+KEYBD		EQU		$EA110
+FAC1		EQU		$EA200
+
+SPIMASTER	EQU		$00FEC000
+SPI_MASTER_VERSION_REG	EQU	SPIMASTER+$00
+SPI_MASTER_CONTROL_REG	EQU	SPIMASTER+$01
+SPI_TRANS_TYPE_REG	EQU		SPIMASTER+$02
+SPI_TRANS_CTRL_REG	EQU		SPIMASTER+$03
+SPI_TRANS_STATUS_REG	EQU	SPIMASTER+$04
+SPI_TRANS_ERROR_REG		EQU	SPIMASTER+$05
+SPI_DIRECT_ACCESS_DATA_REG		EQU	SPIMASTER+$06
+SPI_SD_SECT_7_0_REG		EQU	SPIMASTER+$07
+SPI_SD_SECT_15_8_REG	EQU	SPIMASTER+$08
+SPI_SD_SECT_23_16_REG	EQU	SPIMASTER+$09
+SPI_SD_SECT_31_24_REG	EQU	SPIMASTER+$0A
+SPI_RX_FIFO_DATA_REG	EQU	SPIMASTER+$10
+SPI_RX_FIFO_DATA_COUNT_MSB	EQU	SPIMASTER+$11
+SPI_RX_FIFO_DATA_COUNT_LSB  EQU SPIMASTER+$12
+SPI_RX_FIFO_CTRL_REG		EQU	SPIMASTER+$14
+SPI_TX_FIFO_DATA_REG	EQU	SPIMASTER+$20
+SPI_TX_FIFO_CTRL_REG	EQU	SPIMASTER+$24
+SPI_RESP_BYTE1			EQU	SPIMASTER+$30
+SPI_RESP_BYTE2			EQU	SPIMASTER+$31
+SPI_RESP_BYTE3			EQU	SPIMASTER+$32
+SPI_RESP_BYTE4			EQU	SPIMASTER+$33
+
+SPI_INIT_SD			EQU		$01
+SPI_TRANS_START		EQU		$01
+SPI_TRANS_BUSY		EQU		$01
+SPI_INIT_NO_ERROR	EQU		$00
+SPI_READ_NO_ERROR	EQU		$00
+SPI_WRITE_NO_ERROR	EQU		$00
+SPI_RW_READ_SD_BLOCK	EQU		$02
+SPI_RW_WRITE_SD_BLOCK	EQU		$03
+
+I2C_MASTER		EQU		$00FEC100
+I2C_PRESCALE_LO	EQU		I2C_MASTER+$00
+I2C_PRESCALE_HI	EQU		I2C_MASTER+$01
+I2C_CONTROL		EQU		I2C_MASTER+$02
+I2C_TX			EQU		I2C_MASTER+$03
+I2C_RX			EQU		I2C_MASTER+$03
+I2C_CMD			EQU		I2C_MASTER+$04
+I2C_STAT		EQU		I2C_MASTER+$04
+
+READY_FIFO		EQU		$00FEC200
+READY_FIFO_CNT	EQU		$00FEC210
+TIMEOUT_LIST	EQU		$00FEC300
+
+BIOSctx			EQU		$FC
+OSctx			EQU		$FD
+MAX_IRQ_HOOKS	EQU		16
+
+; Timeout list commands
+TOL_NOP			EQU		0
+TOL_DEC			EQU		1
+TOL_INS			EQU		2
+TOL_RMV			EQU		3
+
+SID			EQU		$EB000		; FEB000
+SID_FREQ0		EQU		$00
+SID_PW0			EQU		$04
+SID_CTRL0		EQU		$08
+SID_ATTACK0		EQU		$0C
+SID_DECAY0		EQU		$10
+SID_SUSTAIN0	EQU		$14
+SID_RELEASE0	EQU		$18
+SID_WADR0		EQU		$1C
+SID_VOLUME		EQU		$B0
 
 do_invaders			EQU		$7868
+
+NR_JCB			EQU		64
+NR_TCB			EQU		512
+NR_MBX			EQU		1024
+NR_MSG			EQU		4096
+NR_MBXperJCB	EQU		32
+
+TS_READY		EQU		1
+TS_PREEMPT		EQU		2
+TS_WAITMSG		EQU		4
+TS_TIMEOUT		EQU		8
+MQS_NEWEST		EQU		0		; message queue strategy
+MT_NONE			EQU		0
+MT_FREE			EQU		1
+MBT_DATA		EQU		0
+
+E_Ok			EQU		0
+E_NotAlloc		EQU		-1
+E_NoMsg			EQU		-2
+E_NoMoreMsgBlks	EQU		-3
+E_NoMoreMbx		EQU		-4		; System has no more mailboxes available
+E_TooManyMbx	EQU		-5		; JCB mailboxes maxed out
+
+TCB_SIZE		EQU		64
+tcbs			EQU		$20000
+TCB_Next		EQU		$00	; 2 byte handles
+TCB_Prev		EQU		$02	; 2 byte handles
+TCB_Timeout		EQU		$04	; 4 byte value
+TCB_mbq_next	EQU		$08	; 2 byte handles
+TCB_mbq_prev	EQU		$0A	; 2 byte handles
+TCB_msg_d1		EQU		$0C	; 4 byte value
+TCB_msg_d2		EQU		$10	; 4 byte value
+TCB_msg_d3		EQU		$14	; 4 byte value
+TCB_msg_tgtadr	EQU		$18	; 2 byte handle
+TCB_msg_retadr	EQU		$1A	; 2 byte handle
+TCB_msg_link	EQU		$1C	; 2 byte handle
+TCB_msg_type	EQU		$1E	; 2 byte value
+TCB_hWaitMbx	EQU		$20	; 2 byte handle
+TCB_number		EQU		$22	; 2 byte value
+TCB_priority	EQU		$24	; 1 byte value
+TCB_status		EQU		$25	; 1 byte value
+TCB_affinity	EQU		$26	; 1 byte value
+TCB_hJcb		EQU		$27	; 1 byte handle
+TCB_start_tick	EQU		$28	; 4 byte value
+TCB_end_tick	EQU		$2C	; 4 byte value
+TCB_ticks		EQU		$30	; 4 byte value
+TCB_exception	EQU		$34	; 4 byte value
+
+JCB_SIZE		EQU		1024
+jcbs			EQU		tcbs + TCB_SIZE * NR_TCB
+JCB_iof_next	EQU		$000	; 1 byte value
+JCB_iof_prev	EQU		$001	; 1 byte value
+JCB_user_name	EQU		$002	; 32 byte value
+JCB_path		EQU		$022	; 256 byte value
+JCB_exit_runfile	EQU	$122	; 256 byte value
+JCB_command_line	EQU	$222	; 256 byte value
+JCB_pVidMem		EQU		$322	; 6 byte value
+JCB_pVirtVidMem	EQU		$328	; 6 byte value
+JCB_VideoCols	EQU		$32E	; 1 byte value
+JCB_VideoRows	EQU		$32F	; 1 byte value
+JCB_CursorRow	EQU		$330	; 1 byte value
+JCB_CursorCol	EQU		$331	; 1 byte value
+JCB_NormAttr	EQU		$332	; 2 byte value
+JCB_KeyState1	EQU		$334	; 2 byte value
+JCB_KeyState2	EQU		$336	; 2 byte value
+JCB_KeybdWaitFlag	EQU	$338	; 1 byte value
+JCB_KeybdHead	EQU		$339
+JCB_KeybdTail	EQU		$33A
+JCB_KeybdBuffer	EQU		$33B	; 32 byte value
+JCB_number		EQU		$35B	; 1 byte value
+JCB_tasks		EQU		$35C	; 2 byte value * 8
+JCB_next		EQU		$35E	; 1 byte value
+JCB_hMbxs		EQU		$360	; 2 byte value
+
+; 1024 mailboxes
+mailboxes		EQU		jcbs + JCB_SIZE * NR_JCB
+MBX_SIZE		EQU		24
+MBX_link		EQU		$00	; 1 byte value
+MBX_owner		EQU		$01	; 1 byte value
+MBX_tq_head		EQU		$02	; 2 byte value
+MBX_tq_tail		EQU		$04	; 2 byte value
+MBX_mq_head		EQU		$06	; 2 byte value
+MBX_mq_tail		EQU		$08	; 2 byte value
+MBX_tq_count	EQU		$0C	; 2 byte value
+MBX_mq_count	EQU		$0E	; 2 byte value
+MBX_mq_size		EQU		$10	; 2 byte value
+MBX_mq_missed	EQU		$12	; 2 byte value
+MBX_mq_strategy	EQU		$14	; 1 byte value
+MBX_number		EQU		$16	; 2 byte value
+
+messages	EQU		mailboxes + MBX_SIZE * NR_MBX
+MSG_d1		EQU		$00	; 4 byte value	( 4096 messages )
+MSG_d2		EQU		$04	; 4 byte value
+MSG_d3		EQU		$08	; 4 byte value
+MSG_tgtadr	EQU		$0C	; 2 byte handle
+MSG_retadr	EQU		$0E	; 2 byte handle
+MSG_link	EQU		$10	; 2 byte handle
+MSG_type	EQU		$12	; 2 byte value
+MSG_SIZE	EQU		MSG_type + 2
+
+running_task	EQU		messages + MSG_SIZE * NR_MSG
+hTcbTmp		EQU		running_task + 2
+hMbxTmp		EQU		hTcbTmp + 2
+hMsgTmp		EQU		hMbxTmp + 2
+freeMBX		EQU		hMsgTmp + 2
+freeMSG		EQU		freeMBX + 2
+freeJCB		EQU		freeMSG + 2
+nMsgBlk		EQU		freeJCB + 2
+nMailbox	EQU		nMsgBlk + 2
+IRQ1Hook	EQU		nMailbox + 2
+IRQ1HookEnd	EQU		IRQ1Hook + MAX_IRQ_HOOKS * 4
+IOFocusBmp	EQU		IRQ1HookEnd
 
 .include "supermon832.asm"
 .include "FAC1ToString.asm"
@@ -124,10 +320,10 @@ do_invaders			EQU		$7868
 
 ;	cpu		W65C816S
 	cpu		FT832
-	.org	$E000
+	.org	$C000
 
 start:
-	SEI
+	SEI					; not strictly necessary after power on reset
 	CLD
 ;	CLV					; overflow low
 ;	SEC					; carry high
@@ -139,7 +335,7 @@ start:
 ;	TAS
 ;
 	CLC					; switch to '816 mode
-	BIT		start		; set overflow bit
+	SEP		#$40		; set overflow bit
 	XCE
 	REP		#$30		; set 16 bit regs & mem
 	NDX 	16
@@ -168,34 +364,43 @@ start:
 	BNE		.0003
 
 	; setup code segment #1
-	LDX		#$904		; executable, 64k
+	LDX		#$905		; executable, 64k
 	TAY
 	INY
 	SDU
 	; setup data segment #2
-	LDX		#$88A		; writeable, 256M
+	LDX		#$88B		; writeable, 256M
 	INY
 	SDU
 	; setup stack segment #3 (for 65c02 mode)
-	LDX		#$881		; writeable, 1k (based at zero)
+	LDX		#$882		; writeable, 1k (based at zero)
 	INY
 	SDU
 	; setup stack segment #4 (for 65c816 mode)
-	LDX		#$884		; writeable, 64k (based at zero)
+	LDX		#$885		; writeable, 64k (based at zero)
 	INY
 	SDU
 	; seg #5 is the maxed out segment
 	LDX		#$98D		; executable, writable, max size
 	INY
 	SDU
+
+	; I/O segment
+	LDA		#$00F0
+	XBAW
+	LDA		#$0000
+	LDX		#$887		; writeable, 1M (based at $F00000)
+	LDY		#$FFF
+	SDU
+
 	; now set the code segment (test far jump)
 	JMF		1:.0004
 .0004:
 	; set the stack segment
 	; (must be before PEA/PLDS)
-	LDA		#4
+	LDA		#5
 	TASS
-	LDA		#$3FFF		; set top of stack
+	LDA		#$6BFF		; set top of stack
 	TAS
 
 	; setup the programmable address decodes
@@ -205,13 +410,15 @@ start:
 	STA		PCS1
 ;	LDA		#$FEA1		; select $FEA1xx I/O
 ;	STA		PCS3
-	LDA		#$0000		; select zero page ram
-	STA		PCS5
+;	LDA		#$0000		; select zero page ram
+;	STA		PCS5
 
 	; set the data segment
 	; this must be setup after address decoding is setup
-	PEA		2
+	PEA		5
 	PLDS
+
+	JSR		FMTK_Init
 
 	; Setup the counters
 	SEP		#$30		; set 8 bit regs
@@ -224,29 +431,26 @@ start:
 	STA		CTR0_LMT+2
 	LDA		#$14		; count up, on mpu clock
 	STA		CTR0_CTRL
-	; Counter #1 is set to interrupt at a 100Hz rate
-	LDA		#$94		; divide by 95794 (for 100Hz)
-	STA		CTR1_LMT
-	LDA		#$57
+	; Counter #1 is set to interrupt at a 50Hz rate
+	LDA		#$2A	;94		; divide by 95794 (for 50Hz)
+	STA		CTR1_LMT		; FFFFFE = 2Hz with 33MHz clock
+	LDA		#$2C	;57
 	STA		CTR1_LMT+1
-	LDA		#$09
+	LDA		#$0A	;09
 	STA		CTR1_LMT+2
 	LDA		#$05		; count down, on mpu clock, irq disenabled
 	STA		CTR1_CTRL
 	; Counter #2 isn't setup
 
-	REP		#$30		; set 16 bit regs & mem
-	NDX 	16
+	REP		#$30
 	MEM		16
+	NDX		16
+	JSR		ResetKbd
 
-;	FORK	#7			; fork a BIOS context
-;	TTA
-;	CMP		#7
-;	BNE		.0002
-;	RTT
-;.0002:
+	STZ		TaskSwitchEn
+
 	; Setup the task registers
-	LDY		#6			; # tasks to setup
+	LDY		#9			; # tasks to setup
 	LDX		#1
 .0001:
 	LDT		TaskStartTbl,X
@@ -254,7 +458,8 @@ start:
 	DEY
 	BNE		.0001
 
-	STZ		running_task
+	STZ		running_task	; task #0 is the running task
+	STZ		IOFocusTask		; task #0 has the focus to begin with
 
 	LDA		#BrkRout1
 	STA		$0102
@@ -262,61 +467,176 @@ start:
 	STZ		TickCount
 	STZ		TickCount+2
 Task0:
-;	CLI
+	LDA		#$01
+	STA		$7000
 .0001:
+	LDA		#$04
+	STA		$7000
+	LDA		#$FFF
+	STA		Vidptr+4
+	STA		Vidregs+4
+	LDA		#VIDBUF>>16
+	STA		Vidptr+2
+	STZ		Vidptr
+	LDA		#$BF0D	; 'm'
+	STA		FAR {Vidptr}
+	LDA		#VIDREGS >> 16
+	STA		Vidregs+2
+	LDA		#VIDREGS
+	STA		Vidregs
+	LDY		#7	
+	LDA		#$21		; divide by 3 vertically, 2 horizontally
+	JSR		SetVideoReg	; clear POR state
+	LDA		#84		; set window left position 84
+	LDY		#2
+	JSR		SetVideoReg
+	LDA		#0
+	LDY		#3
+	JSR		SetVideoReg
+	LDA		#16			; set window top position
+	LDY		#4
+	JSR		SetVideoReg
+	JSR		GetTextRowsCols
 	LDA		#DisplayChar
 	STA		OutputVec
 	LDA		OutputVec
 	CMP		#DisplayChar
 	BNE		.0001
-	LDA		#$01
+	LDA		#$02
 	STA		$7000
 	LDA		#$BF00
 	STA		NormAttr
 	JSR		ClearScreen
 	JSR		HomeCursor
-	LDA		#$02
-	STA		$7000
+;	JSR		beep
+	LDA		#$03
+	STA		5:$7000
+	PEA		5
 	PEA		msgStarting
 	JSR		DisplayString
-	LDA		#0
-	STA		FAC1
-	STA		FAC1+2
-	STA		FAC1+4
-	STA		FAC1+6
-	STA		FAC1+8
-	STA		FAC1+10
-	LDA		#1234
-	STA		FAC1
-	LDA		#5			; FIX2FLT
-	JSR 	FPCommandWait
-	JSR		DivideByTen
-	JSR		FAC1ToString
-	PEA		$3A0
+	JSR		rtc_init
+	JSR		rtc_read
+	CMP		#0
+	BEQ		.0006
+	PEA		1
+	PEA		msgRtcReadFail
 	JSR		DisplayString
-	LDA		#' '
-	JSR		OutChar
-	JSR		DispFAC1
+.0006:
+;	SEP		#$1000		; turn on single step mode
+;	LDA		#0
+;	STA		$FFF:FAC1
+;	STA		$FFF:FAC1+2
+;	STA		$FFF:FAC1+4
+;	STA		$FFF:FAC1+6
+;	STA		$FFF:FAC1+8
+;	STA		$FFF:FAC1+10
+;	LDA		#3
+;	STA		$7000
+;	LDA		#1234
+;	STA		FAC1
+;	LDA		#5			; FIX2FLT
+;	JSR 	FPCommandWait
+;	LDA		#4
+;	STA		$7000
+;	JSR		DivideByTen
+;	LDA		#5
+;	STA		$7000
+;	JSR		FAC1ToString
+;	PEA		2
+;	PEA		$3A0
+;	JSR		DisplayString
+;	LDA		#' '
+;	JSR		OutChar
+;	JSR		DispFAC1
+
+;	FORK	#11
+;	TTA
+;	CMP		#11
+;	LBEQ	KeybdInit
+
+;	REP		#$130
+;	SEP		#$200		; 32 bit mode
+;	NDX 	32
+;	MEM		32
+;	LDA		#0
+;	JSR		hTcbToAddr
+;	TAX
+;	LDA		#$20
+;	STA.B	TCB_priority,X
+;	LDA		#0
+;	JSR		InsertIntoReadyFifo
+;	REP		#$230		; back to 16 bit mode
+;	SEP		#$100
+
+	; Create a workhorse OS context that will allow subroutine calls into
+	; the OS code from alternate contexts which may not have the same VM
+	; settings.
+	;
 	SEI
-	FORK	#7			; fork a BIOS context
+	FORK	#$FD
 	TTA
-	CMP		#7
-	BNE		.0002
+	AND		#$01FF
+	CMP		#$FD
+	BNE		TaskMon2
+TaskFD:
+	REP		#$230		; in case we loop back to here
+	SEP		#$100
+	PLA					; get 16 bit value from stack
+	LDX		#$22FF
+	TXS
+	PHA					; store 16 bit value to new stack
+	REP		#$130
+	SEP		#$200		; switch to 32 bit mode
+	SEI		#1			; interrupts masked while in context
+	; After the first return, the context should never use this
+	; return point again. As routines in the context are called
+	; with JCR.
+	RTT
+	BRA		TaskMon1
+	NDX		16
+	MEM		16
+
+TaskMon2:
+	NDX		16
+	MEM		16
+	; Create a workhorse BIOS context that will allow subroutine calls into
+	; the BIOS code from alternate contexts which may not have the same VM
+	; settings.
+	;
+	SEI		#1
+	FORK	#$FC
+	TTA
+	AND		#$01FF
+	CMP		#$FC
+	BNE		TaskMon1
+TaskFC:
+	PLA
 	LDX		#$23FF
 	TXS
+	PHA
+	CLI
 	RTT
-.0002:
-	FORK	#11
-	TTA
-	CMP		#11
-	LBEQ	KeybdInit
-;	CLI
+
+TaskMon1:
+	; Start the single stepping task.
+;	TSK		#9
+	CLI
 
 Mon1:
 .mon1:
+	CLI
+	LDA		#$6BFF
+	TAS
+	JSR		CursorOn
 	JSR		OutCRLF
 	LDA		#'$'
+	STA		TaskSwitchEn
 .mon3:
+	CLI
+	PHA
+	LDA		#0
+	JCR		RequestIOFocus,OSctx
+	PLA
 	JSR		OutChar
 	JSR		KeybdGetCharWait
 	AND		#$FF
@@ -327,7 +647,7 @@ Mon1:
 	LDA		CursorY
 	ASL
 	TAX
-	LDA		LineTbl,X
+	LDA		CS:LineTbl,X
 	ASL
 	TAX
 .mon4:
@@ -337,21 +657,50 @@ Mon1:
 	BEQ		.mon4
 	CMP		#'S'
 	BNE		.mon2
-	JMP		$C000		; invoke Supermon816
+	JSR		MonGetch
+	CMP		#'E'
+	BNE		.mon10
+	JSR		MonGetch
+	CMP		#'C'
+	LBEQ	GetSecnum
+	CMP		#'I'
+	LBEQ	do_SEI
+.mon10:
+	CMP		#'U'
+	LBNE	doSavefile
+	LDA		#8
+	JCR		RequestIOFocus,OSctx
+	REP		#$130
+	SEP		#$200
+	MEM		32
+	NDX		32
+	LDA		#8
+	JSR		hTcbToAddr
+	TAX
+	LDA		#$20
+	STA		TCB_priority,X
+	JSR		InsertIntoReadyFifo
+	REP		#$200
+	SEP		#$100
+	MEM		16
+	NDX		16
+	;TSK		JMP:#8
+	BRL		.mon1
+	;JMP		$8000		; invoke Supermon832
 .mon2:
 	CMP		#'C'
 	BNE		.mon5
 	JSR		ClearScreen
 	JSR		HomeCursor
-	BRA		.mon1
+	BRL		.mon1
 .mon5:
 	CMP		#'M'
 	BNE		.mon6
 	JSR		doMemoryDump
-	BRA		Mon1
+	BRL		Mon1
 .mon6:
 	CMP		#'D'
-	LBEQ	doDisassemble
+	LBEQ	doD
 	CMP		#'>'
 	LBEQ	doMemoryEdit
 	CMP		#'F'
@@ -359,13 +708,38 @@ Mon1:
 	CMP		#'J'
 	LBEQ	doJump
 	CMP		#'T'
-	LBEQ	doTask2
+	LBEQ	doTask
 	CMP		#'I'
 	LBEQ	doInvaders
 	CMP		#'R'
-	LBEQ	doRegs
+	BNE		.mon7
+	JSR		MonGetch
+	CMP		#'D'
+	LBEQ	doRead
+	DEX
+	DEX
+	BRL		doRegs
+.mon7:
+	CMP		#'B'
+	LBEQ	doBasic
+	CMP		#'W'
+	LBEQ	doWrite
+	CMP		#'f'
+	LBNE	Mon1
+	JSR		MonGetch
+	CMP		#'m'
+	LBNE	Mon1
+	JSR		MonGetch
+	CMP		#'t'
+	LBNE	Mon1
+	JSR		SDC_Format
 	BRL		Mon1
-
+.mon8:
+	CMP		#'L'
+	BNE		.mon9
+	BRL		doLoadfile
+.mon9:
+	BRL		Mon1
 ; Get a character from the screen, skipping over spaces and tabs
 ;
 MonGetNonSpace:
@@ -378,7 +752,7 @@ MonGetNonSpace:
 ; Get a character from the screen.
 ;
 MonGetch:
-	LDA		VIDBUF,X
+	LDA		$FFF:VIDBUF,X
 	INX
 	INX
 	AND		#$FF
@@ -386,16 +760,285 @@ MonGetch:
 	RTS
 
 MonErr:
+	PEA		1
 	PEA		msgErr
 	JSR		DisplayString
 	BRL		Mon1
 
 ;------------------------------------------------------------------------------
 ;------------------------------------------------------------------------------
-doTask2:
-	TSK		#2
+doD:
+	JSR		MonGetch
+	CMP		#'T'
+	BEQ		doDate
+	DEX
+	DEX
+	BRL		doDisassemble
+
+;------------------------------------------------------------------------------
+; SEI <level>
+; Sets the interrupt mask level.
+;------------------------------------------------------------------------------
+
+do_SEI:
+	JSR		GetHexNumber
+	LDA		NumWorkArea
+	BNE		.0001
+	SEI		#0
+	BRL		Mon1
+.0001:
+	CMP		#1
+	BNE		.0002
+	SEI		#1
+	BRL		Mon1
+.0002:
+	CMP		#2
+	BNE		.0003
+	SEI		#2
+	BRL		Mon1
+.0003:
+	CMP		#3
+	LBNE	Mon1
+	SEI		#3
 	BRL		Mon1
 
+;------------------------------------------------------------------------------
+; DT? - displays the date from the RTC
+; DT <year> <month> <day> - updates the RTC with the year, month and day.
+;------------------------------------------------------------------------------
+
+doDate:
+	JSR		MonGetch
+	CMP		#'?'
+	BEQ		DispDate
+	DEX
+	DEX
+	JSR		GetHexNumber
+	CPY		#0
+	BEQ		.0001
+	LDA		NumWorkArea
+	STA.B	RTCBuf+6
+	JSR		GetHexNumber
+	CPY		#0
+	BEQ		.0001
+	LDA		NumWorkArea
+	STA.B	RTCBuf+5
+	JSR		GetHexNumber
+	CPY		#0
+	BEQ		.0001
+	LDA		NumWorkArea
+	STA.B	RTCBuf+4
+	JSR		rtc_write
+.0001:
+	BRL		Mon1
+
+DispDate:
+	JSR		rtc_read
+	LDA.B	RTCBuf+6
+	JSR		DispByte
+	LDA		#'/'
+	JSR		OutChar
+	LDA.B	RTCBuf+5
+	JSR		DispByte
+	LDA		#'/'
+	JSR		OutChar
+	LDA.B	RTCBuf+4
+	JSR		DispByte
+	JSR		OutCRLF
+	BRL		Mon1
+		
+;------------------------------------------------------------------------------
+;------------------------------------------------------------------------------
+doTask:
+	JSR		MonGetch
+	CMP		#'S'
+	BNE		.0001
+	JSR		GetHexNumber
+	LDA		NumWorkArea
+	ASL
+	TAX		
+	LDA		#$20
+	STA		TCB_priority,X
+	LDA		NumWorkArea
+	JSR		InsertIntoReadyFifo
+;	TSK
+	BRL		Mon1
+.0001:
+	DEX
+	DEX
+	JSR		GetHexNumber
+	LDA		NumWorkArea
+	TSK
+	BRK		Mon1
+
+;------------------------------------------------------------------------------
+; Start the BASIC interpreter.
+;------------------------------------------------------------------------------
+
+doBasic:
+	; Setup the BASIC descriptor
+	LDA		#$0001
+	XBAW
+	LDA		#$0000
+	LDX		#$985		; executable, writeable, 64k (based at $10000)
+	LDY		#$FFD
+	SDU
+	LDA		#7
+	JCR		RequestIOFocus,OSctx
+	JCR		SetIOFocus,OSctx
+	; Switch to 32 bit mode in order to set the task priority and insert the
+	; BASIC task into the ready queue.
+	REP		#$130
+	SEP		#$200
+	MEM		32
+	NDX		32
+	LDA		#7
+	JSR		hTcbToAddr
+	TAX
+	LDA		#$20
+	STA		TCB_priority,X
+	JSR		InsertIntoReadyFifo
+	REP		#$230
+	SEP		#$100
+	NDX		16
+	MEM		16
+;	TSK		#7
+	BRL		Mon1
+
+ClearFilenameBuf:
+	LDY		#0
+	LDA		#' '
+.0002:
+	STA.B	FilenameBuf,Y
+	INY
+	CPY		#15
+	BNE		.0002
+	LDA		#0
+	STA.B	FilenameBuf,Y
+	RTS
+
+MonGetFilename:
+	JSR		ClearFilenameBuf
+.0004:
+	JSR		MonGetch
+	CMP		#' '
+	BEQ		.0004
+	CMP		#'"'
+	BNE		.badFname
+.nextChar:
+	JSR		MonGetch
+	CMP		#'"'
+	BEQ		.0001
+	CMP		#'.'
+	BNE		.0003
+	LDY		#13
+	BRA		.nextChar
+.0003:
+	STA.B	FilenameBuf,Y
+	INY
+	CPY		#15
+	BNE		.nextChar
+	JSR		MonGetch
+	CMP		#'"'
+	BNE		.badFname
+.0001:
+	RTS
+.badFname:
+	BRL		Mon1
+
+doLoadfile:
+	JSR		MonGetFilename
+	JSR		GetHexNumber
+	CPY		#0
+	BEQ		.noBuf
+	LDA		NumWorkArea+2
+	PHA
+	LDA		NumWorkArea
+	PHA
+	PEA		0
+	LDA		#FilenameBuf
+	PHA
+	JSR		SDC_Loadfile
+.noBuf:
+	RTS
+
+;------------------------------------------------------------------------------
+; Get starting sector number for SD Card read/write routines
+;------------------------------------------------------------------------------
+
+GetSecnum:
+	JSR		GetHexNumber
+	LDA		NumWorkArea
+	STA		secnum
+	LDA		NumWorkArea+2
+	STA		secnum+2
+	BRL		Mon1
+
+;------------------------------------------------------------------------------
+; Read or write a block of memory to SD Card.
+;------------------------------------------------------------------------------
+
+doWrite:
+	LDA		#$FFFF
+	STA		rw_flag
+	BRA		doReadWrite
+doRead:
+	STZ		rw_flag
+doReadWrite:
+	JSR		GetRange
+	JSR		spi_master_init
+	CMP		#0
+	BEQ		.0004
+	BRL		Mon1
+.0004:
+	JSR		OutCRLF
+.0002:
+	JSR		DispSecnum
+	LDA		RangeStart+2
+	PHA
+	LDA		RangeStart
+	PHA
+	LDA		secnum+2
+	PHA
+	LDA		secnum
+	PHA
+	BIT		rw_flag
+	BVC		.0005
+	JSR		spi_master_write
+	BRA		.0006
+.0005:
+	JSR		spi_master_read
+.0006:
+	INC		secnum
+	BNE		.0001
+	INC		secnum+2
+.0001:
+	CLC
+	LDA		RangeStart
+	ADC		#512
+	STA		RangeStart
+	LDA		RangeStart+2
+	ADC		#0
+	STA		RangeStart+2
+	SEC
+	LDA		RangeStart
+	SBC		RangeEnd
+	LDA		RangeStart+2
+	SBC		RangeEnd+2
+	BLT		.0002
+	JSR		OutCRLF
+	BRL		Mon1
+
+DispSecnum:
+	LDA		secnum+2
+	JSR		DispWord
+	LDA		secnum
+	JSR		DispWord
+	LDA		#$0D
+	JMP		OutChar
+
+;------------------------------------------------------------------------------
+;------------------------------------------------------------------------------
 doInvaders:
 	LDA		#$FFFF
 	STA		do_invaders
@@ -411,7 +1054,7 @@ doInvaders:
 ; R<xx>		xx = context register to display
 ; Update Registers
 ; R.<reg> <val>
-;	reg = CS PB PC A X Y SP SR DS DB or DP
+;	reg = CS PB PC A X Y SP SR DS DB DP or MP
 ;------------------------------------------------------------------------------
 
 doRegs:
@@ -507,7 +1150,7 @@ doRegs:
 	BRL		.buildrec
 .0011:
 	CMP		#'D'
-	LBNE	Mon1
+	BNE		.0014
 	JSR		MonGetch
 	CMP		#'S'
 	BNE		.0012
@@ -534,6 +1177,17 @@ doRegs:
 	LDA		NumWorkArea
 	STA		reg_dp
 	BRL		.buildrec
+.0014:
+	CMP		#'M'
+	LBNE	Mon1
+	JSR		MonGetch
+	CMP		#'P'
+	LBNE	Mon1
+	JSR		IgnoreBlanks
+	JSR		GetHexNumber
+	LDA		NumWorkArea
+	STA		reg_mp
+	BRL		.buildrec
 
 .0004:
 	DEX
@@ -548,6 +1202,7 @@ doRegs:
 	BRL		Mon1
 
 DispRegs:
+	PEA		1
 	PEA		msgRegs
 	JSR		DisplayString
 	JSR		space
@@ -609,6 +1264,7 @@ DispRegs:
 	CPX		#32
 	BNE		.0002
 
+	PEA		1
 	PEA		msgRegs2
 	JSR		DisplayString
 	JSR		space
@@ -636,6 +1292,11 @@ DispRegs:
 	; Display back link
 	LDA		reg_bl
 	JSR		DispWord
+
+	; Display map number
+	JSR		space
+	LDA		reg_mp
+	JSR		DispByte
 
 	JSR		OutCRLF
 	RTS
@@ -687,6 +1348,9 @@ BuildRec:
 	STA		ldtrec+28
 	LDA		reg_dp+1
 	STA		ldtrec+29
+	LDA		reg_mp
+	STA		ldtrec+30
+	STZ		ldtrec+31
 	REP		#$30
 	RTS
 
@@ -882,9 +1546,29 @@ doDisassemble:
 
 ;------------------------------------------------------------------------------
 ; Jump to subroutine
+;
+; Either JSR for 16 bit address or JSL for 24 bit address
 ;------------------------------------------------------------------------------
 
 doJump:
+	JSR		MonGetch
+	CMP		#'S'
+	LBNE	Mon1
+	JSR		MonGetch
+	CMP		#'R'
+	BNE		.testL
+	JSR		IgnoreBlanks
+	JSR		GetHexNumber
+	CPY		#0
+	LBEQ	Mon1
+	LDA		NumWorkArea
+	STA		RangeEnd
+	LDX		#0
+	JSR		(RangeEnd,X)
+	BRL		Mon1
+.testL:
+	CMP		#'L'
+	LBNE	Mon1
 	JSR		IgnoreBlanks
 	JSR		GetHexNumber
 	CPY		#0
@@ -895,9 +1579,13 @@ doJump:
 	STA		RangeEnd
 	LDA		NumWorkArea+1
 	STA		RangeEnd+1
+	LDA		#RangeEnd
+	CACHE	#1				; 1= invalidate instruction line identified by accumulator
 	JSL		RangeEnd
 	BRL		Mon1
 
+;------------------------------------------------------------------------------
+;------------------------------------------------------------------------------
 DispRangeStart:
 	LDA		RangeStart+1
 	JSR		DispWord
@@ -942,7 +1630,7 @@ BIOSInput:
 	ASL
 	TAX
 .bin3:
-	LDA		VIDBUF,X
+	LDA		$FFF:VIDBUF,X
 	AND		#$FF
 	STA		(3,s),Y
 	INX
@@ -956,11 +1644,11 @@ BIOSInput:
 	RTS
 
 .st0003:
-	LDA		KEYBD
+	LDA		$FFF:KEYBD
 	BPL		.st0003
-	PHA					; save off the char (we need to trash acc)
-	LDA		KEYBD+4		; clear keyboard strobe (must be a read operation)
-	PLA					; restore char
+	PHA						; save off the char (we need to trash acc)
+	LDA		$FFF:KEYBD+4	; clear keyboard strobe (must be a read operation)
+	PLA						; restore char
 	JSR		DisplayChar
 	BRA		.st0003
 	ldy		#$0000
@@ -974,7 +1662,8 @@ BIOSInput:
 	bra		.st0001
 
 msgStarting:
-	.byte	"FT832 Test System Starting",CR,LF,0
+	.byte	"FT832 Test System Starting",CR,LF
+	.byte	"65C02/65C816/65C832 Compatible",CR,LF,0
 
 echo_switch:
 	lda		$7100
@@ -987,12 +1676,80 @@ echo_switch:
 ; next instruction to execute.
 ;------------------------------------------------------------------------------
 
+SSMInit:
+	; setup SSM data segment in SDT
+	LDY		#6
+	LDA		#1
+	XBAW
+	LDA		#$0000
+	LDX		#$882		; 1k data
+	SDU
+	; Setup SSM stack segment in SDT
+	INY
+	LDA		#$0400
+	LDX		#$882		; 1k stack
+	SDU
+	; Setup SSM code segment in SDT
+	INY
+	LDA		#$0000
+	XBAW
+	LDA		#$0000
+	LDX		#$905
+	SDU
+	JMF		8:.0001
+.0001:
+	; Initialize data selector and stack selector, pointer
+	; The stack is begin switched from the one currently defined by
+	; by the task table. So the return task needs to be popped off
+	; the current stack and placed on the new one.
+	PLX					; get the task to return to
+	LDA		#7
+	SEI
+	TASS
+	LDA		#$3FF		; setup stack pointer
+	TAS
+	CLI
+	PHX					; save return task on new stack
+	PEA		6
+	PLDS
+
+	LDA		#9
+	JCR		SetIOFocus,$FD
+	LDA		#$6100
+	STA		NormAttr
+	LDA		#4095		; set segment
+	STA		Vidptr+4
+	STA		Vidregs+4
+	LDA		#$000B		; screen location is $FB0000
+	STA		Vidptr+2
+	STZ		Vidptr
+	LDA		#$000E		; regset is at $FEA010
+	STA		Vidregs+2
+	LDA		#$A010
+	STA		Vidregs
+	LDY		#7
+	LDA		#$10		; divide by 2 vertically, 1 horizontally
+	JSR		SetVideoReg
+	LDA		#180		; set window left position 672
+	LDY		#2
+	JSR		SetVideoReg
+	LDA		#2
+	LDY		#3
+	JSR		SetVideoReg
+	LDA		#32			; set window top position
+	LDY		#4
+	JSR		SetVideoReg
+	JSR		GetTextRowsCols
+	LDA		#DisplayChar
+	STA		OutputVec
+	JSR		ClearScreen
+	JSR		HomeCursor
+	PEA		8
+	PEA		msgSSM
+	JSR		DisplayString
+	RTT
 SSMTask:
 	STA		WorkTR
-	STZ		CursorX
-	LDA		#24
-	STA		CursorY
-	JSR		SyncVideoPos
 	JSR		DispRegs
 .0004:
 	LDA		#'S'
@@ -1004,7 +1761,9 @@ SSMTask:
 	LDA		#'>'
 .0005:
 	JSR		OutChar
+.0008:
 	JSR		KeybdGetCharWait
+	BCS		.0008
 	AND		#$FF
 	CMP		#'S'		; step
 	BNE		.0001
@@ -1028,7 +1787,7 @@ SSMTask:
 	LDA		CursorY
 	ASL
 	TAX
-	LDA		LineTbl,X
+	LDA		CS:LineTbl,X
 	CLC
 	ADC		#4
 	ASL
@@ -1042,6 +1801,9 @@ SSMTask:
 	BRL		.0005
 	RTT
 	BRL		SSMTask
+
+msgSSM:
+	.byte	"Single step mode task starting.",CR,LF,0
 
 ;------------------------------------------------------------------------------
 ; Convert Ascii character to screen character.
@@ -1087,7 +1849,7 @@ ScreenToAscii:
 ;
 DisplayChar:
 	AND		#$0FF
-	BIT		EscState
+	BIT		EscState		; check if processing escape sequence
 	LBMI	processEsc
 	CMP		#BS
 	LBEQ	doBackSpace
@@ -1118,21 +1880,22 @@ DisplayChar:
 	PHA
 	LDA		VideoPos
 	ASL
-	TAX
+	TAY
 	PLA
-	STA		VIDBUF,X
+	STA		FAR {Vidptr},Y
 	LDA		CursorX
 	INA
-	CMP		#TEXTCOLS
+	CMP		Textcols
 	BNE		.0001
 	STZ		CursorX
 	LDA		CursorY
-	CMP		#TEXTROWS-1
-	BEQ		.0002
 	INA
+	CMP		Textrows
+	BEQ		.0002
 	STA		CursorY
 	BRL		SyncVideoPos
 .0002:
+	DEA
 	JSR		SyncVideoPos
 	BRL		ScrollUp
 .0001:
@@ -1143,12 +1906,26 @@ doCR:
 	BRL		SyncVideoPos
 doLF:
 	LDA		CursorY
-	CMP		#TEXTROWS-1
-	LBEQ	ScrollUp
 	INA
+	CMP		Textrows
+	LBPL	ScrollUp
 	STA		CursorY
 	BRL		SyncVideoPos
 
+; Process escape sequences for WYSE terminal emulation
+; Handles:
+; {esc}T		- clear to end of line
+; {esc}W		- delete character
+; {esc}`1		- cursor on
+; {esc}`0		- cursor off
+; {esc}({esc}G4	- reverse video
+; {esc}({esc}G0	- normal video
+;
+; EscState
+; -1 = first esc char
+; -2 = second esc char
+; ...
+;
 processEsc:
 	LDX		EscState
 	CPX		#-1
@@ -1157,16 +1934,17 @@ processEsc:
 	BNE		.0003
 	LDA		VideoPos
 	ASL
-	TAX
-	LDY		CursorX
+	TAY
+	LDX		CursorX
+	INX
 .0001:
-	CPY		#TEXTCOLS-1
-	BEQ		.0002
+	CPX		Textcols
+	BPL		.0002
 	LDA		#' '
 	ORA		NormAttr
-	STA		VIDBUF,X
+	STA		FAR {Vidptr},Y
 	INX
-	INX
+	INY
 	INY
 	BNE		.0001
 .0002:
@@ -1252,23 +2030,24 @@ processEsc:
 	RTS
 
 doBackSpace:
-	LDY		CursorX
+	LDX		CursorX
 	BEQ		.0001		; Can't backspace anymore
 	LDA		VideoPos
 	ASL
-	TAX
+	TAY
 .0002:
-	LDA		VIDBUF,X
-	STA		VIDBUF-2,X
+	LDA		FAR {Vidptr},Y
+	DEY
+	DEY
+	STA		FAR {Vidptr},Y
+	INY4
 	INX
-	INX
-	INY
-	CPY		#TEXTCOLS
+	CPX		Textcols
 	BNE		.0002
 .0003:
 	LDA		#' '
 	ORA		NormAttr
-	STA		VIDBUF,X
+	STA		FAR {Vidptr},Y
 	DEC		CursorX
 	BRL		SyncVideoPos
 .0001:
@@ -1278,23 +2057,29 @@ doBackSpace:
 ; to resynchronize it.
 
 doDelete:
-	LDY		CursorX
+	LDX		CursorX
 	LDA		VideoPos
 	ASL
-	TAX
+	TAY
 .0002:
-	CPY		#TEXTCOLS-1
-	BEQ		.0001
-	LDA		VIDBUF+2,X
-	STA		VIDBUF,X
 	INX
-	INX
+	CPX		Textcols
+	BPL		.0001
+	DEX
 	INY
+	INY
+	LDA		FAR {Vidptr},Y
+	DEY
+	DEY
+	STA		FAR {Vidptr},Y
+	INY
+	INY
+	INX
 	BRA		.0002
 .0001:
 	LDA		#' '
 	ORA		NormAttr
-	STA		VIDBUF,X
+	STA		FAR {Vidptr},Y
 	RTS
 
 doCursorHome:
@@ -1304,9 +2089,9 @@ doCursorHome:
 	BRA		SyncVideoPos
 doCursorRight:
 	LDA		CursorX
-	CMP		#TEXTCOLS-1
-	BEQ		doRTS
 	INA
+	CMP		Textcols
+	BPL		doRTS
 doCursor2:
 	STA		CursorX
 	BRA		SyncVideoPos
@@ -1322,9 +2107,9 @@ doCursorUp:
 	BRA		doCursor1
 doCursorDown:
 	LDA		CursorY
-	CMP		#TEXTROWS-1
-	BEQ		doRTS
 	INA
+	CMP		Textrows
+	BPL		doRTS
 doCursor1:
 	STA		CursorY
 	BRA		SyncVideoPos
@@ -1339,15 +2124,19 @@ HomeCursor:
 ; Synchronize the absolute video position with the cursor co-ordinates.
 ;
 SyncVideoPos:
+	PHA
+	PHY
 	LDA		CursorY
-	STA		$7000
 	ASL
 	TAX
-	LDA		LineTbl,X
+	LDA		5:LineTbl,X
 	CLC
 	ADC		CursorX
 	STA		VideoPos
-	STA		VIDREGS+13		; Update the position in the text controller
+	LDY		#13
+	STA		FAR {Vidregs},Y		; Update the position in the text controller
+	PLY
+	PLA
 	RTS
 
 OutCRLF:
@@ -1356,37 +2145,47 @@ OutCRLF:
 	LDA		#LF
 
 OutChar:
-	PHP
-	REP		#$30
+.chkFocus:
+	PHA
+	JCR		CheckIOFocus,OSctx
+	BNE		.noFocus
+	PLA
 	PHX
 	PHY
+	PHP
+	REP		#$30
+	MEM		16
+	NDX		16
 	LDX		#0
 	JSR		(OutputVec,x)
+	PLP
 	PLY
 	PLX
-	PLP
 	RTS
+	; Here the task doesn't have the I/O focus and it's trying to
+	; display something, so switch to another task until this task
+	; has focus.
+.noFocus:
+	PLA
+	JCR		FMTK_ScheduleTask,OSctx	; schedule another task
+	BRA		.chkFocus
 
 DisplayString:
-;	PLA							; pop return address
-;	PLX							; get string address parameter
-;	PHA							; push return address
 	PHP							; push reg settings
 	SEP		#$20				; ACC = 8 bit
 	MEM		8
-;	STX		StringPos
 	LDY		#0
 .0002:
-	LDA		(4,S),Y
+	LDA		FAR (4,S),Y
 	BEQ		.0001
-	JSR		SuperPutch
+	JSR		OutChar
 	INY
 	BRA		.0002
 .0001:
 	PLP							; restore regs settings
 ;	REP		#$20				; ACC 16 bits
 	MEM		16
-	RTS		#2					; pop stack argument
+	RTS		#4					; pop stack argument
 
 DisplayString2:
 	PLA							; pop return address
@@ -1398,7 +2197,7 @@ DisplayString2:
 	LDX		#50
 .0002:
 	LDA		(StringPos),Y
-	JSR		SuperPutch
+	JSR		OutChar
 	INY
 	DEX
 	BNE		.0002
@@ -1406,60 +2205,104 @@ DisplayString2:
 	REP		#$20				; ACC 16 bits
 	RTS
 
+GetTextRowsCols:
+	PHA
+	PHY
+	LDY		#0
+	LDA.UB	FAR {Vidregs},Y
+	STA		Textcols
+	INY
+	LDA.UB	FAR {Vidregs},Y
+	STA		Textrows
+	PLY
+	PLA
+	RTS
+
+; .Y = register number to set
+; Acc = value
+;
+SetVideoReg:
+	PHP								; save regs size settings
+	SEP		#$20
+	STA		FAR {Vidregs},Y
+	PLP								; restore reg size settings
+	RTS
+
 CursorOn:
 	PHA
+	PHY
+	LDY		#9
 	LDA		#$1F60
-	STA		VIDREGS+9
+	STA		FAR {Vidregs},Y
+	PLY
 	PLA
 	RTS
 
 CursorOff:
 	PHA
+	PHY
+	LDY		#9
 	LDA		#$0020
-	STA		VIDREGS+9
+	STA		FAR {Vidregs},Y
+	PLY
 	PLA
 	RTS
 
 ClearScreen:
-	LDY		#TEXTROWS*TEXTCOLS
-	LDX		#$00
+.tstFocus:
+	JCR		CheckIOFocus,OSctx
+	BNE		.noFocus
+	LDX		#4095
+	LDY		#$00
 	LDA		#' '
 	JSR		AsciiToScreen
 	ORA		NormAttr
 .0001:
-	STA		VIDBUF,X
-	INX
-	INX
-	DEY
+	STA		FAR {Vidptr},Y
+	INY
+	INY
+	DEX
 	BNE		.0001
 	RTS
+.noFocus:
+	JCR		FMTK_ScheduleTask,OSctx	; Schedule another task
+	BRA		.tstFocus
 
 ScrollUp:
-	LDX		#0
-	LDY 	#TEXTROWS*TEXTCOLS
+	LDY		#0				; .Y used as index to char
+	LDX 	#2603			; number of chars on screen
 .0001:
-	LDA		VIDBUF+TEXTCOLS*2,X
-	STA		VIDBUF,X
-	INX
-	INX
-	DEY
+	PHY						; save off current .Y
+	TYA								
+	CLC						; Add double the number of text
+	ADC		Textcols		; columns to .Y to find start of next
+	CLC						; row 
+	ADC		Textcols
+	TAY						
+	LDA		FAR {Vidptr},Y	; .A = Load buffer[textcols+Y]
+	PLY						; .Y = restore current .Y
+	STA		FAR {Vidptr},Y	; Store .A in buffer[0+Y]
+	INY						; advance to next character
+	INY						; decrement total char count
+	DEX
 	BNE		.0001
-	LDA		#TEXTROWS-1
+	LDA		Textrows
+	DEA
 
 BlankLine:
 	ASL
-	TAX
-	LDA		LineTbl,X
+	TAY
+	LDA		CS:LineTbl,Y
 	ASL
-	TAX
-	LDY		#TEXTCOLS
+	TAY
+	LDX		Textcols		; number of chars to clear
 	LDA		NormAttr
-	ORA		#$20
+	ORA		#$20			; space
 .0001:
-	STA		VIDBUF,X
-	INX
-	INX
-	DEY
+	STA		FAR {Vidptr},Y
+	INY						; increment to next char
+	INY
+	DEX						; decrement number of chars
 	BNE		.0001
 	RTS
 
@@ -1637,59 +2480,91 @@ getcharWait:
 ; Keyboard processing routines follow.
 ;------------------------------------------------------------------------------
 ;------------------------------------------------------------------------------
-
-KeybdInit:
-	LDA		#$2000
-	TAS
-	STZ		keybd_cmd
+ResetKbd:
 	SEP		#$30
 	MEM		8
 	NDX		8
 	STZ		KeyState1
 	STZ		KeyState2
-	LDY		#$5
+	LDA		#$FF
+	STA		$FFF:KEYBD
+	JSR		KeybdWaitTx
+	REP		#$30
+	MEM		16
+	NDX		16
+	RTS
+KeybdInit:
+	LDA		#$2000
+	TAS
+	LDA		#5
+	STA		keybd_cmd
+	SEP		#$30
+	MEM		8
+	NDX		8
+	STZ		KeyState1
+	STZ		KeyState2
+	LDY		#12
+	RTT
+.resetAgain:
+	LDA		#$FF			; send reset code to keyboard
+	STA		$FFF:KEYBD
+	JSR		KeybdWaitTx
 .0001:
 	JSR		KeybdRecvByte	; Look for $AA
-	BCC		.0002
+	BCC		.tryAgain
 	CMP		#$AA			;
 	BEQ		.config
 .0002:
+	; wait until keyboard not busy
 	JSR		Wait10ms
+	LDA		$FFF:KEYBD+1		;
+	BIT		#$40
+	BNE		.tryAgain
 	LDA		#$FF			; send reset code to keyboard
-	STA		KEYBD+1			; write to status reg to clear TX state
+	STA		$FFF:KEYBD
 	JSR		Wait10ms
-	LDA		#$FF
-	STA		KEYBD			; now write to transmit register
 	JSR		KeybdWaitTx		; wait until no longer busy
 	JSR		KeybdRecvByte	; look for an ACK ($FA)
+	BCC		.tryAgain
+	CMP		#$FE
+	BEQ		.tryAgain
 	CMP		#$FA
+	BNE		.tryAgain
 	JSR		KeybdRecvByte
 	CMP		#$FC			; reset error ?
 	BEQ		.tryAgain
 	CMP		#$AA			; reset complete okay ?
 	BNE		.tryAgain
 .config:
+	JSR		KeybdWaitBusy
 	LDA		#$F0			; send scan code select
-	STA		KEYBD
+	STA		$FFF:KEYBD
 	JSR		KeybdWaitTx
 	BCC		.tryAgain
 	JSR		KeybdRecvByte	; wait for response from keyboard
 	BCC		.tryAgain
+	CMP		#$FE
+	BEQ		.tryAgain
 	CMP		#$FA
 	BEQ		.0004
 .tryAgain:
 	DEY
 	BNE		.0001
+	DEC		keybd_cmd
+	BNE		.resetAgain
 .keybdErr:
 	REP		#$30
+	PEA		1
 	PEA		msgKeybdNR
 	JSR		DisplayString
 	RTT
 	BRA		KeybdService
 .0004:
 	LDA		#2				; select scan code set #2
-	STA		KEYBD
+	STA		$FFF:KEYBD
 	JSR		KeybdWaitTx
+	BCC		.tryAgain
+	JSR		KeybdRecvByte
 	BCC		.tryAgain
 	REP		#$30
 	RTT
@@ -1730,16 +2605,18 @@ KeybdService:
 
 	MEM		8
 	NDX		8
-; Recieve a byte from the keyboard, used after a command is sent to the
+
+; Receive a byte from the keyboard, used after a command is sent to the
 ; keyboard in order to wait for a response.
 ;
 KeybdRecvByte:
 	PHY
-	LDY		#100			; wait up to 1s
+	LDY		#20				; wait up to .2s
 .0003:
-	LDA		KEYBD+1			; wait for response from keyboard
-	BIT		#$80			; is input buffer full ?
-	BNE		.0004			; yes, branch
+	JSR		KeybdWaitBusy
+	LDA		$FFF:KEYBD+1	; wait for response from keyboard
+	ASL						; is input buffer full ?
+	BCS		.0004			; yes, branch
 	JSR		Wait10ms		; wait a bit
 	DEY
 	BNE		.0003			; go back and try again
@@ -1747,54 +2624,34 @@ KeybdRecvByte:
 	CLC						; carry clear = no code
 	RTS
 .0004:
-	LDA		KEYBD			;
-	PHA
-	LDA		#0				; clear recieve state
-	STA		KEYBD+1
-	PLA
+	LDA		$FFF:KEYBD		; clear recieve state
 	PLY
 	SEC						; carry set = code available
 	RTS
 
-; Wait until the keyboard status is non-busy
-; Returns .CF = 1 if successful, .CF=0 timeout
-;
-KeybdWaitBusy:
-	PHY
-	LDY		#100			; wait a max of 1s
-.0001:
-	LDA		KEYBD+1
-	BIT		#1
-	BEQ		.0002
-	JSR		Wait10ms
-	DEY
-	BNE		.0001
-	PLY
-	CLC
-	RTS
-.0002:
-	PLY
-	SEC
-	RTS
-
+; Wait until the keyboard isn't busy anymore
 ; Wait until the keyboard transmit is complete
 ; Returns .CF = 1 if successful, .CF=0 timeout
 ;
+KeybdWaitBusy:				; alias for KeybdWaitTx
 KeybdWaitTx:
+	PHA
 	PHY
-	LDY		#100			; wait a max of 1s
+	LDY		#10				; wait a max of .1s
 .0001:
-	LDA		KEYBD+1
-	BIT		#$40			; check for transmit complete bit
-	BNE		.0002			; branch if bit set
+	LDA		$FFF:KEYBD+1
+	BIT		#$40			; check for transmit busy bit
+	BEQ		.0002			; branch if bit clear
 	JSR		Wait10ms		; delay a little bit
 	DEY						; go back and try again
 	BNE		.0001
 	PLY						; timed out
+	PLA
 	CLC						; return carry clear
 	RTS
 .0002:
 	PLY						; wait complete, return 
+	PLA
 	SEC						; carry set
 	RTS
 
@@ -1803,18 +2660,21 @@ KeybdWaitTx:
 ; .A = trashed (=-5)
 ;
 Wait10ms:
+	PHA
 	PHX				; save .X
-	LDA		CNT0H	; get starting count
+	LDA		ZS:CNT0H	; get starting count
 	TAX				; save it off in .X
 .0002:
 	SEC				; compare to current counter value
-	SBC		CNT0H
-	BPL		.0001	; teh result should be -ve, unless counter overflowed.
-	CMP		#-5		; 5 ticks pass ? 
+	SBC		ZS:CNT0H
+	EOR		#$FF	; make negative
+	CMP		#10
+	BPL     .0001
 	TXA				; prepare for next check, get startcount in .A
-	BCS		.0002	; go back if less than 5 ticks
+	BRA		.0002	; go back if less than 5 ticks
 .0001:
 	PLX				; restore .X
+	PLA
 	RTS
 
 	MEM		16
@@ -1831,13 +2691,26 @@ KeybdGetCharNoWaitCtx:
 	
 KeybdGetCharNoWait:
 	PHP
+	SEI		#1
+	REP		#$30
+	MEM		16
+	NDX		16
+	JCR		CheckIOFocus,OSctx
+	BNE		.noFocus
 	SEP		#$20
 	REP		#$10
 	MEM		8
 	NDX		16
+;	STZ		TaskSwitchEn
+	CLI
 	LDA		#0
 	STA		KeybdWaitFlag
 	BRA		KeybdGetChar1
+.noFocus:
+	CLI
+	PLP
+	SEC		; flag no key available
+	RTS
 
 KeybdGetCharWait:
 	PHP
@@ -1867,18 +2740,28 @@ KeybdGetChar1:
 	XBA
 .0002:
 .0003:
-	LDA		KEYBD+1		; check MSB of keyboard status reg.
-	ASL
+	LDA		$FFF:KEYBD+1		; check MSB of keyboard status reg.
+	ROL
+	ROL
+	BCS		.0011		; check busy flag, branch if busy
+	ROR
 	BCS		.0006		; branch if keystroke ready
 	BIT		KeybdWaitFlag
-	BMI		.0003
+	BMI		.0011
 	PLX
 	PLP
 	SEC
 	RTS
+.0011:
+	JCR		FMTK_ScheduleTask,OSctx	; go run something else for a bit
+	BRA		.0003
 .0006:
-	LDA		KEYBD		; get scan code value
-	STZ		KEYBD+1		; to clear recieve register
+	LDA		$FFF:KEYBD	; get scan code value
+	STZ		$FFF:KEYBD+2	; clear read flag
+	;REP		#$20
+	;JSR		DispByte
+	;JSR		space
+	;SEP		#$20
 .0001:
 	CMP		#SC_KEYUP	; keyup scan code ?
 	LBEQ	.doKeyup	; 
@@ -1909,7 +2792,7 @@ KeybdGetChar1:
 	TXA
 	AND		#$7F
 	TAX
-	LDA		keybdExtendedCodes,X
+	LDA		cs:keybdExtendedCodes,X
 	BRA		.0008
 .0010:
 	LDA		#4
@@ -1918,19 +2801,17 @@ KeybdGetChar1:
 	TXA
 	AND		#$7F		; table is 128 chars
 	TAX
-	LDA		keybdControlCodes,X
+	LDA		cs:keybdControlCodes,X
 	BRA		.0008
 .0009:
 	LDA		#$1			; Is shift down ?
 	BIT		KeyState2
 	BEQ		.0007
-	LDA		shiftedScanCodes,X
+	LDA		cs:shiftedScanCodes,X
 	BRA		.0008
 .0007:
-	LDA		unshiftedScanCodes,X
+	LDA		cs:unshiftedScanCodes,X
 .0008:
-	REP		#$20
-	MEM		16
 	PLX
 	PLP
 	CLC
@@ -1969,7 +2850,7 @@ KeybdGetChar1:
 	STA		KeyState2
 	SEP		#$30
 	JSR		KeybdSetLEDStatus
-	REP		#$10
+	REP		#$20
 	BRL		.0003
 .doCapsLock:
 	LDA		KeyState2
@@ -1977,7 +2858,7 @@ KeybdGetChar1:
 	STA		KeyState2
 	SEP		#$30
 	JSR		KeybdSetLEDStatus
-	REP		#$10
+	REP		#$20
 	BRL		.0003
 .doScrollLock:
 	LDA		KeyState2
@@ -1985,13 +2866,13 @@ KeybdGetChar1:
 	STA		KeyState2
 	SEP		#$30
 	JSR		KeybdSetLEDStatus
-	REP		#$10
+	REP		#$20
 	BRL		.0003
 
 KeybdSetLEDStatus:
-	PHDS				; save off DS
-	PEA		5			; set DS to zero
-	PLDS
+;	PHDS				; save off DS
+;	PEA		5			; set DS to zero
+;	PLDS
 	LDA		#0
 	STA		KeybdLEDs
 	LDA		#16
@@ -2016,29 +2897,18 @@ KeybdSetLEDStatus:
 	STA		KeybdLEDs
 .0004:
 	LDA		#$ED		; set status LEDs command
-	STA		KEYBD
+	STA		$FFF:KEYBD
 	JSR		KeybdWaitTx
 	JSR		KeybdRecvByte
 	BCC		.0001
 	CMP		#$FA
 	LDA		KeybdLEDs
-	STA		KEYBD
+	STA		$FFF:KEYBD
 	JSR		KeybdWaitTx
 	JSR		KeybdRecvByte	; wait for $FA byte
 .0001:
-	PLDS				; recover DS
+;	PLDS				; recover DS
 	RTS
-
-	MEM		16
-
-	BPL		.0003
-	PHA					; save off the char (we need to trash acc)
-	LDA		KEYBD+4		; clear keyboard strobe (must be a read operation)
-	PLA					; restore char
-	BIT		#$800		; Is it a keyup code ?
-	BNE		.0003
-	RTS
-
 
 
 	;--------------------------------------------------------------------------
@@ -2152,42 +3022,334 @@ keybdExtendedCodes:
 	.byte	$98,$99,$92,$2e,$91,$90,$2e,$2e
 	.byte	$2e,$2e,$97,$2e,$2e,$96,$2e,$2e
 
+;------------------------------------------------------------------------------
+;------------------------------------------------------------------------------
+; SPI MASTER driver
+;------------------------------------------------------------------------------
+;------------------------------------------------------------------------------
+
+; spi_master_init
+; Initialize the spi master controller
+
+spi_master_init:
+	
+	PHP
+	SEP		#$20
+	MEM		8
+	LDA		#SPI_INIT_SD
+	STA		SPI_TRANS_TYPE_REG
+	LDA		#SPI_TRANS_START
+	STA		SPI_TRANS_CTRL_REG
+.0001:
+	LDA		SPI_TRANS_STATUS_REG	; wait for SPI transfer to complete
+	CMP		#SPI_TRANS_BUSY
+	BEQ		.0001
+	LDA		SPI_TRANS_ERROR_REG
+	AND		#3	; INIT errors
+	CMP		#SPI_INIT_NO_ERROR
+	BEQ		.0004
+	PLP
+	MEM		16
+	NDX		16
+	PEA		1
+	PEA		msgSpiInitError
+	JSR		DisplayString
+	LDA		#1
+	RTS
+.0004:
+	PLP
+	;PEA		1
+	;PEA		msgSpiInited
+	;JSR		DisplayString
+	LDA		#0
+	RTS
+
+; spi_master_read
+; read a block from the SD card
+;
+; Parameters:
+;	32 bit buffer address pushed onto stack
+;	32 bit block number pushed onto stack
+;
+spi_master_read:
+	PHP
+	SEP		#$20
+	MEM		8
+	NDX		16
+	TSX
+	LDA		4,X
+	STA		SPI_SD_SECT_7_0_REG
+	LDA		5,X
+	STA		SPI_SD_SECT_15_8_REG
+	LDA		6,X
+	STA		SPI_SD_SECT_23_16_REG
+	LDA		7,X
+	STA		SPI_SD_SECT_31_24_REG
+	LDA		8,X
+	STA		bufptr
+	LDA		9,X
+	STA		bufptr+1
+	LDA		10,X
+	STA		bufptr+2
+	LDA		11,X
+	STA		bufptr+3
+	LDA		#SPI_RW_READ_SD_BLOCK
+	STA		SPI_TRANS_TYPE_REG
+	LDA		#SPI_TRANS_START
+	STA		SPI_TRANS_CTRL_REG
+.0001:
+	LDA		SPI_TRANS_STATUS_REG		; wait for SPI transfer to complete
+	CMP		#SPI_TRANS_BUSY
+	BEQ		.0001
+	LDA		SPI_TRANS_ERROR_REG
+	LSR
+	LSR
+	AND		#3	; INIT errors
+	CMP		#SPI_READ_NO_ERROR
+	BEQ		.0004
+	PLP
+	MEM		16
+	PEA		1
+	PEA		msgSpiReadError
+	JSR		DisplayString
+	LDA		#1
+	RTS		#8
+.0004:
+	REP		#$10
+	MEM		8
+	NDX		16
+	LDX		#512
+	LDY		#0
+.0003:
+	;TXA
+	;AND		#$0F
+	;BNE		.0002
+	;PLP
+	;JSR		OutCRLF
+	;PHP
+	;SEP		#$20
+.0002:
+	LDA		SPI_RX_FIFO_DATA_REG
+	STA		{bufptr},Y
+	INY
+	;PLP
+	;JSR		DispByte
+	;JSR		space
+	;PHP
+	SEP		#$20
+	DEX
+	BNE		.0003
+	PLP
+	;JSR		OutCRLF
+	MEM		16
+	NDX		16
+	LDA		#0
+	RTS		#8
+
+spi_master_write:
+	PHP
+	SEP		#$20
+	MEM		8
+	NDX		16
+
+	TSX
+	LDA		8,X
+	STA		bufptr
+	LDA		9,X
+	STA		bufptr+1
+	LDA		10,X
+	STA		bufptr+2
+	LDA		11,X
+	STA		bufptr+3
+
+	LDY		#0
+.0001:
+	LDA		{bufptr},Y
+	STA		SPI_TX_FIFO_DATA_REG
+	INY
+	CPY		#512
+	BNE		.0001
+
+	LDA		4,X
+	STA		SPI_SD_SECT_7_0_REG
+	LDA		5,X
+	STA		SPI_SD_SECT_15_8_REG
+	LDA		6,X
+	STA		SPI_SD_SECT_23_16_REG
+	LDA		7,X
+	STA		SPI_SD_SECT_31_24_REG
+
+	LDA		#SPI_RW_WRITE_SD_BLOCK
+	STA		SPI_TRANS_TYPE_REG
+	LDA		#SPI_TRANS_START
+	STA		SPI_TRANS_CTRL_REG
+.0002:
+	LDA		SPI_TRANS_STATUS_REG		; wait for SPI transfer to complete
+	CMP		#SPI_TRANS_BUSY
+	BEQ		.0002
+	LDA		SPI_TRANS_ERROR_REG
+	LSR
+	LSR
+	LSR
+	LSR
+	AND		#3	; write errors
+	CMP		#SPI_WRITE_NO_ERROR
+	BEQ		.0004
+	PLP
+	MEM		16
+	PEA		1
+	PEA		msgSpiWriteError
+	JSR		DisplayString
+	LDA		#1
+	RTS		#8
+.0004:
+	PLP
+	LDA		#0
+	RTS		#8
+
+msgSpiInitError:
+.byte	"Error initializing SPI master",$0D,$0A,$00
+msgSpiInited:
+.byte	"SPI master inited",$0D,$0A,$00
+msgSpiReadError:
+.byte	"SPI read error",$0D,$0A,$00
+msgSpiWriteError:
+.byte	"SPI write error",$0D,$0A,$00
+
+;------------------------------------------------------------------------------
+;------------------------------------------------------------------------------
+; RTC driver for MCP7941x
+;------------------------------------------------------------------------------
+;------------------------------------------------------------------------------
+
+rtc_init:
+		LDA		#17					; constant for 400kHz I2C from 33MHz
+		STA		I2C_PRESCALE_LO
+		RTS
+
+; Read all the RTC sram registers into a buffer
+
+rtc_read:
+		PHP
+		SEP		#$30
+		MEM		8
+		NDX		8
+		LDA		#$80				; enable I2C
+		STA		I2C_CONTROL
+		LDA		#$DE				; read address, write op
+		LDY		#$90				; STA + wr bit
+		JSR		rtc_wr_cmd
+		BMI		.rxerr
+		LDA		#$00				; address zero
+		LDY		#$10				; wr bit
+		JSR		rtc_wr_cmd
+		BMI		.rxerr
+		LDA		#$DF				; read address, read op
+		LDY		#$90				; STA + wr bit
+		JSR		rtc_wr_cmd
+		BMI		.rxerr
+		LDX		#0
+.0001:
+		LDA		#$20				; rd bit
+		STA		I2C_CMD
+		JSR		rtc_wait_tip
+		LDA		I2C_STAT
+		BMI		.rxerr
+		LDA		I2C_RX
+		STA		RTCBuf,X
+		INX
+		CPX		#$5F
+		BNE		.0001
+		LDA		#$68				; STO, rd bit + nack
+		STA		I2C_CMD
+		JSR		rtc_wait_tip
+		LDA		I2C_STAT
+		BMI		.rxerr
+		LDA		I2C_RX
+		STA		RTCBuf,X
+		LDA		#0					; disable I2C and return 0
+		STA		I2C_CONTROL
+		PLP
+		RTS
+.rxerr:
+		STZ		I2C_CONTROL			; disable I2C and return status
+		PLP
+		RTS
+
+rtc_wait_tip:
+.0001:
+		LDA		I2C_STAT
+		AND		#$4					; transmit in progress bit
+		BNE		.0001
+		RTS
+
+rtc_wr_cmd:
+		STA		I2C_TX
+		STY		I2C_CMD
+		JSR		rtc_wait_tip
+		LDA		I2C_STAT
+		RTS
+
+rtc_write:
+		PHP
+		SEP		#$30
+		MEM		8
+		NDX		8
+		LDA		#$80				; enable I2C
+		STA		I2C_CONTROL
+		LDA		#$DE				; read address, write op
+		LDY		#$90				; STA + wr bit
+		JSR		rtc_wr_cmd
+		BMI		.rxerr
+		LDA		#$00				; address zero
+		LDY		#$10				; wr bit
+		JSR		rtc_wr_cmd
+		BMI		.rxerr
+		LDX		#0
+.0001:
+		LDA		RTCBuf,X
+		LDY		#$10
+		JSR		rtc_wr_cmd
+		BMI		.rxerr
+		INX
+		CPX		#$5F
+		BNE		.0001
+		LDA		RTCBuf,X
+		LDY		#$50				; STO, wr bit
+		JSR		rtc_wr_cmd
+		BMI		.rxerr
+		LDA		#0					; disable I2C and return 0
+		STA		I2C_CONTROL
+		PLP
+		RTS
+.rxerr:
+		STZ		I2C_CONTROL			; disable I2C and return status
+		PLP
+		RTS
+
+msgRtcReadFail:
+	.byte	"RTC read/write failed.",$0D,$0A,$00
+
+;------------------------------------------------------------------------------
+;------------------------------------------------------------------------------
+;------------------------------------------------------------------------------
+;------------------------------------------------------------------------------
+
 ; Get char routine for Supermon
 ; This routine might be called with 8 bit regs.
 ;
-SuperGetch:
-	PHP
-	REP		#$30
 	MEM		16
 	NDX		16
+SuperGetch:
 	JSR		KeybdGetCharNoWait
 	AND		#$FF
-	BCS		.0001
-	PLP		; to restore reg size
-	CLC
-	RTS
-.0001:
-	PLP
-	SEC
-	RTS
+	RTL
 
 ; Put char routine for Supermon
-; This routine might be called with 8 bit regs.
 ;
 SuperPutch:
-	PHP
-	REP		#$30	; 16 bit regs
-	MEM		16
-	NDX		16
-	PHA
-	PHX
-	PHY
 	JSR		OutChar
-	PLY
-	PLX
-	PLA
-	PLP
-	RTS
+	RTL
 
 warm_start:
 	SEP		#$100		; 16 bit mode
@@ -2204,32 +3366,825 @@ ICacheIL832:
 	CACHE	#1			; 1= invalidate instruction line identified by accumulator
 	RTS
 
-ByteIRQRout:
-	RTI
+;============================================================================
+;============================================================================
+; SD Card COS
+;============================================================================
+;============================================================================
 
-IRQRout:
+; "Format" the SD card. This basically just sets the BAM to zero indicating
+; no allocated clusters, and zeros out the root directory
+;
+SDC_Format:
+	LDA		#0
+	LDX		#0
+.zeroSector:
+	STA		$F0000,X
+	INX
+	CPX		#512
+	BNE		.zeroSector
+	LDA		#$FFFF				; the first 17 clusters are allocated
+	STA		$F0000				; for the BAM and root directory
+	LDA		#$8000
+	STA		$F0002
+
+	JSR		spi_master_init
+	STZ		secnum				; set starting sector # to zero
+	STZ		secnum+2
+.nextSector:
+	PEA		$000F				; push buffer address
+	PEA		$0000
+	LDA		secnum+2			; push sector number
+	PHA
+	LDA		secnum
+	PHA
+	JSR		spi_master_write
+	STZ		$F0000
+	STZ		$F0002
+	LDA		secnum
+	CMP		#135
+	BEQ		.doneFmt
+	INC		secnum
+	BRA		.nextSector
+.doneFmt:
+	RTS
+
+; Parameters
+; .A = # of sectors to read
+; starting sector number
+; pointer to buffer
+;
+SDC_Jmp:
+	JMP		(spi_rw_vect)
+
+SDC_ReadWriteMultiple:
+	STA		numsec
+	TSA
+	SEC
+	SBC		#8
+	TAS
+	LDA		11,S
+	STA		1,S
+	LDA		13,S
+	STA		3,S
+	LDA		15,S
+	STA		5,S
+	LDA		17,S
+	STA		7,S
+.nextSector:
+	JSR		SDC_Jmp
+	CMP		#0
+	BNE		.abort
+	TSA
+	SEC
+	SBC		#8
+	TAS
+	TSX
+	; increment the starting sector #
+	INC		11,X
+	BNE		.0001
+	INC		13,X
+.0001:
+	CLC
+	; increment buffer pointer by 512 bytes
+	INC		17,X
+	INC		17,X
+	; copy parameters back to stack
+	LDA		11,X
+	STA		1,X
+	LDA		13,X
+	STA		3,X
+	LDA		15,X
+	STA		5,X
+	LDA		17,X
+	STA		7,X
+	DEC		numsec
+	BNE		.nextSector
+.abort:
+	RTS		#8
+
+SDC_SaveRootDir:
+	LDA		#spi_master_write
+	BRA		SDC_SRD1
+SDC_LoadRootDir:
+	LDA		#spi_master_read	; flag an spi read
+SDC_SRD1:
+	STA		spi_rw_vect
+	PEA		$000E				; directory buffer address = $EF000
+	PEA		$F000
+	PEA		$0
+	LDA		#128				; root directory is at sector 128
+	PHA
+	LDA		#8					; 8 sectors to load
+	JSR		SDC_ReadWriteMultiple
+	RTS
+
+SDC_SaveBAM:
+	LDA		#spi_master_write
+	BRA		SDC_SVB1
+SDC_LoadBAM:
+	LDA		#spi_master_read
+SDC_SVB1:
+	STA		spi_rw_vect
+	PEA		$000F
+	PEA		$0000
+	PEA		$0000				; BAM starts at sector zero
+	PEA		$0000
+	LDA		#128				; 128 sectors to read
+	JSR		SDC_ReadWriteMultiple
+	RTS
+
+; Parameters (on stack)
+; pointer to filename
+; pointer to disk buffer
+;
+SDC_Loadfile:
+	JSR		SDC_LoadRootDir
+	LDX		#32
+.nxt2:
+	LDY		#0
+	LDA		#$000E
+	STA		dirptr+2
+	LDA		#$F000
+	AAX
+	STA		dirptr
+.nxtCmp:
+	LDA.B	{3,S},Y
+	BEQ		.doneCmp
+	CMP.B	[dirptr],Y
+	BNE		.nextDirentry
+	INY
+	CPY		#15
+	BLT		.nxtCmp
+.found:
+	LDA		9,S
+	TAX
+	LDA		7,S
+	PHX
+	PHA
+	LDY		#26
+	LDA		[dirptr],Y 
+	TAX
+	LDY		#24
+	LDA		[dirptr],Y
+	JSR		ClusterToSector
+	PHX
+	PHA
+	LDY		#29
+	LDA		[dirptr],Y
+	LSR
+	JSR		SDC_ReadMultiple
+	RTS		#8
+.doneCmp:
+	LDA		[dirptr],Y
+	BEQ		.found
+.nextDirentry:
+	TXA
+	CLC
+	ADC		#32
+	TAX
+	CPX		#$1000
+	BLT		.nxt2
+	PEA		5
+	PEA		msgFileNotFound
+	JSR		DisplayString
+	RTS		#8
+
+ClusterToSector:
+	STA		NumWorkArea
+	STX		NumWorkArea+2
+	ASL		NumWorkArea
+	ROL		NumWorkArea+2
+	ASL		NumWorkArea
+	ROL		NumWorkArea+2
+	ASL		NumWorkArea
+	ROL		NumWorkArea+2
+	LDA		NumWorkArea
+	LDX		NumWorkArea+2
+	RTS
+
+msgFileNotFound:
+	.byte	"File not found",$0D,$0A,$00
+
+;============================================================================
+; BASIC support functions
+;============================================================================
+
+; Char get routine for BASIC
+; Same thing as for Supermon, except carry flag needs to be inverted
+; This routine should be called from a different context than the BIOS,
+; otherwise the call will be ignored.
+;
+BasicGetch:
+	JSR		KeybdGetCharNoWait
+	AND		#$FF
+	CMC
+	RTC		#0
+
+xitBasic:
+	STA		ExitCode
+	LDA		running_task
+	JCR		ReleaseIOFocus,OSctx
+	LDX		#TCB_SIZE
+	MUL
+	STZ		tcbs+TCB_status,X	; no longer ready
+	LDA		#0
+	JCR		SetIOFocus,OSctx
+.0001:
+	JCR		FMTK_ScheduleTask,OSctx
+	;TSK		JMP:#0		; scheduler will start monitor again, it's in the ready queue
+	BRA		.0001			; we shouldn't get here, another ready task was scheduled
+
+BASIC_Savefile:
+	JSR		spi_master_init
+	BNE		.0001
+	LDA		#spi_master_write
+	STA		spi_rw_vect
+	PEA		$1		; buffer = $10000
+	PEA		$0
+	PEA		$0
+	PEA		136		; starting sector
+	LDA		#64		; 64 sectors (32 kiB)
+	JSR		SDC_ReadWriteMultiple
+.0001:
+	RTC		#0
+
+BASIC_Loadfile:
+	JSR		spi_master_init
+	BNE		.0001		
+	LDA		#spi_master_read
+	STA		spi_rw_vect
+	PEA		$1		; buffer = $10000
+	PEA		$0
+	PEA		$0
+	PEA		136		; starting sector
+	LDA		#64		; 64 sectors (32 kiB)
+	JSR		SDC_ReadWriteMultiple
+.0001:
+	RTC		#0
+
+;============================================================================
+; Multi-tasking kernel
+;============================================================================
+
+FMTK_Init:
+	REP		#$130
+	SEP		#$200
+	MEM		32
+	NDX		32
+	STZ.H	running_task
+
+	JSR		ZeroIRQHooks
+	JSR		InitMSGArray
+	JSR		InitMBXArray
+	JSR		InitTCBArray
+	JSR		InitJCBArray
+	REP		#$230
+	SEP		#$100
+	MEM		16
+	NDX		16
+	RTS
+
+	; zero out the IRQ hook vectors
+ZeroIRQHooks:
+	LDA		#0
+	TAX
+.0001:
+	STA		IRQ1Hook,X
+	INX4
+	CPX		#MAX_IRQ_HOOKS*4
+	BNE		.0001
+	RTS
+
+
+	; initialize mailbox array
+	; create free mailbox list
+InitMBXArray:
+	LDY		#0
+.nxtMbx:
+	TYA
+	JSR		hMbxToAddr
+	TAX
+	TYA
+	STA.H	MBX_number,X
+	INA
+	STA.H	MBX_link,X
+	INY
+	CPY		#NR_MBX
+	BLT		.nxtMbx
+	LDA		#$FFFFFFFF
+	STA.H	MBX_link,X
+	STZ.H	freeMBX
+	RTS
+
+	; initialize message array
+	; create the free message list
+	; for each message
+	; msg->link = handle of next message
+InitMSGArray:
+	LDY		#0
+.nxtMsg:
+	TYA
+	JSR		hMsgToAddr
+	TAX
+	INY
+	TYA
+	STA.H	MSG_link,X
+	CPY		#NR_MSG
+	BLT		.nxtMsg
+	; flag the last message as no more links
+	LDA		#$FFFFFFFF
+	STA.H	MSG_link,X
+	; now point free list to first message
+	STZ.H	freeMSG
+	RTS
+
+	; Initialize JCB array
+InitJCBArray:
+	LDY		#0
+.nxtJcb:
+	TYA
+	JSR		hJcbToAddr
+	TAX
+	TYA
+	STA.B	JCB_number,X
+	LDA		#$FFFFFFFF
+	STA.B	JCB_iof_next,X
+	STA.B	JCB_iof_prev,X
+	STZ.B	JCB_user_name,X
+	STZ.B	JCB_path,X
+	STZ.B	JCB_exit_runfile,X
+	STZ.B	JCB_command_line,X
+	STZ.B	JCB_CursorRow,X
+	STZ.B	JCB_CursorCol,X
+	LDA		#$BF00
+	STA.H	JCB_NormAttr,X
+	STZ.H	KeyState1,X
+	STZ.H	KeyState2,X
+	STZ.B	JCB_KeybdHead,X
+	STZ.B	JCB_KeybdTail,X
+	PHY
+	LDY		#0
+.nxt1:
+	TYA
+	PHX
+	AAX						; add .A and .X
+	TAX
+	LDA		#$FFFFFFFF
+	STA.H	JCB_hMbxs,X
+	PLX
+	INY
+	INY
+	CPY		#NR_MBXperJCB*2
+	BLT		.nxt1
+	PLY
+	INY
+	CPY		#NR_JCB
+	BLT		.nxtJcb
+	RTS
+
+InitTCBArray:
+	; Initialize TCB array
+	LDY		#0
+.nxtTcb:
+	TYA
+	JSR		hTcbToAddr
+	TAX
+	TYA
+	STA.H	TCB_number,X
+	LDA		#$FFFFFFFF
+	STA.H	TCB_mbq_next,X
+	STA.H	TCB_mbq_prev,X
+	STA.H	TCB_msg_link,X
+	STA.H	TCB_hWaitMbx,X
+	STA.B	TCB_hJcb,X
+	LDA		#2
+	STA.B	TCB_priority,X
+	STZ.B	TCB_status,X
+	STZ		TCB_start_tick,X
+	STZ		TCB_end_tick,X
+	STZ		TCB_ticks,X
+	STZ		TCB_exception,X
+	INY
+	CPY		#NR_TCB
+	BLT		.nxtTcb
+	RTS
+
+.include "FMTKmsg.asm"
+
+	MEM		32
+	NDX		32
+
+LockSysSema:
+	SEI		#1
+	RTS
+UnlockSysSema:
+	CLI		; SEI #0
+	RTS
+
+	MEM		32
+	NDX		32
+SetIOFocus:
+	STA		IOFocusTask
+	RTC		#0
+	BRL		TaskFD
+GetIOFocus:
+	LDA		IOFocusTask
+	RTC		#0
+	BRL		TaskFD
+
+; Returns:
+; .ZF = 1 if task has IO focus
+
+CheckIOFocus:
+	LDA.H	running_task
+	CMP.H	IOFocusTask
+	RTC		#0
+
+RequestIOFocus:
+	BMS		IOFocusBmp
+	RTC		#0
+
+ReleaseIOFocus:
+	BMC		IOFocusBmp
+	RTC		#0
+
+TestIOFocus:
+	BMT		IOFocusBmp
+	RTC		#0
+
+	; Get the handle of the currently active JCB. This will be the one for
+	; which the running task is owned by.
+GetJCB:
+	LDA.H	running_task
+	JSR		hTcbToAddr
+	PHX
+	TAX
+	LDA.B	TCB_hJcb,X
+	PLX
+	RTS
+
+;----------------------------------------------------------------------------
+; Sleep
+;	Put task to sleep.
+; Parameters:
+;	.A	length of time to sleep
+;----------------------------------------------------------------------------
+
+FMTK_Sleep:
+		PHA
+		LDA.H	running_task
+		STA.H	TIMEOUT_LIST+2
+		JSR		hTcbToAddr
+		TAX
+		LDA		#TS_TIMEOUT
+		STA		TCB_status,X
+		PLA
+		STA		TIMEOUT_LIST+4
+		LDA		#TOL_INS
+		STA.B	TIMEOUT_LIST
+		RTC		#0
+
+;----------------------------------------------------------------------------
+; FMTK_KillTask:
+;	Kill a task.
+;----------------------------------------------------------------------------
+
+FMTK_KillTask:
+		JSR		KillTask
+		RTC		#0
+KillTask:
+		PHA
+		STA.H	TIMEOUT_LIST+2	; remove task from timeout list (it might be on)
+		LDA		#TOL_RMV
+		STA.B	TIMEOUT_LIST
+		PLA
+		PHA
+		JSR		hTcbToAddr
+		TAX
+		STZ		TCB_status,X	; remove task from ready list
+		; Remove task from Job's task list
+		LDA.B	TCB_hJcb,X
+		JSR		hJcbToAddr
+		TAX
+		PLA						; .A = taskno
+		LDY		#0
+.0002:
+		PHX
+		PHA
+		TYA						; setup for X+Y addressing
+		AAX
+		PLA
+		CMP.H	JCB_tasks,X
+		BNE		.0001
+		STZ.H	JCB_tasks,X		; set field to -1
+		DEC.H	JCB_tasks,X
+.0001:	
+		PLX
+		INY
+		INY
+		CPY		#16
+		BLT		.0002
+		; The Job is finished if there are no more tasks associated with it.
+		LDY		#0
+.0003:
+		PHX
+		TYA
+		AAX
+		LDA.H	JCB_tasks,X
+		BPL		.notDoneJob
+		PLX
+		INY
+		INY
+		CPY		#16
+		BLT		.0003
+		; Done the job, add the jcb to the free list.
+		LDA.B	freeJCB
+		STA.B	JCB_next,X
+		LDA.B	TCB_number,X
+		STA.B	freeJCB
+		RTS
+.notDoneJob:
+		PLX
+		RTS
+
+FMTK_ExitTask:
+		LDA.H	running_task
+		JSR		KillTask
+		BRL		FMTK_ScheduleTask
+
+;----------------------------------------------------------------------------
+; SelectTaskToRun:
+;
+; Selects a task to run from the ready fifo. The ready fifo is really a 
+; group of fifos, one each for a priority group. Priority groups are
+; priorities of: $0x, $1x, $2x, $3x, $4x
+;
+; Returns
+;	.A = task number to run
+; Modifies:
+;	.X, .Y, and flags
+;----------------------------------------------------------------------------
+
+StartQ:
+	.byte	0,1,0,2,0,3,0,4,0,1,0,2,0,3,0,4
+
+SelectTaskToRun:
+	LDA		#4
+	STA.B	qcnt
+	LDA.B	TickCount		; vary the starting queue to check
+	AND		#$0F			; based on the tick count
+	TAY
+	LDA.B	StartQ,Y
+	ASL
+	TAX
+.nextQ:
+.notReady:
+	LDA.H	READY_FIFO_CNT,X	; get count of ready tasks in fifo
+	BEQ		.fifoEmpty
+	LDA.H	READY_FIFO,X	; get ready task from fifo
+	JSR		hTcbToAddr
+	TAY
+	LDA.B	TCB_status,Y	; check the status and make sure it's ready
+	BIT		#TS_READY|TS_PREEMPT
+	BEQ		.notReady
+	LDA.H	TCB_number,Y
+	STA.H	READY_FIFO,X	; add back to fifo as last entry
+	RTS
+
+	; move to the next queue
+.fifoEmpty:
+	INX
+	INX
+	CPX		#10
+	BLT		.0001
+	LDX		#0				; cycle back around to first Q
+.0001:
+	DEC.B	qcnt
+	BNE		.nextQ
+	LDA		running_task	; if all queues empty, keep running the current
+	RTS
+
+;----------------------------------------------------------------------------
+; Insert task into ready fifo.
+;
+; If the task has a bad priority setting then it's added as a lowest
+; priority task, priority zero. It's desired for the task to run even if
+; the priority is screwy.
+;
+; Parameters:
+;	.A = handle to TCB
+; Modifies:
+;	.X = priority queue index
+;----------------------------------------------------------------------------
+
+InsertIntoReadyFifo:
+	PHA
+	JSR		hTcbToAddr
+	TAX							; .X = task number (index into tables)
+	LDA		#TS_READY			; set task status to ready
+	STA.B	TCB_status,X
+	LDA.B	TCB_priority,X		; get the priority
+	LSR							; use upper nybble to identify priority que
+	LSR
+	LSR
+	LSR
+	CMP		#4					; valid priority ?
+	BLE		.0001
+	LDA		#0
+.0001:
+	ASL
+	TAX
+	PLA
+	STA.H	READY_FIFO,X
+	RTS
+
+; IRQ routine for all modes. The interrupted task must of had interrupts
+; enabled and this status should be saved on the stack with the value of
+; the status register. The RTI instruction will pop the status register off
+; the stack and restore the interrupt enable.
+; Note that all this routine does is switch to a task which has a different
+; register set, so there's no need to stack and restore registers. The
+; task switch also allows the routine to be located anywhere in the memory
+; system, so we don't have to worry about using up bank 0 memory.
+
+IRQRout832:
+IRQRout816:
+IRQRout02:
 	TSK		#1			; switch to the interrupt handling task
 	RTI
 
+;----------------------------------------------------------------------------
+; Select a task to run from the ready queue.
+; Called by some OS primitives
+; Even if the task was preempted a regular RTT instruction is used to
+; return. This is because this function was called via JCR.
+;----------------------------------------------------------------------------
+
+FMTK_ScheduleTask:
+	; Got here via a JCR which pushed the return context. It's not needed
+	PLA						; get rid of return context
+	; update the number of tick the task has been running.
+	LDA.H	running_task	; get currently running task
+	JSR		hTcbToAddr		; get address from handle
+	TAX
+	LDA		TickCount		; get the tick count
+	STA		TCB_end_tick,X	; store it in end ticks
+	SEC
+	SBC		TCB_start_tick,X; subtract off the latest starting tick
+	CLC						; to get the difference 
+	ADC		TCB_ticks,X		; ticks = ticks + (end tick - start tick)
+	STA		TCB_ticks,X
+	JSR		SelectTaskToRun
+	STA.H	$3,S			; change return task # on stack
+	STA.H	running_task
+	JSR		hTcbToAddr		; handle to address
+	TAX
+	LDA		#TS_READY		; reset task status to ready
+	STA.B	TCB_status,X
+	LDA		TickCount		; get the tick count
+	STA		TCB_start_tick,X	; update starting tick
+	RTC		#0				; return
+	BRA		FMTK_ScheduleTask
+
+;----------------------------------------------------------------------------
+; This task has interrupts masked in it's startup record and therefore runs
+; with interrupts masked as the task never enables interrupts. Note that it's
+; important that interrupts are masked while this is running, otherwise the
+; uncleared interrupt status would cause another interrupt resulting in an
+; infinite interrupt loop.
+;
+; This task always needs to return using a RTI in order to keep the internal
+; IRQ state stack in sync.
+;----------------------------------------------------------------------------
 Task1:
-	LDA		MPU_IRQ_STATUS	; check if counter expired
-	BIT		#2
-	BEQ		.0001
+	; Counter #1 is set to interrupt at a 50Hz rate
+;	LDA		#$2A	;94		; divide by 95794 (for 50Hz)
+;	STA.B	CTR1_LMT		; FFFFFE = 2Hz with 33MHz clock
+;	LDA		#$2C	;57		; 
+;	STA.B	CTR1_LMT+1
+;	LDA		#$0A	;09
+;	STA.B	CTR1_LMT+2
+;	LDA		#$05		; count down, on mpu clock, irq disenabled
+;	STA.B	CTR1_CTRL
+;	RTT					; falls through on next task activation
+
+TimeSliceIRQ:
+	LDA.B	MPU_IRQ_STATUS	; check if counter expired
+	BIT		#2				; counter #1 IRQ active bit
+	LBEQ	.notTimeSlice	; no IRQ ?
+
+	; update the tick count
 	LDA		TickCount		; increment the tick count
-	INA
+	INA						; lower 16 bits
 	STA		TickCount
-	STA.B	$FD00A4			; update on-screen IRQ live indicator
+	STA.B	$FFF:$D00A4		; update on-screen IRQ live indicator
+
+	; clear the IRQ source
 	LDA		#$05			; count down, on mpu clock, irq enabled (clears irq)
-	STA.B	CTR1_CTRL
+	STA.B	CTR1_CTRL		; set control register clearing interrupt
+
+	; Set flag for EhBASIC Irq
+	LDA.B	$100DF		
+	ORA		#$20
+	STA.B	$100DF
+	
+	; update the number of tick the task has been running.
+	; and set the task status to PREEMPT
+	LDA.H	running_task
+	JSR		hTcbToAddr		; get address from handle
+	TAX
+	LDA		TickCount		; get the tick count
+	STA		TCB_end_tick,X	; store it in end ticks
+	SEC
+	SBC		TCB_start_tick,X; subtract off the latest starting tick
+	CLC						; to get the difference 
+	ADC		TCB_ticks,X		; ticks = ticks + (end tick - start tick)
+	STA		TCB_ticks,X
+	LDA		#TS_PREEMPT
+	STA.B	TCB_status,X	; set status of outgoing task to PREEMPT
+
+	; take care of the timeout list
+.nextTo:
+	LDA		#TOL_DEC		; .A = decrement command #
+	STA.B	TIMEOUT_LIST	; decrement the timeout list
+	NOP						; might take up to 3 clock cycles
+	NOP
+	LDA.H	TIMEOUT_LIST+2	; get any timedout task
+	BMI		.noMoreTos
+	JSR		InsertIntoReadyFifo	; placed timedout task on ready list
+	BRA		.nextTo
+
+	; Switch to the next task to run
+.noMoreTos:
+	LDA.B	TaskSwitchEn	; only switch tasks if enabled
+	BEQ		.0001
+	JSR		SelectTaskToRun
+	TSX
+	LDY.H	$1,X			; .Y = outgoing task
+	STA.H	$1,X			; change return task # on stack
+	STA.H	running_task	; update running task var
+	JSR		hTcbToAddr		; convert task handle to address
+	TAX
+	LDA		TickCount		; update starting tick for task
+	STA		TCB_start_tick,X
 .0001:
-	RTT					; go back to interrupted task
-	BRA		Task1		; the next time task1 is run it will start here
+	RTI						; return from interrupt
+	BRL		TimeSliceIRQ	; the next time task1 is run it will start here
+
+; We get here if it wasn't a timeslice interrupt. There still might be other
+; devices tied to the same IRQ line which need servicing.
+
+.notTimeSlice:
+	LDX		#0
+.0002:
+	LDA		IRQ1Hook,X		; get the hook pointer
+	BEQ		.noHook			; check if valid
+	PHX						; save off .X
+	JCI						; call the hook routine
+	PLX						; restore .X
+.noHook:
+	INX4					; move to next hook
+	CPX		#MAX_IRQ_HOOKS*4
+	BNE		.0002			; last allowed hook ?
+	RTI
+	BRL		TimeSliceIRQ	; the next time task1 is run it will start here
+
+;============================================================================
+; End Of Multi-tasking kernel
+;============================================================================
+
+	MEM		16
+	NDX		16
+BtnuIRQ:
+	LDA.B	$FFF:$D00A0
+	INA
+	STA.B	$FFF:$D00A0
+;	JSR		spi_master_init
+;	CMP		#0
+;	BNE		.0001
+;	LDX		#0
+;.0002:
+;	PEA		$000F
+;	TXA
+;	XBA
+;	ASL
+;	PHA
+;	PEA		0
+;	PEA		0
+;	STX		reg_x
+;	JSR		spi_master_read
+;	LDX		reg_x
+;	INX
+;	CPX		#128
+;	BNE		.0002
+;.0001:
+	RTI
+	BRA		BtnuIRQ
 
 ; IRQ handler task - 32 bit
 ;
 IRQTask:
-	SEP		#$220		; eight bit accumulator, 32 bit indexes
-	REP		#$110
 	MEM		8
 	NDX		32
 IRQTask1:
@@ -2239,14 +4194,10 @@ IRQTask1:
 	LDX		TickCount		; increment the tick count
 	INX
 	STX		TickCount
-	STX.B	$FD00A2			; update on-screen IRQ live indicator
+	STX.B	$FFF:$D00A2			; update on-screen IRQ live indicator
 	LDA		#$05			; count down, on mpu clock, irq enabled (clears irq)
 	STA		CTR1_CTRL
 .0001:
-;	BIT		do_invaders
-;	BPL		.0002
-;	TSK		#5
-.0002:
 	RTT					; go back to interrupted task
 	BRA		IRQTask1	; the next time task is run it will start here
 
@@ -2262,10 +4213,10 @@ Task2:
 .0003:
 	LDY		#0
 .0002:
-	LDA		msgHelloWorld,Y
+	LDA		CS:msgHelloWorld,Y
 	BEQ		.0001
 	JSR		AsciiToScreen8
-	STA		VIDBUF,X
+	STA		$FFF:VIDBUF,X
 	INX
 	INX
 	INY
@@ -2295,6 +4246,7 @@ BrkRout:
 	PHX
 	PHY
 	JMP		($0102)		; This jump normally points to BrkRout1
+
 BrkRout1:
 	REP		#$30
 	PLY
@@ -2376,15 +4328,17 @@ TaskStartTbl:
 	.WORD	0
 	.WORD	$3FFF		; sp
 	.WORD	0
-	.BYTE	4			; SR
-	.BYTE	1			; SR extension
+	.BYTE	4			; SR	( 16 bit regs )
+	.BYTE	1			; SR extension ( 16 bit mode)
 	.BYTE	0			; DB
 	.WORD	0			; DPR
 	.WORD	0
 
+	; TASK #1
+	; Interrupt handler task
 	.WORD	0			; CS
-	.WORD	0			; DS
-	.WORD	0			; SS
+	.WORD	5			; DS
+	.WORD	5			; SS
 	.WORD	Task1		; PC
 	.BYTE	Task1>>16
 	.WORD	0			; acc
@@ -2395,8 +4349,8 @@ TaskStartTbl:
 	.WORD	0
 	.WORD	$3BFF		; sp
 	.WORD	0
-	.BYTE	4			; SR
-	.BYTE	1			; SR extension
+	.BYTE	4			; SR	(32 bit regs)
+	.BYTE	2			; SR extension	(32 bit mode)
 	.BYTE	0			; DB
 	.WORD	0			; DPR
 	.WORD	0
@@ -2420,21 +4374,23 @@ TaskStartTbl:
 	.WORD	0			; DPR
 	.WORD	0
 
+	; TASK #3
+	; Button Interrupt handler task
 	.WORD	0			; CS
-	.WORD	0			; DS
-	.WORD	0			; SS
-	.WORD	SSMTask		; PC
-	.BYTE	SSMTask>>16
+	.WORD	5			; DS
+	.WORD	5			; SS
+	.WORD	BtnuIRQ		; PC
+	.BYTE	BtnuIRQ>>16
 	.WORD	0			; acc
 	.WORD	0
 	.WORD	0			; x
 	.WORD	0
 	.WORD	0			; y
 	.WORD	0
-	.WORD	$33FF		; sp
+	.WORD	$3AFF		; sp
 	.WORD	0
-	.BYTE	$4			; SR	16 bit regs, mask interrupts
-	.BYTE	1			; SR extension - 816 mode
+	.BYTE	4			; SR
+	.BYTE	1			; SR extension
 	.BYTE	0			; DB
 	.WORD	0			; DPR
 	.WORD	0
@@ -2498,51 +4454,407 @@ TaskStartTbl:
 	.WORD	0			; DPR
 	.WORD	0
 
+	; task 7 (Basic)
+	.WORD	$FFD		; CS
+	.WORD	$FFD		; DS
+	.WORD	$FFD		; SS
+	.WORD	$C000		; PC
+	.BYTE	$00
+	.WORD	0			; acc
+	.WORD	0
+	.WORD	0			; x
+	.WORD	0
+	.WORD	0			; y
+	.WORD	0
+	.WORD	$01FF		; sp
+	.WORD	0
+	.BYTE	0			; SR
+	.BYTE	0			; SR extension - 02 mode
+	.BYTE	0			; DB
+	.WORD	0			; DPR
+	.WORD	63			; map
+
+	; task 8 (Supermon)
+	.WORD	$0			; CS
+	.WORD	$5			; DS
+	.WORD	$5			; SS
+	.WORD	$8000		; PC
+	.BYTE	$00
+	.WORD	0			; acc
+	.WORD	0
+	.WORD	0			; x
+	.WORD	0
+	.WORD	0			; y
+	.WORD	0
+	.WORD	$2BFF		; sp
+	.WORD	0
+	.BYTE	0			; SR
+	.BYTE	1			; SR extension - 816 mode
+	.BYTE	0			; DB
+	.WORD	0			; DPR
+	.WORD	0			; map
+
+	; task 9 (single step)
+	.WORD	0			; CS
+	.WORD	0			; DS
+	.WORD	0			; SS
+	.WORD	SSMInit		; PC
+	.BYTE	SSMInit>>16
+	.WORD	0			; acc
+	.WORD	0
+	.WORD	0			; x
+	.WORD	0
+	.WORD	0			; y
+	.WORD	0
+	.WORD	$33FF		; sp
+	.WORD	0
+	.BYTE	$4			; SR	16 bit regs, mask interrupts
+	.BYTE	1			; SR extension - 816 mode
+	.BYTE	0			; DB
+	.WORD	0			; DPR
+	.WORD	0
+
+	; task 10 - BRK routine
+	.WORD	0			; CS
+	.WORD	0			; DS
+	.WORD	0			; SS
+	.WORD	BrkRout		; PC
+	.BYTE	BrkRout>>16
+	.WORD	0			; acc
+	.WORD	0
+	.WORD	0			; x
+	.WORD	0
+	.WORD	0			; y
+	.WORD	0
+	.WORD	$32FF		; sp
+	.WORD	0
+	.BYTE	$4			; SR	32 bit regs, mask interrupts
+	.BYTE	2			; SR extension - 832 mode
+	.BYTE	0			; DB
+	.WORD	0			; DPR
+	.WORD	0
+
 msgRegs:
 	.byte	CR,LF
     .byte   "             xxxsxi31",CR,LF
     .byte   "  CS  PB PC  xxxsxn26NVmxDIZC    .A       .X       .Y       SP  ",CR,LF,0
 msgRegs2:
 	.byte	CR,LF
-	.byte	"  SS   DS  DB  DP   BL",CR,LF,0
+	.byte	"  SS   DS  DB  DP   BL  MP",CR,LF,0
 msgErr:
 	.byte	"***Err",CR,LF,0
 
-	cpu		FT832
+;	cpu		FT832
+;	MEM		32
+;	NDX		32
+;	LDA		#$12345678
+;	LDX		#$98765432
+;	STA.B	{$23},Y
+;	LDY.UH	$44455556,X
+;	LDA.H	CS:$44455556,X
+;	LDA.UB	SEG $8888:$1234,Y
+;	JSF	    $0000:start
+;	RTF
+;	ADC     SEG $9821:$1200,X
+;	EOR     $821:$1200,X
+;	EOR     $841:$12
+;	SBC     FAR {$24},Y
+;	AND     FAR($25)
+;	ORA     FAR ($26,x)
+;	TSK		#2
+;	TSK
+;	LDT		$10000,X
+
+;------------------------------------------------------------------------------
+;------------------------------------------------------------------------------
+
+;------------------------------------------------------------------------------
+;------------------------------------------------------------------------------
+; +---------------------------+
+; | block status / ptr to free|
+; +---------------------------+
+; | pointer to previous block |
+; +---------------------------+
+; | pointer to next block     |
+; +---------------------------+
+;
 	MEM		32
 	NDX		32
-	LDA		#$12345678
-	LDX		#$98765432
-	STA.B	{$23},Y
-	LDY.UH	$44455556,X
-	LDA.H	CS:$44455556,X
-	LDA.UB	SEG $88888888:$1234,Y
-	JSF	    $0000:start
-	RTF
-	TSK		#2
-	TSK
-	LDT		$10000,X
+;------------------------------------------------------------------------------
+;------------------------------------------------------------------------------
+FreeSysMem:
+	SEC
+	SBC		#12		;	backup to block header
+	TAY				;	.Y = pointer to block to free (this)
+	PHP				; save interrupt mask
+	SEI				; no interrupts
+	STZ		$0,Y	; set status as free
+	LDX		$8,Y	;	.X = pointer to next block
+	LDA		$0,X	;	.A = next->status
+	BEQ		.0001	;	branch if not free
+	; merge block with next free block
+	LDA		$8,X	;   .A = pointer to next next block
+	STA		$8,Y	;
+	TAX
+	STY		$4,X	;	next->next->prev = this
+.0001:
+	; merge block with a previous free block
+	LDX		$4,Y	;	.X = pointer to prev block
+	LDA		$0,X	;	.A = prev->status
+	BEQ		.0002	;	branch if not free
+	LDA		$8,Y	;   prev->next = this->next
+	STA		$8,X
+	TAY				;	.Y = this->next
+	STX		$4,Y	;	this->next->prev = this->prev
+	TXY
+.0002:
+	LDA		heap_free_ptr
+	STA		$0,Y
+	STY		heap_free_ptr
+	CLI
+	PLP
+	RTS
 
-	.org	$F400
-	JMP		SuperGetch
-	JMP		warm_start
-	JMP		SuperPutch
-	JMP		BIOSInput
+;------------------------------------------------------------------------------
+;------------------------------------------------------------------------------
+	; round allocation size to mmu available sizes
+
+	LDX		#0
+	CLC				; add room for header
+	ADC		#12
+.0002:
+	CMP		mmas,X
+	BLE		.0001
+	INX
+	INX
+	INX
+	INX
+	BRA		.0002
+.0001:
+	LDA		mmas,X
+	TAX
+	LDY		free_heap_ptr
+	; subtract .Y from .A
+	SEC
+	LDA		$8,Y
+	STY		tmpy
+	SBC		tmpy
+	CMP		mmas,X
+;	BLT		.0003
+	; here block is big enough
+	PHA
+	LDA		$0,Y
+	STA		free_heap_ptr
+	STZ		$0,Y
+	PLA
+	SEC
+	SBC		mmas,X
+	CMP		#$0FF
+	BLT		.0004
+
+.0004:
+	
+
+
+; Memory management allocation sizes
+;
+mmas:
+	WORD	$0000,$0000
+	WORD	$00FF,$0000
+	WORD	$03FF,$0000
+	WORD	$0FFF,$0000
+	WORD	$3FFF,$0000
+	WORD	$FFFF,$0000
+	WORD	$FFFF,$0003
+	WORD	$FFFF,$000F
+	WORD	$FFFF,$003F
+	WORD	$FFFF,$00FF
+	WORD	$FFFF,$03FF
+	WORD	$FFFF,$0FFF
+	WORD	$FFFF,$3FFF
+	WORD	$FFFF,$FFFF
+
+;------------------------------------------------------------------------------
+;------------------------------------------------------------------------------
+;------------------------------------------------------------------------------
+;------------------------------------------------------------------------------
+	MEM		16
+	NDX		16
+	JMP		MusicPlay
+beep:
+	LDA		#15					; set volume to max
+	STA		$FFF:SID+SID_VOLUME		
+	LDA		#$0C6F				; 10C6F = 800 Hz
+	STA		$FFF:SID+SID_FREQ0
+	LDA		#1
+	STA		$FFF:SID+SID_FREQ0+2
+	LDA		#195				; 2ms
+	STA		$FFF:SID+SID_ATTACK0
+	STZ		$FFF:SID+SID_ATTACK0+2
+	LDA		#2344				; 24 ms decay
+	STA		$FFF:SID+SID_DECAY0
+	STZ		$FFF:SID+SID_DECAY0+2
+	LDA		#$80				; 50% sustain level
+	STA		$FFF:SID+SID_SUSTAIN0
+	LDA		#48828				; 500 ms release
+	STA		$FFF:SID+SID_RELEASE0
+	STZ		$FFF:SID+SID_RELEASE0+2
+	LDA		#1					; reset envelope generator
+	STA		$FFF:SID+SID_CTRL0+2
+	NOP
+	NOP
+	STZ		$FFF:SID+SID_CTRL0+2
+	LDA		#$1504				; gate on
+	STA		$FFF:SID+SID_CTRL0
+	; delay for about 1s
+	LDY		#39
+.0002:
+	LDX		#65535
+.0001:
+	DEX
+	BNE		.0001
+	DEY
+	BNE		.0002
+	LDA		#$0504				; gate off
+	STA		$FFF:SID+SID_CTRL0
+	RTS
+	
+music_tbl:
+	dh	1
+	dw	33673		; G4
+	dw	12			; 1/8 sec
+	dw	4			; space
+
+	dh	1
+	dw	33673		; G4
+	dw	12			; 1/8
+	dw	4			; space
+
+	dh	1
+	dw	33673		; G4
+	dw	12			; 1/8
+	dw	4			; space
+
+	dh	0
+	dw	0			; G4
+	dw	0			; 1/8
+	dw	0			; space
+
+MusicPlay:
+	LDX		#0
+	LDA		#195				; 2ms
+	STA		$FFF:SID+SID_ATTACK0
+	STZ		$FFF:SID+SID_ATTACK0+2
+	LDA		#2344				; 24 ms decay
+	STA		$FFF:SID+SID_DECAY0
+	STZ		$FFF:SID+SID_DECAY0+2
+	LDA		#$D0				; sustain level
+	STA		$FFF:SID+SID_SUSTAIN0
+	LDA		#4600				; ??? ms release
+	STA		$FFF:SID+SID_RELEASE0
+	STZ		$FFF:SID+SID_RELEASE0+2
+.0001:
+	LDA		music_tbl,x			; check for last note
+	BEQ		.xit
+	LDA		music_tbl+2,x			; set the frequency
+	STA		$FFF:SID+SID_FREQ0
+	LDA		music_tbl+4,x
+	STA		$FFF:SID+SID_FREQ0+2
+	LDA		#$1504				; gate on
+	STA		$FFF:SID+SID_CTRL0
+	SEI
+	LDA		music_tbl+6,x
+	STA		timeout1
+	LDA		music_tbl+8,x
+	STA		timeout1+2
+	JSR		MusicWaitTimeout
+	LDA		#$0504				; gate off
+	STA		$FFF:SID+SID_CTRL0
+	SEI
+	LDA		music_tbl+10,x		; note release delay
+	STA		timeout1
+	LDA		music_tbl+12,x
+	STA		timeout1+2
+	JSR		MusicWaitTimeout
+	INX
+	INX
+	INX4
+	INX4
+	INX4
+	BRA		.0001
+.xit:
+	RTS
+
+MusicWaitTimeout:
+.0001:
+	CLI
+	NOP
+	NOP
+	SEI
+	LDA		timeout1
+	ORA		timeout1+2
+	BNE		.0001
+	CLI
+	RTS
+
+MusicTimeoutIRQ:
+	REP		#$30
+	MEM		16
+	NDX		16
+	LDA		timeout1
+	ORA		timeout1+2
+	BEQ		.0001
+	SEC
+	LDA		timeout1
+	SBC		#1
+	STA		timeout1
+	LDA		timeout1+2
+	SBC		#0
+	STA		timeout1+2
+.0001:
+	RTS
+
+	.org	$FE00
+	JMP		SuperGetch		; FE00
+	JMP		warm_start		; FE03
+	JMP		SuperPutch		; FE06
+	JMP		BIOSInput		; FE09
+	JMP		BasicGetch		; FE0C
+	JMP		xitBasic		; FE0F
+	JMP		BASIC_Loadfile	; FE12
+	JMP		BASIC_Savefile	; FE15
+
+	.org	$FF00
+	JMP		FMTK_ScheduleTask	; FE18
+	JMP		FMTK_Sleep
+	JMP		FMTK_StartTask
+	JMP		FMTK_ExitTask
+	JMP		FMTK_KillTask
+	JMP		FMTK_AllocMbx
+	JMP		$0				; reserved for FreeMbx
+	JMP		FMTK_SendMsg
+	JMP		FMTK_PostMsg
+	JMP		FMTK_WaitMsg
+	JMP		FMTK_PeekMsg
+	JMP		FMTK_CheckMsg
 
 	.org 	$FFD6
 	dw		4			; task #4
 
-	.org	$FFDE
-	dw		6			; task #6
+	.org	$FFDE		; '832 IRQ vector
+	dw		1			;
+
+	.org	$FFE0		; IRQ3 vector
+	dw		3
 
 	.org 	$FFE6
 	dw		BrkRout
 
-	.org	$FFEE		; IRQ vector
-	dw		IRQRout
+	.org	$FFEE		; '816 IRQ vector
+	dw		1			; IRQRout816
 
-	.org	$FFFC
-	dw		$E000
+	.org	$FFFC		; reset vector
+	dw		$C000
 
 	.org	$FFFE
-	dw		ByteIRQRout
+	dw		1			; IRQRout02

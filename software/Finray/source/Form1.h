@@ -42,6 +42,7 @@ namespace Finray {
 			{
 				delete components;
 			}
+			RTFClasses::Random::DeleteAll();
 		}
 	private: System::Windows::Forms::Button^  button1;
 	private: System::Windows::Forms::MenuStrip^  menuStrip1;
@@ -51,6 +52,7 @@ namespace Finray {
 	protected: 
 
 	private:
+		String^ filepath;
 		/// <summary>
 		/// Required designer variable.
 		/// </summary>
@@ -73,11 +75,12 @@ namespace Finray {
 			// 
 			// button1
 			// 
+			this->button1->Enabled = false;
 			this->button1->Location = System::Drawing::Point(88, 60);
 			this->button1->Name = L"button1";
 			this->button1->Size = System::Drawing::Size(75, 23);
 			this->button1->TabIndex = 0;
-			this->button1->Text = L"Start Trace";
+			this->button1->Text = L"Start Parser";
 			this->button1->UseVisualStyleBackColor = true;
 			this->button1->Click += gcnew System::EventHandler(this, &Form1::button1_Click);
 			// 
@@ -100,7 +103,7 @@ namespace Finray {
 			// openToolStripMenuItem
 			// 
 			this->openToolStripMenuItem->Name = L"openToolStripMenuItem";
-			this->openToolStripMenuItem->Size = System::Drawing::Size(103, 22);
+			this->openToolStripMenuItem->Size = System::Drawing::Size(152, 22);
 			this->openToolStripMenuItem->Text = L"&Open";
 			this->openToolStripMenuItem->Click += gcnew System::EventHandler(this, &Form1::openToolStripMenuItem_Click);
 			// 
@@ -128,33 +131,37 @@ namespace Finray {
 		}
 #pragma endregion
 	private: System::Void button1_Click(System::Object^  sender, System::EventArgs^  e) {
-				 frmRay^ form = gcnew frmRay();
-				 form->Show();
+				rayTracer.Init();
+				try {
+					System::Windows::Forms::Cursor::Current = System::Windows::Forms::Cursors::WaitCursor; 
+					rayTracer.parser.Parse(filepath);
+					System::Windows::Forms::Cursor::Current = System::Windows::Forms::Cursors::Default; 
+					 frmRay^ form = gcnew frmRay();
+					 form->Show();
+				}
+				catch (Finray::FinrayException^ ex) {
+					frmError^ form = gcnew frmError();
+					form->ex = ex;
+					form->ShowDialog();
+				}
 			 }
 	private: System::Void openToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
 				 static char buf[500];
 				 Process^ proc = gcnew Process();
 				 if (this->openFileDialog1->ShowDialog()  == System::Windows::Forms::DialogResult::OK ) {
 					char* str = (char*)(void*)Marshal::StringToHGlobalAnsi(this->openFileDialog1->FileName);
-					sprintf(buf, "\"%s\" \"%s.frpp\"", str, str);
-					System::Windows::Forms::Cursor::Current = System::Windows::Forms::Cursors::WaitCursor; 
+					sprintf_s(buf, sizeof(buf), "\"%s\" \"%s.frpp\"", str, str);
 					//ZeroMemory(filebuf, sizeof(filebuf));
 					proc->StartInfo->FileName = "frpp.exe";
 					proc->StartInfo->Arguments = gcnew String(buf);
 					proc->StartInfo->UseShellExecute = false;
+					proc->StartInfo->CreateNoWindow = true;
 					proc->Start();
 					proc->WaitForExit();
-					sprintf(buf, "%s.frpp", str);
-					rayTracer.Init();
-					try {
-					rayTracer.parser.Parse(std::string(buf));
-					}
-					catch (Finray::FinrayException^ ex) {
-						frmError^ form = gcnew frmError();
-						form->ex = ex;
-						form->ShowDialog();
-					}
-					System::Windows::Forms::Cursor::Current = System::Windows::Forms::Cursors::Default; 
+					sprintf_s(buf, sizeof(buf), "%s.frpp", str);
+					rayTracer.parser.path = std::string(buf);
+					filepath = gcnew String(buf);
+					button1->Enabled = true;
 				 }
 			 }
 };

@@ -1,0 +1,1690 @@
+Global symbols:
+
+Hash Table:
+ #  Name                            Nargs  Line   File
+  0   AsciiToDecNybble                 PRI  CODE   W   000000000000CED4    2442   FTBios816.asm
+  1   AsciiToHexNybble                 PRI  CODE   W   000000000000CE9B    2410   FTBios816.asm
+  2   AsciiToScreen                    PRI  CODE   W   000000000000CAFA    1812   FTBios816.asm
+  3   AsciiToScreen.00001              PRI  CODE   W   000000000000CB0A    1819   FTBios816.asm
+  4   AsciiToScreen8                   PRI  CODE   W   000000000000CB0B    1823   FTBios816.asm
+  5   AsciiToScreen8.00001             PRI  CODE   W   000000000000CB15    1829   FTBios816.asm
+  6   BASIC_Loadfile                   PRI  CODE   W   000000000000D943    3612   FTBios816.asm
+  7   BASIC_Loadfile.0001              PRI  CODE   W   000000000000D960    3623   FTBios816.asm
+  8   BASIC_Savefile                   PRI  CODE   W   000000000000D923    3598   FTBios816.asm
+  9   BASIC_Savefile.0001              PRI  CODE   W   000000000000D940    3609   FTBios816.asm
+ 10   BIOSInput                        PRI  CODE   W   000000000000C921    1616   FTBios816.asm
+ 11   BIOSInput.bin1                   PRI  CODE   W   000000000000C921    1617   FTBios816.asm
+ 12   BIOSInput.bin2                   PRI  CODE   W   000000000000C931    1624   FTBios816.asm
+ 13   BIOSInput.bin3                   PRI  CODE   W   000000000000C93C    1632   FTBios816.asm
+ 14   BIOSInput.bin4                   PRI  CODE   W   000000000000C953    1642   FTBios816.asm
+ 15   BIOSInput.st0001                 PRI  CODE   W   000000000000C972    1655   FTBios816.asm
+ 16   BIOSInput.st0002                 PRI  CODE   W   000000000000C975    1657   FTBios816.asm
+ 17   BIOSInput.st0003                 PRI  CODE   W   000000000000C956    1646   FTBios816.asm
+ 18   BIOSctx                          NON  DATA   W   00000000000000FC     182   FTBios816.asm
+ 19   BS                               NON  DATA   W   0000000000000008      28   FTBios816.asm
+ 20   BasicGetch                       PRI  CODE   W   000000000000D8F3    3578   FTBios816.asm
+ 21   BlankLine                        PRI  CODE   W   000000000000CDF1    2292   FTBios816.asm
+ 22   BlankLine.0001                   PRI  CODE   W   000000000000CE01    2301   FTBios816.asm
+ 23   BrkRout                          PRI  CODE   W   000000000000E2C8    4241   FTBios816.asm
+ 24   BrkRout1                         PRI  CODE   W   000000000000E2D2    4250   FTBios816.asm
+ 25   BrkRout1.0001                    PRI  CODE   W   000000000000E2E8    4264   FTBios816.asm
+ 26   BrkTask                          PRI  CODE   W   000000000000E2BE    4234   FTBios816.asm
+ 27   BtnuIRQ                          PRI  CODE   W   000000000000E24F    4159   FTBios816.asm
+ 28   BuildRec                         PRI  CODE   W   000000000000C6EC    1307   FTBios816.asm
+ 29   CNT0H                            NON  DATA   W   0000000000000012      56   FTBios816.asm
+ 30   CNT0L                            NON  DATA   W   0000000000000010      54   FTBios816.asm
+ 31   CNT0M                            NON  DATA   W   0000000000000011      55   FTBios816.asm
+ 32   CR                               NON  DATA   W   000000000000000D      25   FTBios816.asm
+ 33   CTR0_CTRL                        NON  DATA   W   000000000000B013     126   FTBios816.asm
+ 34   CTR0_LMT                         NON  DATA   W   000000000000B010     125   FTBios816.asm
+ 35   CTR1_CTRL                        NON  DATA   W   000000000000B017     128   FTBios816.asm
+ 36   CTR1_LMT                         NON  DATA   W   000000000000B014     127   FTBios816.asm
+ 37   CTRLC                            NON  DATA   W   0000000000000003      29   FTBios816.asm
+ 38   CheckIOFocus                     PRI  CODE   W   000000000000DFD4    3799   FTBios816.asm
+ 39   ClearFilenameBuf                 PRI  CODE   W   000000000000C3FC     908   FTBios816.asm
+ 40   ClearFilenameBuf.0002            PRI  CODE   W   000000000000C402     911   FTBios816.asm
+ 41   ClearScreen                      PRI  CODE   W   000000000000CDA8    2251   FTBios816.asm
+ 42   ClearScreen.0001                 PRI  CODE   W   000000000000CDBD    2260   FTBios816.asm
+ 43   ClearScreen.noFocus              PRI  CODE   W   000000000000CDC8    2267   FTBios816.asm
+ 44   ClearScreen.tstFocus             PRI  CODE   W   000000000000CDA8    2252   FTBios816.asm
+ 45   ClusterToSector                  PRI  CODE   W   000000000000D8CD    3553   FTBios816.asm
+ 46   CursorOff                        PRI  CODE   W   000000000000CD98    2241   FTBios816.asm
+ 47   CursorOn                         PRI  CODE   W   000000000000CD88    2231   FTBios816.asm
+ 48   CursorX                          NON  DATA   W   0000000000000030      59   FTBios816.asm
+ 49   CursorY                          NON  DATA   W   0000000000000032      60   FTBios816.asm
+ 50   DispByte                         PRI  CODE   W   000000000000CE18    2317   FTBios816.asm
+ 51   DispDWord                        PRI  CODE   W   000000000000CE0C    2309   FTBios816.asm
+ 52   DispDate                         PRI  CODE   W   000000000000C367     835   FTBios816.asm
+ 53   DispFAC1                         PUB  CODE   W   0000000000009336     477   FAC1ToString.asm
+ 54   DispNybble                       PRI  CODE   W   000000000000CE21    2325   FTBios816.asm
+ 55   DispNybble.0001                  PRI  CODE   W   000000000000CE32    2334   FTBios816.asm
+ 56   DispRangeStart                   PRI  CODE   W   000000000000C906    1589   FTBios816.asm
+ 57   DispRegs                         PRI  CODE   W   000000000000C641    1204   FTBios816.asm
+ 58   DispRegs.0001                    PRI  CODE   W   000000000000C657    1218   FTBios816.asm
+ 59   DispRegs.0002                    PRI  CODE   W   000000000000C69B    1256   FTBios816.asm
+ 60   DispRegs.0003                    PRI  CODE   W   000000000000C686    1244   FTBios816.asm
+ 61   DispSecnum                       PRI  CODE   W   000000000000C4D4    1032   FTBios816.asm
+ 62   DispWord                         PRI  CODE   W   000000000000CE13    2313   FTBios816.asm
+ 63   DisplayChar                      PRI  CODE   W   000000000000CB22    1850   FTBios816.asm
+ 64   DisplayChar.0001                 PRI  CODE   W   000000000000CB9C    1901   FTBios816.asm
+ 65   DisplayChar.0002                 PRI  CODE   W   000000000000CB95    1897   FTBios816.asm
+ 66   DisplayChar.0003                 PRI  CODE   W   000000000000CB70    1877   FTBios816.asm
+ 67   DisplayString                    PRI  CODE   W   000000000000CD34    2173   FTBios816.asm
+ 68   DisplayString.0001               PRI  CODE   W   000000000000CD46    2184   FTBios816.asm
+ 69   DisplayString.0002               PRI  CODE   W   000000000000CD3A    2178   FTBios816.asm
+ 70   DisplayString2                   PRI  CODE   W   000000000000CD4A    2190   FTBios816.asm
+ 71   DisplayString2.0001              PRI  CODE   W   000000000000CD60    2204   FTBios816.asm
+ 72   DisplayString2.0002              PRI  CODE   W   000000000000CD57    2198   FTBios816.asm
+ 73   DivideByTen                      PUB  CODE   W   0000000000009305     445   FAC1ToString.asm
+ 74   ESC                              NON  DATA   W   000000000000001B      27   FTBios816.asm
+ 75   E_NoMoreMbx                      NON  DATA   W   FFFFFFFFFFFFFFFC     224   FTBios816.asm
+ 76   E_NoMoreMsgBlks                  NON  DATA   W   FFFFFFFFFFFFFFFD     223   FTBios816.asm
+ 77   E_NoMsg                          NON  DATA   W   FFFFFFFFFFFFFFFE     222   FTBios816.asm
+ 78   E_NotAlloc                       NON  DATA   W   FFFFFFFFFFFFFFFF     221   FTBios816.asm
+ 79   E_Ok                             NON  DATA   W   0000000000000000     220   FTBios816.asm
+ 80   E_TooManyMbx                     NON  DATA   W   FFFFFFFFFFFFFFFB     225   FTBios816.asm
+ 81   EscState                         NON  DATA   W   000000000000003C      64   FTBios816.asm
+ 82   ExitCode                         NON  DATA   W   00000000000000C0     103   FTBios816.asm
+ 83   FAC1                             NON  DATA   W   0000000000FEA200     135   FTBios816.asm
+ 84   FAC1ToString                     PUB  CODE   W   00000000000090DF      69   FAC1ToString.asm
+ 85   FMTK_AllocMbx                    PUB  CODE   W   000000000000DC88     262   FMTKmsg.asm
+ 86   FMTK_CheckMsg                    PUB  CODE   W   000000000000DF0A     520   FMTKmsg.asm
+ 87   FMTK_ExitTask                    PRI  CODE   W   000000000000E0B9    3911   FTBios816.asm
+ 88   FMTK_Init                        PRI  CODE   W   000000000000D963    3630   FTBios816.asm
+ 89   FMTK_KillTask                    PRI  CODE   W   000000000000E038    3853   FTBios816.asm
+ 90   FMTK_PeekMsg                     PUB  CODE   W   000000000000DF9D     581   FMTKmsg.asm
+ 91   FMTK_PostMsg                     PUB  CODE   W   000000000000DD17     320   FMTKmsg.asm
+ 92   FMTK_ScheduleTask                PRI  CODE   W   000000000000E164    4024   FTBios816.asm
+ 93   FMTK_SendMsg                     PUB  CODE   W   000000000000DD17     319   FMTKmsg.asm
+ 94   FMTK_Sleep                       PRI  CODE   W   000000000000E00D    3834   FTBios816.asm
+ 95   FMTK_StartTask                   NON  DATA       000000000000FF06    4830   FTBios816.asm
+ 96   FMTK_WaitMsg                     PUB  CODE   W   000000000000DE0B     406   FMTKmsg.asm
+ 97   FPCommandWait                    PUB  CODE   W   0000000000009318     459   FAC1ToString.asm
+ 98   FilenameBuf                      NON  DATA   W   0000000000000380     115   FTBios816.asm
+ 99   FreeSysMem                       PRI  CODE   W   000000000000E521    4585   FTBios816.asm
+100 * FreeSysMem.0001                  PRI  CODE   W   000000000000E56A    4600   FTBios816.asm
+101 * FreeSysMem.0002                  PRI  CODE   W   000000000000E55E    4610   FTBios816.asm
+102   FreeSysMem.0004                  PRI  CODE   W   000000000000E591    4655   FTBios816.asm
+103   GetHexNumber                     PRI  CODE   W   000000000000CE6E    2378   FTBios816.asm
+104   GetIOFocus                       PRI  CODE   W   000000000000DFCC    3791   FTBios816.asm
+105   GetJCB                           PRI  CODE   W   000000000000DFFC    3818   FTBios816.asm
+106   GetRange                         PRI  CODE   W   000000000000CE43    2351   FTBios816.asm
+107   GetRange.0001                    PRI  CODE   W   000000000000CE6D    2370   FTBios816.asm
+108   GetSecnum                        PRI  CODE   W   000000000000C46B     969   FTBios816.asm
+109   GetTextRowsCols                  PRI  CODE   W   000000000000CD63    2208   FTBios816.asm
+110   HomeCursor                       PRI  CODE   W   000000000000CCE7    2119   FTBios816.asm
+111   Hung                             PRI  CODE   W   000000000000E2FD    4274   FTBios816.asm
+112   I2C_CMD                          NON  DATA   W   0000000000FEC104     175   FTBios816.asm
+113   I2C_CONTROL                      NON  DATA   W   0000000000FEC102     172   FTBios816.asm
+114   I2C_MASTER                       NON  DATA   W   0000000000FEC100     169   FTBios816.asm
+115   I2C_PRESCALE_HI                  NON  DATA   W   0000000000FEC101     171   FTBios816.asm
+116   I2C_PRESCALE_LO                  NON  DATA   W   0000000000FEC100     170   FTBios816.asm
+117   I2C_RX                           NON  DATA   W   0000000000FEC103     174   FTBios816.asm
+118   I2C_STAT                         NON  DATA   W   0000000000FEC104     176   FTBios816.asm
+119   I2C_TX                           NON  DATA   W   0000000000FEC103     173   FTBios816.asm
+120   ICacheIL832                      PRI  CODE   W   000000000000D78C    3365   FTBios816.asm
+121   IOFocusBmp                       NON  DATA   W   0000000000052052     315   FTBios816.asm
+122   IOFocusTask                      NON  DATA   W   00000000000000CE     107   FTBios816.asm
+123   IRQ1Hook                         NON  DATA   W   0000000000052012     313   FTBios816.asm
+124   IRQ1HookEnd                      NON  DATA   W   0000000000052052     314   FTBios816.asm
+125   IRQRout02                        PRI  CODE   W   000000000000E15F    4013   FTBios816.asm
+126   IRQRout816                       PRI  CODE   W   000000000000E15F    4012   FTBios816.asm
+127   IRQRout832                       PRI  CODE   W   000000000000E15F    4011   FTBios816.asm
+128   IRQTask                          PRI  CODE   W   000000000000E267    4187   FTBios816.asm
+129   IRQTask1                         PRI  CODE   W   000000000000E267    4190   FTBios816.asm
+130   IRQTask1.0001                    PRI  CODE   W   000000000000E284    4200   FTBios816.asm
+131   IgnoreBlanks                     PRI  CODE   W   000000000000C916    1601   FTBios816.asm
+132   IgnoreBlanks.0001                PRI  CODE   W   000000000000C916    1602   FTBios816.asm
+133   InitJCBArray                     PRI  CODE   W   000000000000D9E6    3703   FTBios816.asm
+134   InitJCBArray.nxt1                PRI  CODE   W   000000000000DA39    3728   FTBios816.asm
+135   InitJCBArray.nxtJcb              PRI  CODE   W   000000000000D9E9    3705   FTBios816.asm
+136   InitMBXArray                     PRI  CODE   W   000000000000D99B    3662   FTBios816.asm
+137   InitMBXArray.nxtMbx              PRI  CODE   W   000000000000D99E    3664   FTBios816.asm
+138   InitMSGArray                     PRI  CODE   W   000000000000D9C3    3684   FTBios816.asm
+139   InitMSGArray.nxtMsg              PRI  CODE   W   000000000000D9C6    3686   FTBios816.asm
+140   InitTCBArray                     PRI  CODE   W   000000000000DA56    3746   FTBios816.asm
+141   InitTCBArray.nxtTcb              PRI  CODE   W   000000000000DA59    3749   FTBios816.asm
+142   InsertIntoReadyFifo              PRI  CODE   W   000000000000E132    3981   FTBios816.asm
+143   InsertIntoReadyFifo.0001         PRI  CODE   W   000000000000E155    3995   FTBios816.asm
+144   InvadersTask                     PUB  CODE   W   00000000000098F1     632   invaders.asm
+145   JCB_CursorCol                    NON  DATA   W   0000000000000331     265   FTBios816.asm
+146   JCB_CursorRow                    NON  DATA   W   0000000000000330     264   FTBios816.asm
+147   JCB_KeyState1                    NON  DATA   W   0000000000000334     267   FTBios816.asm
+148   JCB_KeyState2                    NON  DATA   W   0000000000000336     268   FTBios816.asm
+149   JCB_KeybdBuffer                  NON  DATA   W   000000000000033B     272   FTBios816.asm
+150   JCB_KeybdHead                    NON  DATA   W   0000000000000339     270   FTBios816.asm
+151   JCB_KeybdTail                    NON  DATA   W   000000000000033A     271   FTBios816.asm
+152   JCB_KeybdWaitFlag                NON  DATA   W   0000000000000338     269   FTBios816.asm
+153   JCB_NormAttr                     NON  DATA   W   0000000000000332     266   FTBios816.asm
+154   JCB_SIZE                         NON  DATA   W   0000000000000400     252   FTBios816.asm
+155   JCB_VideoCols                    NON  DATA   W   000000000000032E     262   FTBios816.asm
+156   JCB_VideoRows                    NON  DATA   W   000000000000032F     263   FTBios816.asm
+157   JCB_command_line                 NON  DATA   W   0000000000000222     259   FTBios816.asm
+158   JCB_exit_runfile                 NON  DATA   W   0000000000000122     258   FTBios816.asm
+159   JCB_hMbxs                        NON  DATA   W   0000000000000360     276   FTBios816.asm
+160   JCB_iof_next                     NON  DATA   W   0000000000000000     254   FTBios816.asm
+161   JCB_iof_prev                     NON  DATA   W   0000000000000001     255   FTBios816.asm
+162   JCB_next                         NON  DATA   W   000000000000035E     275   FTBios816.asm
+163   JCB_number                       NON  DATA   W   000000000000035B     273   FTBios816.asm
+164   JCB_pVidMem                      NON  DATA   W   0000000000000322     260   FTBios816.asm
+165   JCB_pVirtVidMem                  NON  DATA   W   0000000000000328     261   FTBios816.asm
+166   JCB_path                         NON  DATA   W   0000000000000022     257   FTBios816.asm
+167   JCB_tasks                        NON  DATA   W   000000000000035C     274   FTBios816.asm
+168   JCB_user_name                    NON  DATA   W   0000000000000002     256   FTBios816.asm
+169   KEYBD                            NON  DATA   W   00000000000EA110     134   FTBios816.asm
+170   KeyState1                        NON  DATA   W   0000000000000008      47   FTBios816.asm
+171   KeyState2                        NON  DATA   W   0000000000000009      48   FTBios816.asm
+172   KeybdGetChar                     PRI  CODE   W   000000000000D0B4    2730   FTBios816.asm
+173   KeybdGetChar1                    PRI  CODE   W   000000000000D0B9    2736   FTBios816.asm
+174   KeybdGetChar1.0001               PRI  CODE   W   000000000000D0EE    2765   FTBios816.asm
+175   KeybdGetChar1.0002               PRI  CODE   W   000000000000D0BE    2741   FTBios816.asm
+176   KeybdGetChar1.0003               PRI  CODE   W   000000000000D0BE    2742   FTBios816.asm
+177   KeybdGetChar1.0004               PRI  CODE   W   000000000000D17E    2835   FTBios816.asm
+178   KeybdGetChar1.0005               PRI  CODE   W   000000000000D18E    2844   FTBios816.asm
+179   KeybdGetChar1.0006               PRI  CODE   W   000000000000D0DC    2758   FTBios816.asm
+180   KeybdGetChar1.0007               PRI  CODE   W   000000000000D15A    2812   FTBios816.asm
+181   KeybdGetChar1.0008               PRI  CODE   W   000000000000D15F    2814   FTBios816.asm
+182   KeybdGetChar1.0009               PRI  CODE   W   000000000000D14D    2806   FTBios816.asm
+183   KeybdGetChar1.0010               PRI  CODE   W   000000000000D13C    2797   FTBios816.asm
+184   KeybdGetChar1.0011               PRI  CODE   W   000000000000D0D5    2755   FTBios816.asm
+185   KeybdGetChar1.doCapsLock         PRI  CODE   W   000000000000D1A3    2855   FTBios816.asm
+186   KeybdGetChar1.doCtrl             PRI  CODE   W   000000000000D173    2829   FTBios816.asm
+187   KeybdGetChar1.doExtend           PRI  CODE   W   000000000000D16A    2824   FTBios816.asm
+188   KeybdGetChar1.doKeyup            PRI  CODE   W   000000000000D163    2820   FTBios816.asm
+189   KeybdGetChar1.doNumLock          PRI  CODE   W   000000000000D193    2847   FTBios816.asm
+190   KeybdGetChar1.doScrollLock       PRI  CODE   W   000000000000D1B3    2863   FTBios816.asm
+191   KeybdGetChar1.doShift            PRI  CODE   W   000000000000D183    2838   FTBios816.asm
+192   KeybdGetCharNoWait               PRI  CODE   W   000000000000D08D    2691   FTBios816.asm
+193   KeybdGetCharNoWait.noFocus       PRI  CODE   W   000000000000D0A5    2709   FTBios816.asm
+194   KeybdGetCharNoWaitCtx            PRI  CODE   W   000000000000D087    2688   FTBios816.asm
+195   KeybdGetCharWait                 PRI  CODE   W   000000000000D0A9    2715   FTBios816.asm
+196   KeybdInit                        PRI  CODE   W   000000000000CF27    2496   FTBios816.asm
+197   KeybdInit.0001                   PRI  CODE   W   000000000000CF47    2512   FTBios816.asm
+198   KeybdInit.0002                   PRI  CODE   W   000000000000CF50    2517   FTBios816.asm
+199   KeybdInit.0004                   PRI  CODE   W   000000000000CFBC    2562   FTBios816.asm
+200   KeybdInit.config                 PRI  CODE   W   000000000000CF87    2538   FTBios816.asm
+201   KeybdInit.keybdErr               PRI  CODE   W   000000000000CFAD    2555   FTBios816.asm
+202   KeybdInit.resetAgain             PRI  CODE   W   000000000000CF3A    2508   FTBios816.asm
+203   KeybdInit.tryAgain               PRI  CODE   W   000000000000CFA6    2550   FTBios816.asm
+204   KeybdLEDs                        NON  DATA   W   000000000000000A      49   FTBios816.asm
+205   KeybdRecvByte                    PRI  CODE   W   000000000000D00F    2612   FTBios816.asm
+206   KeybdRecvByte.0003               PRI  CODE   W   000000000000D012    2615   FTBios816.asm
+207   KeybdRecvByte.0004               PRI  CODE   W   000000000000D029    2626   FTBios816.asm
+208   KeybdService                     PRI  CODE   W   000000000000CFD6    2573   FTBios816.asm
+209   KeybdService.0001                PRI  CODE   W   000000000000CFFB    2594   FTBios816.asm
+210   KeybdService.0002                PRI  CODE   W   000000000000D00B    2602   FTBios816.asm
+211   KeybdService.nokey               PRI  CODE   W   000000000000CFF0    2588   FTBios816.asm
+212   KeybdSetLEDStatus                PRI  CODE   W   000000000000D1C3    2872   FTBios816.asm
+213   KeybdSetLEDStatus.0001           PRI  CODE   W   000000000000D20F    2909   FTBios816.asm
+214   KeybdSetLEDStatus.0002           PRI  CODE   W   000000000000D1D3    2884   FTBios816.asm
+215   KeybdSetLEDStatus.0003           PRI  CODE   W   000000000000D1DF    2891   FTBios816.asm
+216   KeybdSetLEDStatus.0004           PRI  CODE   W   000000000000D1EB    2898   FTBios816.asm
+217   KeybdWaitBusy                    PRI  CODE   W   000000000000D034    2636   FTBios816.asm
+218   KeybdWaitFlag                    NON  DATA   W   000000000000000B      50   FTBios816.asm
+219   KeybdWaitTx                      PRI  CODE   W   000000000000D034    2637   FTBios816.asm
+220   KeybdWaitTx.0001                 PRI  CODE   W   000000000000D038    2641   FTBios816.asm
+221   KeybdWaitTx.0002                 PRI  CODE   W   000000000000D04E    2652   FTBios816.asm
+222   KillTask                         PRI  CODE   W   000000000000E03E    3856   FTBios816.asm
+223   KillTask.0001                    PRI  CODE   W   000000000000E07D    3882   FTBios816.asm
+224   KillTask.0002                    PRI  CODE   W   000000000000E066    3872   FTBios816.asm
+225   KillTask.0003                    PRI  CODE   W   000000000000E08C    3890   FTBios816.asm
+226   KillTask.notDoneJob              PRI  CODE   W   000000000000E0B7    3907   FTBios816.asm
+227   LF                               NON  DATA   W   000000000000000A      26   FTBios816.asm
+228   LineTbl                          PRI  CODE   W   000000000000E2FF    4284   FTBios816.asm
+229   LockSysSema                      PRI  CODE   W   000000000000DFBE    3778   FTBios816.asm
+230   MAX_IRQ_HOOKS                    NON  DATA   W   0000000000000010     184   FTBios816.asm
+231   MBT_DATA                         NON  DATA   W   0000000000000000     218   FTBios816.asm
+232   MBX_SIZE                         NON  DATA   W   0000000000000018     280   FTBios816.asm
+233   MBX_link                         NON  DATA   W   0000000000000000     281   FTBios816.asm
+234   MBX_mq_count                     NON  DATA   W   000000000000000E     288   FTBios816.asm
+235   MBX_mq_head                      NON  DATA   W   0000000000000006     285   FTBios816.asm
+236   MBX_mq_missed                    NON  DATA   W   0000000000000012     290   FTBios816.asm
+237   MBX_mq_size                      NON  DATA   W   0000000000000010     289   FTBios816.asm
+238   MBX_mq_strategy                  NON  DATA   W   0000000000000014     291   FTBios816.asm
+239   MBX_mq_tail                      NON  DATA   W   0000000000000008     286   FTBios816.asm
+240   MBX_number                       NON  DATA   W   0000000000000016     292   FTBios816.asm
+241   MBX_owner                        NON  DATA   W   0000000000000001     282   FTBios816.asm
+242   MBX_tq_count                     NON  DATA   W   000000000000000C     287   FTBios816.asm
+243   MBX_tq_head                      NON  DATA   W   0000000000000002     283   FTBios816.asm
+244   MBX_tq_tail                      NON  DATA   W   0000000000000004     284   FTBios816.asm
+245   MPU_IRQ_STATUS                   NON  DATA   W   000000000000B01F     129   FTBios816.asm
+246   MQS_NEWEST                       NON  DATA   W   0000000000000000     215   FTBios816.asm
+247   MSG_SIZE                         NON  DATA   W   0000000000000014     302   FTBios816.asm
+248   MSG_d1                           NON  DATA   W   0000000000000000     295   FTBios816.asm
+249   MSG_d2                           NON  DATA   W   0000000000000004     296   FTBios816.asm
+250   MSG_d3                           NON  DATA   W   0000000000000008     297   FTBios816.asm
+251   MSG_link                         NON  DATA   W   0000000000000010     300   FTBios816.asm
+252   MSG_retadr                       NON  DATA   W   000000000000000E     299   FTBios816.asm
+253   MSG_tgtadr                       NON  DATA   W   000000000000000C     298   FTBios816.asm
+254   MSG_type                         NON  DATA   W   0000000000000012     301   FTBios816.asm
+255   MT_FREE                          NON  DATA   W   0000000000000001     217   FTBios816.asm
+256   MT_NONE                          NON  DATA   W   0000000000000000     216   FTBios816.asm
+257   Mon1                             PRI  CODE   W   000000000000C1A4     625   FTBios816.asm
+258   Mon1.mon1                        PRI  CODE   W   000000000000C1A4     626   FTBios816.asm
+259   Mon1.mon10                       PRI  CODE   W   000000000000C201     668   FTBios816.asm
+260   Mon1.mon2                        PRI  CODE   W   000000000000C236     690   FTBios816.asm
+261   Mon1.mon3                        PRI  CODE   W   000000000000C1B4     634   FTBios816.asm
+262   Mon1.mon4                        PRI  CODE   W   000000000000C1D8     653   FTBios816.asm
+263   Mon1.mon5                        PRI  CODE   W   000000000000C244     696   FTBios816.asm
+264   Mon1.mon6                        PRI  CODE   W   000000000000C24F     701   FTBios816.asm
+265   Mon1.mon7                        PRI  CODE   W   000000000000C28D     722   FTBios816.asm
+266   Mon1.mon8                        PRI  CODE   W   000000000000C2BC     737   FTBios816.asm
+267   Mon1.mon9                        PRI  CODE   W   000000000000C2C4     741   FTBios816.asm
+268   MonErr                           PRI  CODE   W   000000000000C2E1     762   FTBios816.asm
+269   MonGetFilename                   PRI  CODE   W   000000000000C416     920   FTBios816.asm
+270   MonGetFilename.0001              PRI  CODE   W   000000000000C44B     944   FTBios816.asm
+271   MonGetFilename.0003              PRI  CODE   W   000000000000C438     936   FTBios816.asm
+272   MonGetFilename.0004              PRI  CODE   W   000000000000C419     922   FTBios816.asm
+273   MonGetFilename.badFname          PRI  CODE   W   000000000000C44C     946   FTBios816.asm
+274   MonGetFilename.nextChar          PRI  CODE   W   000000000000C426     928   FTBios816.asm
+275   MonGetNonSpace                   PRI  CODE   W   000000000000C2C7     745   FTBios816.asm
+276   MonGetNonSpace.0001              PRI  CODE   W   000000000000C2C7     746   FTBios816.asm
+277   MonGetch                         PRI  CODE   W   000000000000C2D0     754   FTBios816.asm
+278   MusicPlay                        PRI  CODE   W   000000000000E691    4743   FTBios816.asm
+279   MusicPlay.0001                   PRI  CODE   W   000000000000E6DE    4756   FTBios816.asm
+280   MusicPlay.xit                    PRI  CODE   W   000000000000E739    4785   FTBios816.asm
+281   MusicTimeoutIRQ                  PRI  CODE   W   000000000000E748    4800   FTBios816.asm
+282   MusicTimeoutIRQ.0001             PRI  CODE   W   000000000000E765    4814   FTBios816.asm
+283   MusicWaitTimeout                 PRI  CODE   W   000000000000E73A    4788   FTBios816.asm
+284   MusicWaitTimeout.0001            PRI  CODE   W   000000000000E73A    4789   FTBios816.asm
+285   NR_JCB                           NON  DATA   W   0000000000000040     205   FTBios816.asm
+286   NR_MBX                           NON  DATA   W   0000000000000400     207   FTBios816.asm
+287   NR_MBXperJCB                     NON  DATA   W   0000000000000020     209   FTBios816.asm
+288   NR_MSG                           NON  DATA   W   0000000000001000     208   FTBios816.asm
+289   NR_TCB                           NON  DATA   W   0000000000000200     206   FTBios816.asm
+290   NormAttr                         NON  DATA   W   0000000000000036      62   FTBios816.asm
+291   NumWorkArea                      NON  DATA   W   000000000000000C      51   FTBios816.asm
+292   OSctx                            NON  DATA   W   00000000000000FD     183   FTBios816.asm
+293   OutCRLF                          PRI  CODE   W   000000000000CD0B    2142   FTBios816.asm
+294   OutChar                          PRI  CODE   W   000000000000CD14    2147   FTBios816.asm
+295   OutChar.chkFocus                 PRI  CODE   W   000000000000CD14    2148   FTBios816.asm
+296   OutChar.noFocus                  PRI  CODE   W   000000000000CD2C    2168   FTBios816.asm
+297   OutputVec                        NON  DATA   W   00000000000003F0     116   FTBios816.asm
+298   PCS0                             NON  DATA   W   000000000000B000     119   FTBios816.asm
+299   PCS1                             NON  DATA   W   000000000000B002     120   FTBios816.asm
+300   PCS2                             NON  DATA   W   000000000000B004     121   FTBios816.asm
+301   PCS3                             NON  DATA   W   000000000000B006     122   FTBios816.asm
+302   PCS4                             NON  DATA   W   000000000000B008     123   FTBios816.asm
+303   PCS5                             NON  DATA   W   000000000000B00A     124   FTBios816.asm
+304   PRNG                             NON  DATA   W   0000000000FEA100     133   FTBios816.asm
+305   READY_FIFO                       NON  DATA   W   0000000000FEC200     178   FTBios816.asm
+306   READY_FIFO_CNT                   NON  DATA   W   0000000000FEC210     179   FTBios816.asm
+307   RTCBuf                           NON  DATA   W   0000000000000300     114   FTBios816.asm
+308   RangeEnd                         NON  DATA   W   0000000000000024      58   FTBios816.asm
+309   RangeStart                       NON  DATA   W   0000000000000020      57   FTBios816.asm
+310   ReleaseIOFocus                   PRI  CODE   W   000000000000DFEA    3808   FTBios816.asm
+311   RequestIOFocus                   PRI  CODE   W   000000000000DFE1    3804   FTBios816.asm
+312   ResetKbd                         PRI  CODE   W   000000000000CF11    2483   FTBios816.asm
+313   SC_ALT                           NON  DATA   W   0000000000000011      36   FTBios816.asm
+314   SC_CAPSLOCK                      NON  DATA   W   0000000000000058      41   FTBios816.asm
+315   SC_CTRL                          NON  DATA   W   0000000000000014      35   FTBios816.asm
+316   SC_DEL                           NON  DATA   W   0000000000000071      37   FTBios816.asm
+317   SC_EXTEND                        NON  DATA   W   00000000000000E0      34   FTBios816.asm
+318   SC_KEYUP                         NON  DATA   W   00000000000000F0      33   FTBios816.asm
+319   SC_LCTRL                         NON  DATA   W   0000000000000058      38   FTBios816.asm
+320   SC_LSHIFT                        NON  DATA   W   0000000000000012      31   FTBios816.asm
+321   SC_NUMLOCK                       NON  DATA   W   0000000000000077      39   FTBios816.asm
+322   SC_RSHIFT                        NON  DATA   W   0000000000000059      32   FTBios816.asm
+323   SC_SCROLLLOCK                    NON  DATA   W   000000000000007E      40   FTBios816.asm
+324   SDC_Format                       PRI  CODE   W   000000000000D790    3378   FTBios816.asm
+325   SDC_Format.doneFmt               PRI  CODE   W   000000000000D7DB    3409   FTBios816.asm
+326   SDC_Format.nextSector            PRI  CODE   W   000000000000D7B5    3394   FTBios816.asm
+327   SDC_Format.zeroSector            PRI  CODE   W   000000000000D796    3381   FTBios816.asm
+328   SDC_Jmp                          PRI  CODE   W   000000000000D7DC    3417   FTBios816.asm
+329   SDC_LoadBAM                      PRI  CODE   W   000000000000D84C    3485   FTBios816.asm
+330   SDC_LoadRootDir                  PRI  CODE   W   000000000000D82D    3469   FTBios816.asm
+331   SDC_Loadfile                     PRI  CODE   W   000000000000D865    3501   FTBios816.asm
+332   SDC_Loadfile.doneCmp             PRI  CODE   W   000000000000D8B2    3538   FTBios816.asm
+333   SDC_Loadfile.found               PRI  CODE   W   000000000000D88F    3519   FTBios816.asm
+334   SDC_Loadfile.nextDirentry        PRI  CODE   W   000000000000D8B6    3541   FTBios816.asm
+335   SDC_Loadfile.nxt2                PRI  CODE   W   000000000000D86B    3504   FTBios816.asm
+336   SDC_Loadfile.nxtCmp              PRI  CODE   W   000000000000D87C    3511   FTBios816.asm
+337   SDC_ReadMultiple                 NON  DATA       000000000000D8A3    3536   FTBios816.asm
+338   SDC_ReadWriteMultiple            PRI  CODE   W   000000000000D7DF    3420   FTBios816.asm
+339   SDC_ReadWriteMultiple.0001       PRI  CODE   W   000000000000D80C    3447   FTBios816.asm
+340   SDC_ReadWriteMultiple.abort      PRI  CODE   W   000000000000D825    3463   FTBios816.asm
+341   SDC_ReadWriteMultiple.nextSector PRI  CODE   W   000000000000D7F7    3434   FTBios816.asm
+342   SDC_SRD1                         PRI  CODE   W   000000000000D830    3471   FTBios816.asm
+343   SDC_SVB1                         PRI  CODE   W   000000000000D84F    3487   FTBios816.asm
+344   SDC_SaveBAM                      PRI  CODE   W   000000000000D847    3482   FTBios816.asm
+345   SDC_SaveRootDir                  PRI  CODE   W   000000000000D828    3466   FTBios816.asm
+346   SID                              NON  DATA   W   00000000000EB000     192   FTBios816.asm
+347   SID_ATTACK0                      NON  DATA   W   000000000000000C     196   FTBios816.asm
+348   SID_CTRL0                        NON  DATA   W   0000000000000008     195   FTBios816.asm
+349   SID_DECAY0                       NON  DATA   W   0000000000000010     197   FTBios816.asm
+350   SID_FREQ0                        NON  DATA   W   0000000000000000     193   FTBios816.asm
+351   SID_PW0                          NON  DATA   W   0000000000000004     194   FTBios816.asm
+352   SID_RELEASE0                     NON  DATA   W   0000000000000018     199   FTBios816.asm
+353   SID_SUSTAIN0                     NON  DATA   W   0000000000000014     198   FTBios816.asm
+354   SID_VOLUME                       NON  DATA   W   00000000000000B0     201   FTBios816.asm
+355   SID_WADR0                        NON  DATA   W   000000000000001C     200   FTBios816.asm
+356   SPIMASTER                        NON  DATA   W   0000000000FEC000     137   FTBios816.asm
+357   SPI_DIRECT_ACCESS_DATA_REG       NON  DATA   W   0000000000FEC006     144   FTBios816.asm
+358   SPI_INIT_NO_ERROR                NON  DATA   W   0000000000000000     163   FTBios816.asm
+359   SPI_INIT_SD                      NON  DATA   W   0000000000000001     160   FTBios816.asm
+360   SPI_MASTER_CONTROL_REG           NON  DATA   W   0000000000FEC001     139   FTBios816.asm
+361   SPI_MASTER_VERSION_REG           NON  DATA   W   0000000000FEC000     138   FTBios816.asm
+362   SPI_READ_NO_ERROR                NON  DATA   W   0000000000000000     164   FTBios816.asm
+363   SPI_RESP_BYTE1                   NON  DATA   W   0000000000FEC030     155   FTBios816.asm
+364   SPI_RESP_BYTE2                   NON  DATA   W   0000000000FEC031     156   FTBios816.asm
+365   SPI_RESP_BYTE3                   NON  DATA   W   0000000000FEC032     157   FTBios816.asm
+366   SPI_RESP_BYTE4                   NON  DATA   W   0000000000FEC033     158   FTBios816.asm
+367   SPI_RW_READ_SD_BLOCK             NON  DATA   W   0000000000000002     166   FTBios816.asm
+368   SPI_RW_WRITE_SD_BLOCK            NON  DATA   W   0000000000000003     167   FTBios816.asm
+369   SPI_RX_FIFO_CTRL_REG             NON  DATA   W   0000000000FEC014     152   FTBios816.asm
+370   SPI_RX_FIFO_DATA_COUNT_LSB       NON  DATA   W   0000000000FEC012     151   FTBios816.asm
+371   SPI_RX_FIFO_DATA_COUNT_MSB       NON  DATA   W   0000000000FEC011     150   FTBios816.asm
+372   SPI_RX_FIFO_DATA_REG             NON  DATA   W   0000000000FEC010     149   FTBios816.asm
+373   SPI_SD_SECT_15_8_REG             NON  DATA   W   0000000000FEC008     146   FTBios816.asm
+374   SPI_SD_SECT_23_16_REG            NON  DATA   W   0000000000FEC009     147   FTBios816.asm
+375   SPI_SD_SECT_31_24_REG            NON  DATA   W   0000000000FEC00A     148   FTBios816.asm
+376   SPI_SD_SECT_7_0_REG              NON  DATA   W   0000000000FEC007     145   FTBios816.asm
+377   SPI_TRANS_BUSY                   NON  DATA   W   0000000000000001     162   FTBios816.asm
+378   SPI_TRANS_CTRL_REG               NON  DATA   W   0000000000FEC003     141   FTBios816.asm
+379   SPI_TRANS_ERROR_REG              NON  DATA   W   0000000000FEC005     143   FTBios816.asm
+380   SPI_TRANS_START                  NON  DATA   W   0000000000000001     161   FTBios816.asm
+381   SPI_TRANS_STATUS_REG             NON  DATA   W   0000000000FEC004     142   FTBios816.asm
+382   SPI_TRANS_TYPE_REG               NON  DATA   W   0000000000FEC002     140   FTBios816.asm
+383   SPI_TX_FIFO_CTRL_REG             NON  DATA   W   0000000000FEC024     154   FTBios816.asm
+384   SPI_TX_FIFO_DATA_REG             NON  DATA   W   0000000000FEC020     153   FTBios816.asm
+385   SPI_WRITE_NO_ERROR               NON  DATA   W   0000000000000000     165   FTBios816.asm
+386   SSMInit                          PRI  CODE   W   000000000000C9C2    1679   FTBios816.asm
+387   SSMInit.0001                     PRI  CODE   W   000000000000C9F0    1700   FTBios816.asm
+388   SSMTask                          PRI  CODE   W   000000000000CA65    1751   FTBios816.asm
+389   SSMTask.0001                     PRI  CODE   W   000000000000CA93    1773   FTBios816.asm
+390   SSMTask.0002                     PRI  CODE   W   000000000000CA8F    1770   FTBios816.asm
+391   SSMTask.0004                     PRI  CODE   W   000000000000CA6A    1754   FTBios816.asm
+392   SSMTask.0005                     PRI  CODE   W   000000000000CA7F    1762   FTBios816.asm
+393   SSMTask.0006                     PRI  CODE   W   000000000000CAAE    1784   FTBios816.asm
+394   SSMTask.0007                     PRI  CODE   W   000000000000CAD0    1800   FTBios816.asm
+395   SSMTask.0008                     PRI  CODE   W   000000000000CA82    1764   FTBios816.asm
+396   ScreenToAscii                    PRI  CODE   W   000000000000CB16    1837   FTBios816.asm
+397   ScreenToAscii.0001               PRI  CODE   W   000000000000CB21    1842   FTBios816.asm
+398   ScrollUp                         PRI  CODE   W   000000000000CDCF    2271   FTBios816.asm
+399   ScrollUp.0001                    PRI  CODE   W   000000000000CDD5    2274   FTBios816.asm
+400   SelectTaskToRun                  PRI  CODE   W   000000000000E0D5    3932   FTBios816.asm
+401   SelectTaskToRun.0001             PRI  CODE   W   000000000000E127    3962   FTBios816.asm
+402   SelectTaskToRun.fifoEmpty        PRI  CODE   W   000000000000E119    3956   FTBios816.asm
+403   SelectTaskToRun.nextQ            PRI  CODE   W   000000000000E0EF    3941   FTBios816.asm
+404   SelectTaskToRun.notReady         PRI  CODE   W   000000000000E0EF    3942   FTBios816.asm
+405   SetIOFocus                       PRI  CODE   W   000000000000DFC4    3787   FTBios816.asm
+406   SetVideoReg                      PRI  CODE   W   000000000000CD7E    2224   FTBios816.asm
+407   StartQ                           PRI  CODE   W   000000000000E0C5    3929   FTBios816.asm
+408   StringPos                        NON  DATA   W   0000000000000038      63   FTBios816.asm
+409   SuperGetch                       PRI  CODE   W   000000000000D771    3343   FTBios816.asm
+410   SuperPutch                       PRI  CODE   W   000000000000D778    3350   FTBios816.asm
+411   SyncVideoPos                     PRI  CODE   W   000000000000CCEE    2126   FTBios816.asm
+412   TCB_Next                         NON  DATA   W   0000000000000000     229   FTBios816.asm
+413   TCB_Prev                         NON  DATA   W   0000000000000002     230   FTBios816.asm
+414   TCB_SIZE                         NON  DATA   W   0000000000000040     227   FTBios816.asm
+415   TCB_Timeout                      NON  DATA   W   0000000000000004     231   FTBios816.asm
+416   TCB_affinity                     NON  DATA   W   0000000000000026     245   FTBios816.asm
+417   TCB_end_tick                     NON  DATA   W   000000000000002C     248   FTBios816.asm
+418   TCB_exception                    NON  DATA   W   0000000000000034     250   FTBios816.asm
+419   TCB_hJcb                         NON  DATA   W   0000000000000027     246   FTBios816.asm
+420   TCB_hWaitMbx                     NON  DATA   W   0000000000000020     241   FTBios816.asm
+421   TCB_mbq_next                     NON  DATA   W   0000000000000008     232   FTBios816.asm
+422   TCB_mbq_prev                     NON  DATA   W   000000000000000A     233   FTBios816.asm
+423   TCB_msg_d1                       NON  DATA   W   000000000000000C     234   FTBios816.asm
+424   TCB_msg_d2                       NON  DATA   W   0000000000000010     235   FTBios816.asm
+425   TCB_msg_d3                       NON  DATA   W   0000000000000014     236   FTBios816.asm
+426   TCB_msg_link                     NON  DATA   W   000000000000001C     239   FTBios816.asm
+427   TCB_msg_retadr                   NON  DATA   W   000000000000001A     238   FTBios816.asm
+428   TCB_msg_tgtadr                   NON  DATA   W   0000000000000018     237   FTBios816.asm
+429   TCB_msg_type                     NON  DATA   W   000000000000001E     240   FTBios816.asm
+430   TCB_number                       NON  DATA   W   0000000000000022     242   FTBios816.asm
+431   TCB_priority                     NON  DATA   W   0000000000000024     243   FTBios816.asm
+432   TCB_start_tick                   NON  DATA   W   0000000000000028     247   FTBios816.asm
+433   TCB_status                       NON  DATA   W   0000000000000025     244   FTBios816.asm
+434   TCB_ticks                        NON  DATA   W   0000000000000030     249   FTBios816.asm
+435   TEXTCOLS                         NON  DATA   W   0000000000000054      44   FTBios816.asm
+436   TEXTROWS                         NON  DATA   W   000000000000001F      43   FTBios816.asm
+437   TIMEOUT_LIST                     NON  DATA   W   0000000000FEC300     180   FTBios816.asm
+438   TOL_DEC                          NON  DATA   W   0000000000000001     188   FTBios816.asm
+439   TOL_INS                          NON  DATA   W   0000000000000002     189   FTBios816.asm
+440   TOL_NOP                          NON  DATA   W   0000000000000000     187   FTBios816.asm
+441   TOL_RMV                          NON  DATA   W   0000000000000003     190   FTBios816.asm
+442   TS_PREEMPT                       NON  DATA   W   0000000000000002     212   FTBios816.asm
+443   TS_READY                         NON  DATA   W   0000000000000001     211   FTBios816.asm
+444   TS_TIMEOUT                       NON  DATA   W   0000000000000008     214   FTBios816.asm
+445   TS_WAITMSG                       NON  DATA   W   0000000000000004     213   FTBios816.asm
+446   Task0                            PRI  CODE   W   000000000000C0C4     469   FTBios816.asm
+447   Task0.0001                       PRI  CODE   W   000000000000C0CA     472   FTBios816.asm
+448   Task0.0006                       PRI  CODE   W   000000000000C15D     524   FTBios816.asm
+449   Task1                            PRI  CODE   W   000000000000E19E    4060   FTBios816.asm
+450   Task2                            PRI  CODE   W   000000000000E288    4211   FTBios816.asm
+451   Task2.0001                       PRI  CODE   W   000000000000E2A9    4224   FTBios816.asm
+452   Task2.0002                       PRI  CODE   W   000000000000E292    4215   FTBios816.asm
+453   Task2.0003                       PRI  CODE   W   000000000000E28D    4213   FTBios816.asm
+454   TaskFC                           PRI  CODE   W   000000000000C19A     612   FTBios816.asm
+455   TaskFD                           PRI  CODE   W   000000000000C16C     581   FTBios816.asm
+456   TaskMon1                         PRI  CODE   W   000000000000C1A3     620   FTBios816.asm
+457   TaskMon2                         PRI  CODE   W   000000000000C189     599   FTBios816.asm
+458   TaskStartTbl                     PRI  CODE   W   000000000000E33D    4317   FTBios816.asm
+459   TaskSwitchEn                     NON  DATA   W   00000000000000D0     108   FTBios816.asm
+460   TestIOFocus                      PRI  CODE   W   000000000000DFF3    3812   FTBios816.asm
+461   Textcols                         NON  DATA   W   000000000000004C      67   FTBios816.asm
+462   Textrows                         NON  DATA   W   000000000000004E      68   FTBios816.asm
+463   TickCount                        NON  DATA   W   0000000000000004      46   FTBios816.asm
+464   TimeSliceIRQ                     PRI  CODE   W   000000000000E19E    4072   FTBios816.asm
+465   TimeSliceIRQ.0001                PRI  CODE   W   000000000000E22F    4131   FTBios816.asm
+466   TimeSliceIRQ.0002                PRI  CODE   W   000000000000E238    4140   FTBios816.asm
+467   TimeSliceIRQ.nextTo              PRI  CODE   W   000000000000E1F5    4108   FTBios816.asm
+468   TimeSliceIRQ.noHook              PRI  CODE   W   000000000000E242    4146   FTBios816.asm
+469   TimeSliceIRQ.noMoreTos           PRI  CODE   W   000000000000E20F    4119   FTBios816.asm
+470   TimeSliceIRQ.notTimeSlice        PRI  CODE   W   000000000000E233    4138   FTBios816.asm
+471   TimeoutList                      NON  DATA   W   00000000000000D4     110   FTBios816.asm
+472   UnlockSysSema                    PRI  CODE   W   000000000000DFC2    3781   FTBios816.asm
+473   VIDBUF                           NON  DATA   W   00000000000D0000     131   FTBios816.asm
+474   VIDREGS                          NON  DATA   W   00000000000EA000     132   FTBios816.asm
+475   VideoPos                         NON  DATA   W   0000000000000034      61   FTBios816.asm
+476   Vidptr                           NON  DATA   W   0000000000000040      65   FTBios816.asm
+477   Vidregs                          NON  DATA   W   0000000000000046      66   FTBios816.asm
+478   Wait10ms                         PRI  CODE   W   000000000000D052    2662   FTBios816.asm
+479   Wait10ms.0001                    PRI  CODE   W   000000000000D067    2675   FTBios816.asm
+480   Wait10ms.0002                    PRI  CODE   W   000000000000D059    2667   FTBios816.asm
+481   WorkTR                           NON  DATA   W   00000000000000BE     102   FTBios816.asm
+482   ZeroIRQHooks                     PRI  CODE   W   000000000000D98B    3649   FTBios816.asm
+483   ZeroIRQHooks.0001                PRI  CODE   W   000000000000D98F    3652   FTBios816.asm
+484   acc_save                         NON  DATA   W   0000000000000090      88   FTBios816.asm
+485   beep                             PRI  CODE   W   000000000000E5CC    4684   FTBios816.asm
+486   beep.0001                        PRI  CODE   W   000000000000E65F    4713   FTBios816.asm
+487   beep.0002                        PRI  CODE   W   000000000000E65C    4711   FTBios816.asm
+488   bufptr                           NON  DATA   W   00000000000000C8     105   FTBios816.asm
+489   cpcodeee                         NON  DATA       0000000000008A67    3505   supermon832.asm
+490   cs_save                          NON  DATA   W   0000000000000080      84   FTBios816.asm
+491   db_save                          NON  DATA   W   00000000000000A8      94   FTBios816.asm
+492   dirptr                           NON  DATA       000000000000D869    3507   FTBios816.asm
+493   doBackSpace                      PRI  CODE   W   000000000000CC65    2032   FTBios816.asm
+494   doBackSpace.0001                 PRI  CODE   W   000000000000CC8F    2053   FTBios816.asm
+495   doBackSpace.0002                 PRI  CODE   W   000000000000CC6D    2038   FTBios816.asm
+496   doBackSpace.0003                 PRI  CODE   W   000000000000CC80    2047   FTBios816.asm
+497   doBasic                          PRI  CODE   W   000000000000C3B9     878   FTBios816.asm
+498   doCR                             PRI  CODE   W   000000000000CBA1    1904   FTBios816.asm
+499   doCursor1                        PRI  CODE   W   000000000000CCE2    2113   FTBios816.asm
+500   doCursor2                        PRI  CODE   W   000000000000CCC9    2095   FTBios816.asm
+501   doCursorDown                     PRI  CODE   W   000000000000CCDB    2108   FTBios816.asm
+502   doCursorHome                     PRI  CODE   W   000000000000CCBA    2085   FTBios816.asm
+503   doCursorLeft                     PRI  CODE   W   000000000000CCCD    2098   FTBios816.asm
+504   doCursorRight                    PRI  CODE   W   000000000000CCC2    2090   FTBios816.asm
+505   doCursorUp                       PRI  CODE   W   000000000000CCD4    2103   FTBios816.asm
+506   doD                              PRI  CODE   W   000000000000C2ED     770   FTBios816.asm
+507   doDate                           PRI  CODE   W   000000000000C32A     810   FTBios816.asm
+508   doDate.0001                      PRI  CODE   W   000000000000C364     832   FTBios816.asm
+509   doDelete                         PRI  CODE   W   000000000000CC90    2059   FTBios816.asm
+510   doDelete.0001                    PRI  CODE   W   000000000000CCAF    2079   FTBios816.asm
+511   doDelete.0002                    PRI  CODE   W   000000000000CC96    2064   FTBios816.asm
+512   doDisassemble                    PRI  CODE   W   000000000000C85C    1499   FTBios816.asm
+513   doDisassemble.0001               PRI  CODE   W   000000000000C89A    1534   FTBios816.asm
+514   doDisassemble.0002               PRI  CODE   W   000000000000C875    1513   FTBios816.asm
+515   doDisassemble.0003               PRI  CODE   W   000000000000C884    1522   FTBios816.asm
+516   doDisassemble.0004               PRI  CODE   W   000000000000C864    1503   FTBios816.asm
+517   doDisassemble.0005               PRI  CODE   W   000000000000C886    1525   FTBios816.asm
+518   doFill                           PRI  CODE   W   000000000000C806    1460   FTBios816.asm
+519   doInvaders                       PRI  CODE   W   000000000000C4E4    1042   FTBios816.asm
+520   doJump                           PRI  CODE   W   000000000000C8AC    1553   FTBios816.asm
+521   doJump.testL                     PRI  CODE   W   000000000000C8D8    1569   FTBios816.asm
+522   doLF                             PRI  CODE   W   000000000000CBA6    1907   FTBios816.asm
+523   doLoadfile                       PRI  CODE   W   000000000000C44F     949   FTBios816.asm
+524   doLoadfile.noBuf                 PRI  CODE   W   000000000000C46A     962   FTBios816.asm
+525   doMemoryDump                     PRI  CODE   W   000000000000C759    1361   FTBios816.asm
+526   doMemoryDump.0001                PRI  CODE   W   000000000000C76E    1370   FTBios816.asm
+527   doMemoryDump.0002                PRI  CODE   W   000000000000C793    1387   FTBios816.asm
+528   doMemoryDump.0003                PRI  CODE   W   000000000000C798    1390   FTBios816.asm
+529   doMemoryDump.0004                PRI  CODE   W   000000000000C78E    1384   FTBios816.asm
+530   doMemoryDump.0005                PRI  CODE   W   000000000000C783    1379   FTBios816.asm
+531   doMemoryDump.0006                PRI  CODE   W   000000000000C7B0    1402   FTBios816.asm
+532   doMemoryDump.0007                PRI  CODE   W   000000000000C762    1365   FTBios816.asm
+533   doMemoryDump.0008                PRI  CODE   W   000000000000C7C8    1415   FTBios816.asm
+534   doMemoryDump.0009                PRI  CODE   W   000000000000C7C9    1417   FTBios816.asm
+535   doMemoryEdit                     PRI  CODE   W   000000000000C7CB    1426   FTBios816.asm
+536   doMemoryEdit.0001                PRI  CODE   W   000000000000C7E3    1436   FTBios816.asm
+537   doMemoryEdit.0002                PRI  CODE   W   000000000000C802    1451   FTBios816.asm
+538   doRTS                            PRI  CODE   W   000000000000CCE6    2116   FTBios816.asm
+539   doRead                           PRI  CODE   W   000000000000C480     985   FTBios816.asm
+540   doReadWrite                      PRI  CODE   W   000000000000C482     987   FTBios816.asm
+541   doReadWrite.0001                 PRI  CODE   W   000000000000C4B4    1015   FTBios816.asm
+542   doReadWrite.0002                 PRI  CODE   W   000000000000C493     995   FTBios816.asm
+543   doReadWrite.0004                 PRI  CODE   W   000000000000C490     993   FTBios816.asm
+544   doReadWrite.0005                 PRI  CODE   W   000000000000C4AB    1009   FTBios816.asm
+545   doReadWrite.0006                 PRI  CODE   W   000000000000C4AE    1011   FTBios816.asm
+546   doRegs                           PRI  CODE   W   000000000000C4F1    1060   FTBios816.asm
+547   doRegs.0004                      PRI  CODE   W   000000000000C62A    1192   FTBios816.asm
+548   doRegs.0005                      PRI  CODE   W   000000000000C529    1081   FTBios816.asm
+549   doRegs.0006                      PRI  CODE   W   000000000000C555    1100   FTBios816.asm
+550   doRegs.0007                      PRI  CODE   W   000000000000C542    1092   FTBios816.asm
+551   doRegs.0008                      PRI  CODE   W   000000000000C56A    1110   FTBios816.asm
+552   doRegs.0009                      PRI  CODE   W   000000000000C580    1120   FTBios816.asm
+553   doRegs.0010                      PRI  CODE   W   000000000000C596    1130   FTBios816.asm
+554   doRegs.0011                      PRI  CODE   W   000000000000C5C8    1151   FTBios816.asm
+555   doRegs.0012                      PRI  CODE   W   000000000000C5E6    1164   FTBios816.asm
+556   doRegs.0013                      PRI  CODE   W   000000000000C5F8    1172   FTBios816.asm
+557   doRegs.0014                      PRI  CODE   W   000000000000C60C    1180   FTBios816.asm
+558   doRegs.0015                      PRI  CODE   W   000000000000C5B4    1143   FTBios816.asm
+559   doRegs.buildrec                  PRI  CODE   W   000000000000C51B    1076   FTBios816.asm
+560   doSavefile                       NON  DATA       000000000000C200     670   FTBios816.asm
+561   doTask                           PRI  CODE   W   000000000000C394     852   FTBios816.asm
+562   doTask.0001                      PRI  CODE   W   000000000000C3B0     866   FTBios816.asm
+563   doWrite                          PRI  CODE   W   000000000000C479     981   FTBios816.asm
+564   do_SEI                           PRI  CODE   W   000000000000C2FA     783   FTBios816.asm
+565   do_SEI.0001                      PRI  CODE   W   000000000000C307     789   FTBios816.asm
+566   do_SEI.0002                      PRI  CODE   W   000000000000C312     794   FTBios816.asm
+567   do_SEI.0003                      PRI  CODE   W   000000000000C31D     799   FTBios816.asm
+568   do_invaders                      NON  DATA   W   0000000000007868      30   invaders.asm
+569   dpr_save                         NON  DATA   W   00000000000000AC      95   FTBios816.asm
+570   dpycod                           PUB  CODE   W   0000000000008659    2486   supermon832.asm
+571   ds_save                          NON  DATA   W   0000000000000084      85   FTBios816.asm
+572   echo_switch                      PRI  CODE   W   000000000000C9BB    1668   FTBios816.asm
+573   freeJCB                          NON  DATA   W   000000000005200C     310   FTBios816.asm
+574   freeMBX                          NON  DATA   W   0000000000052008     308   FTBios816.asm
+575   freeMSG                          NON  DATA   W   000000000005200A     309   FTBios816.asm
+576   free_heap_ptr                    NON  DATA       000000000000E4D9    4636   FTBios816.asm
+577   getcharNoWait                    PRI  CODE   W   000000000000CEE7    2454   FTBios816.asm
+578   getcharNoWait.0001               PRI  CODE   W   000000000000CEFA    2462   FTBios816.asm
+579   getcharWait                      PRI  CODE   W   000000000000CEFC    2466   FTBios816.asm
+580   getcharWait.0001                 PRI  CODE   W   000000000000CF0F    2474   FTBios816.asm
+581   gtdc3                            PRI  CODE   W   000000000000CEE3    2450   FTBios816.asm
+582   gthx3                            PRI  CODE   W   000000000000CED0    2438   FTBios816.asm
+583   gthx5                            PRI  CODE   W   000000000000CEAA    2418   FTBios816.asm
+584   gthx6                            PRI  CODE   W   000000000000CEBD    2428   FTBios816.asm
+585   gthxn1                           PRI  CODE   W   000000000000CE98    2400   FTBios816.asm
+586   gthxn2                           PRI  CODE   W   000000000000CE75    2382   FTBios816.asm
+587   hJcbToAddr                       PUB  CODE   W   000000000000DA94      36   FMTKmsg.asm
+588   hMbxTmp                          NON  DATA   W   0000000000052004     306   FTBios816.asm
+589   hMbxToAddr                       PUB  CODE   W   000000000000DAB4      54   FMTKmsg.asm
+590   hMsgTmp                          NON  DATA   W   0000000000052006     307   FTBios816.asm
+591   hMsgToAddr                       PUB  CODE   W   000000000000DAC4      63   FMTKmsg.asm
+592   hTcbTmp                          NON  DATA   W   0000000000052002     305   FTBios816.asm
+593   hTcbToAddr                       PUB  CODE   W   000000000000DAA4      45   FMTKmsg.asm
+594   heap_free_ptr                    NON  DATA       000000000000E4B4    4611   FTBios816.asm
+595   jcbs                             NON  DATA   W   0000000000028000     253   FTBios816.asm
+596   keybdControlCodes                PRI  CODE   W   000000000000D410    2989   FTBios816.asm
+597   keybdExtendedCodes               PRI  CODE   W   000000000000D490    3007   FTBios816.asm
+598   keybd_char                       NON  DATA   W   00000000000000BA      99   FTBios816.asm
+599   keybd_cmd                        NON  DATA   W   00000000000000BC     101   FTBios816.asm
+600   ldtrec                           NON  DATA   W   0000000000000100     111   FTBios816.asm
+601   mailboxes                        NON  DATA   W   0000000000038000     279   FTBios816.asm
+602   messages                         NON  DATA   W   000000000003E000     294   FTBios816.asm
+603   mmas                             PRI  CODE   W   000000000000E591    4661   FTBios816.asm
+604   msgErr                           PRI  CODE   W   000000000000E518    4544   FTBios816.asm
+605   msgFileNotFound                  PRI  CODE   W   000000000000D8E2    3566   FTBios816.asm
+606   msgHelloWorld                    PRI  CODE   W   000000000000E2AD    4228   FTBios816.asm
+607   msgKeybdNR                       PRI  CODE   W   000000000000D06A    2683   FTBios816.asm
+608   msgRegs                          PRI  CODE   W   000000000000E49D    4537   FTBios816.asm
+609   msgRegs2                         PRI  CODE   W   000000000000E4F9    4541   FTBios816.asm
+610   msgRtcReadFail                   PRI  CODE   W   000000000000D758    3330   FTBios816.asm
+611   msgSSM                           PRI  CODE   W   000000000000CAD8    1805   FTBios816.asm
+612   msgSpiInitError                  PRI  CODE   W   000000000000D631    3210   FTBios816.asm
+613   msgSpiInited                     PRI  CODE   W   000000000000D651    3212   FTBios816.asm
+614   msgSpiReadError                  PRI  CODE   W   000000000000D665    3214   FTBios816.asm
+615   msgSpiWriteError                 PRI  CODE   W   000000000000D676    3216   FTBios816.asm
+616   msgStarting                      PRI  CODE   W   000000000000C97E    1664   FTBios816.asm
+617   music_tbl                        PRI  CODE   W   000000000000E671    4721   FTBios816.asm
+618   nMailbox                         NON  DATA   W   0000000000052010     312   FTBios816.asm
+619   nMsgBlk                          NON  DATA   W   000000000005200E     311   FTBios816.asm
+620   n_mnemon                         NON  DATA       000000000000005C    1664   supermon832.asm
+621   n_mpctab                         NON  DATA       000000000000000D    1433   supermon832.asm
+622   n_radix                          NON  DATA       0000000000000004    1450   supermon832.asm
+623   n_regchv                         NON  DATA       0000000000000009    2387   supermon832.asm
+624   n_vopidx                         NON  DATA       0000000000000004    2531   supermon832.asm
+625   numsec                           NON  DATA   W   00000000000000D2     109   FTBios816.asm
+626   pb_save                          NON  DATA   W   000000000000008C      87   FTBios816.asm
+627   pc_save                          NON  DATA   W   0000000000000088      86   FTBios816.asm
+628   processEsc                       PRI  CODE   W   000000000000CBB4    1929   FTBios816.asm
+629   processEsc.0001                  PRI  CODE   W   000000000000CBC7    1940   FTBios816.asm
+630   processEsc.0002                  PRI  CODE   W   000000000000CBDA    1950   FTBios816.asm
+631   processEsc.0003                  PRI  CODE   W   000000000000CBDD    1953   FTBios816.asm
+632   processEsc.0004                  PRI  CODE   W   000000000000CBE7    1958   FTBios816.asm
+633   processEsc.0005                  PRI  CODE   W   000000000000CBF2    1964   FTBios816.asm
+634   processEsc.0006                  PRI  CODE   W   000000000000CC00    1973   FTBios816.asm
+635   processEsc.0007                  PRI  CODE   W   000000000000CC16    1982   FTBios816.asm
+636   processEsc.0008                  PRI  CODE   W   000000000000CBFD    1970   FTBios816.asm
+637   processEsc.0009                  PRI  CODE   W   000000000000CC26    1990   FTBios816.asm
+638   processEsc.0010                  PRI  CODE   W   000000000000CC36    1998   FTBios816.asm
+639   processEsc.0011                  PRI  CODE   W   000000000000CC54    2021   FTBios816.asm
+640   processEsc.0012                  PRI  CODE   W   000000000000CC5F    2027   FTBios816.asm
+641   qcnt                             NON  DATA   W   00000000000000CC     106   FTBios816.asm
+642   reg_a                            NON  DATA   W   0000000000000090      74   FTBios816.asm
+643   reg_bl                           NON  DATA   W   00000000000000AC      81   FTBios816.asm
+644   reg_cs                           NON  DATA   W   0000000000000080      70   FTBios816.asm
+645   reg_db                           NON  DATA   W   00000000000000A4      79   FTBios816.asm
+646   reg_dp                           NON  DATA   W   00000000000000A8      80   FTBios816.asm
+647   reg_ds                           NON  DATA   W   0000000000000084      71   FTBios816.asm
+648   reg_mp                           NON  DATA   W   00000000000000B0      82   FTBios816.asm
+649   reg_pc                           NON  DATA   W   000000000000008C      73   FTBios816.asm
+650   reg_sp                           NON  DATA   W   000000000000009C      77   FTBios816.asm
+651   reg_sr                           NON  DATA   W   00000000000000A0      78   FTBios816.asm
+652   reg_ss                           NON  DATA   W   0000000000000088      72   FTBios816.asm
+653   reg_x                            NON  DATA   W   0000000000000094      75   FTBios816.asm
+654   reg_y                            NON  DATA   W   0000000000000098      76   FTBios816.asm
+655   rtc_init                         PRI  CODE   W   000000000000D688    3225   FTBios816.asm
+656   rtc_read                         PRI  CODE   W   000000000000D690    3232   FTBios816.asm
+657   rtc_read.0001                    PRI  CODE   W   000000000000D6B6    3252   FTBios816.asm
+658   rtc_read.rxerr                   PRI  CODE   W   000000000000D6EF    3274   FTBios816.asm
+659   rtc_wait_tip                     PRI  CODE   W   000000000000D6F7    3279   FTBios816.asm
+660   rtc_wait_tip.0001                PRI  CODE   W   000000000000D6F7    3280   FTBios816.asm
+661   rtc_wr_cmd                       PRI  CODE   W   000000000000D700    3286   FTBios816.asm
+662   rtc_write                        PRI  CODE   W   000000000000D712    3293   FTBios816.asm
+663   rtc_write.0001                   PRI  CODE   W   000000000000D72F    3309   FTBios816.asm
+664   rtc_write.rxerr                  PRI  CODE   W   000000000000D750    3325   FTBios816.asm
+665   running_task                     NON  DATA   W   0000000000052000      97   FTBios816.asm
+666   rw_flag                          NON  DATA   W   00000000000000BA     100   FTBios816.asm
+667   s_ibuf                           NON  DATA       0000000000000050     317   supermon832.asm
+668   secnum                           NON  DATA   W   00000000000000C4     104   FTBios816.asm
+669   shiftedScanCodes                 PRI  CODE   W   000000000000D310    2953   FTBios816.asm
+670   sp_save                          NON  DATA   W   000000000000009C      91   FTBios816.asm
+671   space                            PRI  CODE   W   000000000000CE3A    2340   FTBios816.asm
+672   spi_master_init                  PRI  CODE   W   000000000000D510    3034   FTBios816.asm
+673   spi_master_init.0001             PRI  CODE   W   000000000000D51F    3043   FTBios816.asm
+674   spi_master_init.0004             PRI  CODE   W   000000000000D53F    3059   FTBios816.asm
+675   spi_master_read                  PRI  CODE   W   000000000000D544    3074   FTBios816.asm
+676   spi_master_read.0001             PRI  CODE   W   000000000000D57C    3100   FTBios816.asm
+677   spi_master_read.0002             PRI  CODE   W   000000000000D5A8    3131   FTBios816.asm
+678   spi_master_read.0003             PRI  CODE   W   000000000000D5A8    3123   FTBios816.asm
+679   spi_master_read.0004             PRI  CODE   W   000000000000D5A0    3117   FTBios816.asm
+680   spi_master_write                 PRI  CODE   W   000000000000D5BC    3149   FTBios816.asm
+681   spi_master_write.0001            PRI  CODE   W   000000000000D5D3    3166   FTBios816.asm
+682   spi_master_write.0002            PRI  CODE   W   000000000000D604    3186   FTBios816.asm
+683   spi_master_write.0004            PRI  CODE   W   000000000000D62A    3205   FTBios816.asm
+684   spi_rw_vect                      NON  DATA   W   00000000000003F4     117   FTBios816.asm
+685   sr_save                          NON  DATA   W   00000000000000A0      92   FTBios816.asm
+686   srx_save                         NON  DATA   W   00000000000000A4      93   FTBios816.asm
+687   start                            PRI  CODE   W   000000000000C000     325   FTBios816.asm
+688   start.0001                       PRI  CODE   W   000000000000C0A8     455   FTBios816.asm
+689   start.0003                       PRI  CODE   W   000000000000C01A     360   FTBios816.asm
+690   start.0004                       PRI  CODE   W   000000000000C058     398   FTBios816.asm
+691   tcbs                             NON  DATA   W   0000000000020000     228   FTBios816.asm
+692   timeout1                         NON  DATA   W   0000000000000104     112   FTBios816.asm
+693   tmpy                             NON  DATA       000000000000E4DF    4640   FTBios816.asm
+694   unshiftedScanCodes               PRI  CODE   W   000000000000D210    2918   FTBios816.asm
+695   warm_start                       PRI  CODE   W   000000000000D77C    3354   FTBios816.asm
+696   x_save                           NON  DATA   W   0000000000000094      89   FTBios816.asm
+697   xitBasic                         PRI  CODE   W   000000000000D8FE    3584   FTBios816.asm
+698   xitBasic.0001                    PRI  CODE   W   000000000000D91C    3593   FTBios816.asm
+699   y_save                           NON  DATA   W   0000000000000098      90   FTBios816.asm
+
+
+Local symbols:
+File:supermon832.asm
+
+Hash Table:
+ #  Name                            Nargs  Line   File
+  0   JMON                             PRI  CODE   W   0000000000008000    1198   supermon832.asm
+  1   JMONBRK                          PRI  CODE   W   0000000000008002    1199   supermon832.asm
+  2 * MEM                              PRI  CODE   W   0000000000008A5D    1195   supermon832.asm
+  3   NDX                              PRI  CODE   W   0000000000008000    1196   supermon832.asm
+  4   _origin_                         NON  DATA   W   0000000000008000     222   supermon832.asm
+  5   _txtend_                         NON  DATA   W   00000000000090DF    5245   supermon832.asm
+  6   a_asclch                         NON  DATA   W   000000000000007A     735   supermon832.asm
+  7   a_asclcl                         NON  DATA   W   0000000000000061     737   supermon832.asm
+  8   a_bel                            NON  DATA   W   0000000000000007     723   supermon832.asm
+  9   a_blank                          NON  DATA   W   0000000000000020     734   supermon832.asm
+ 10   a_bs                             NON  DATA   W   0000000000000008     724   supermon832.asm
+ 11   a_colon                          NON  DATA   W   000000000000003A     738   supermon832.asm
+ 12   a_cr                             NON  DATA   W   000000000000000D     725   supermon832.asm
+ 13   a_del                            NON  DATA   W   000000000000007F     726   supermon832.asm
+ 14   a_esc                            NON  DATA   W   000000000000001B     727   supermon832.asm
+ 15   a_hexdec                         NON  DATA   W   0000000000000006     836   supermon832.asm
+ 16   a_ht                             NON  DATA   W   0000000000000009     728   supermon832.asm
+ 17   a_lctouc                         NON  DATA   W   000000000000005F     736   supermon832.asm
+ 18   a_lf                             NON  DATA   W   000000000000000A     729   supermon832.asm
+ 19   a_mnecvt                         NON  DATA   W   000000000000003F     851   supermon832.asm
+ 20   addra                            NON  DATA   W   00000000000000A0    1142   supermon832.asm
+ 21   addrb                            NON  DATA   W   00000000000000A4    1143   supermon832.asm
+ 22   admodidx                         NON  DATA   W   00000000000000C3    1154   supermon832.asm
+ 23   aimmaska                         NON  DATA   W   000000000000001F     852   supermon832.asm
+ 24   aimmaskb                         NON  DATA   W   0000000000000009     853   supermon832.asm
+ 25   alert                            PRI  CODE   W   0000000000008811    2882   supermon832.asm
+ 26   am_adrx                          NON  DATA   W   0000000000000002     888   supermon832.asm
+ 27   am_adry                          NON  DATA   W   0000000000000003     889   supermon832.asm
+ 28   am_imm                           NON  DATA   W   0000000000000001     887   supermon832.asm
+ 29   am_ind                           NON  DATA   W   0000000000000004     890   supermon832.asm
+ 30   am_indl                          NON  DATA   W   0000000000000005     891   supermon832.asm
+ 31   am_indly                         NON  DATA   W   0000000000000006     892   supermon832.asm
+ 32   am_indx                          NON  DATA   W   0000000000000007     893   supermon832.asm
+ 33   am_indxly                        NON  DATA   W   000000000000000C     898   supermon832.asm
+ 34   am_indy                          NON  DATA   W   0000000000000008     894   supermon832.asm
+ 35   am_move                          NON  DATA   W   000000000000000B     897   supermon832.asm
+ 36   am_nam                           NON  DATA   W   0000000000000000     886   supermon832.asm
+ 37   am_stk                           NON  DATA   W   0000000000000009     895   supermon832.asm
+ 38   am_stky                          NON  DATA   W   000000000000000A     896   supermon832.asm
+ 39   amodmask                         NON  DATA   W   000000000000000F     915   supermon832.asm
+ 40   amp_flim                         NON  DATA   W   0000000000000021     877   supermon832.asm
+ 41   amp_imm                          NON  DATA   W   0000000000000023     878   supermon832.asm
+ 42   amp_ind                          NON  DATA   W   0000000000000028     879   supermon832.asm
+ 43   amp_indl                         NON  DATA   W   000000000000005B     880   supermon832.asm
+ 44   amp_indxl                        NON  DATA   W   000000000000007B     881   supermon832.asm
+ 45   apadrbkh                         NON  DATA   W   0000000000000002     867   supermon832.asm
+ 46   apadrbkl                         NON  DATA   W   0000000000000003     868   supermon832.asm
+ 47   apadrlbh                         NON  DATA   W   0000000000000006     871   supermon832.asm
+ 48   apadrlbl                         NON  DATA   W   0000000000000007     872   supermon832.asm
+ 49   apadrmbh                         NON  DATA   W   0000000000000004     869   supermon832.asm
+ 50   apadrmbl                         NON  DATA   W   0000000000000005     870   supermon832.asm
+ 51   ascbin                           PRI  CODE   W   0000000000008838    2987   supermon832.asm
+ 52   ascbin.0000010                   PRI  CODE   W   0000000000008848    3001   supermon832.asm
+ 53   ascbin.0000020                   PRI  CODE   W   000000000000884A    3003   supermon832.asm
+ 54   ascbin.0000030                   PRI  CODE   W   0000000000008855    3012   supermon832.asm
+ 55   ascbin.0000040                   PRI  CODE   W   000000000000885B    3017   supermon832.asm
+ 56   ascbin01                         PRI  CODE   W   0000000000008865    3025   supermon832.asm
+ 57   ascbin01.0000020                 PRI  CODE   W   000000000000888E    3056   supermon832.asm
+ 58   ascbin01.0000030                 PRI  CODE   W   000000000000889C    3072   supermon832.asm
+ 59   ascbin01.0000040                 PRI  CODE   W   00000000000088A0    3075   supermon832.asm
+ 60   ascbin01.0000050                 PRI  CODE   W   00000000000088B3    3092   supermon832.asm
+ 61   ascbin02                         PRI  CODE   W   00000000000088C2    3107   supermon832.asm
+ 62   ascbin02.0000010                 PRI  CODE   W   00000000000088CC    3113   supermon832.asm
+ 63   ascbin03                         PRI  CODE   W   00000000000088DA    3127   supermon832.asm
+ 64   ascbin04                         PRI  CODE   W   00000000000088DB    3129   supermon832.asm
+ 65   ascprmct                         NON  DATA   W   0000000000000009     855   supermon832.asm
+ 66   asmprfx                          NON  DATA   W   0000000000000041     854   supermon832.asm
+ 67   auxbuf                           NON  DATA   W   0000000000000251     317   supermon832.asm
+ 68   auxbufix                         NON  DATA   W   00000000000000BE    1149   supermon832.asm
+ 69   basetab                          PRI  CODE   W   0000000000008CE2    4415   supermon832.asm
+ 70   bcdasc                           PRI  CODE   W   00000000000088E0    3145   supermon832.asm
+ 71   bcdumask                         NON  DATA   W   000000000000000F     844   supermon832.asm
+ 72   binasc                           PRI  CODE   W   00000000000088F6    3196   supermon832.asm
+ 73   binasc.0000010                   PRI  CODE   W   0000000000008900    3207   supermon832.asm
+ 74   binasc.0000020                   PRI  CODE   W   0000000000008909    3215   supermon832.asm
+ 75   binasc.0000030                   PRI  CODE   W   0000000000008917    3223   supermon832.asm
+ 76   binasc.0000040                   PRI  CODE   W   0000000000008922    3233   supermon832.asm
+ 77   binasc.0000050                   PRI  CODE   W   0000000000008926    3236   supermon832.asm
+ 78   binasc.0000060                   PRI  CODE   W   0000000000008934    3246   supermon832.asm
+ 79   binasc.0000070                   PRI  CODE   W   0000000000008939    3253   supermon832.asm
+ 80   binasc.0000080                   PRI  CODE   W   000000000000894C    3265   supermon832.asm
+ 81   binasc.0000090                   PRI  CODE   W   0000000000008950    3268   supermon832.asm
+ 82   binasc.0000100                   PRI  CODE   W   0000000000008953    3271   supermon832.asm
+ 83   binasc.0000110                   PRI  CODE   W   0000000000008969    3289   supermon832.asm
+ 84   binasc.0000120                   PRI  CODE   W   000000000000896F    3294   supermon832.asm
+ 85   binasc.0000130                   PRI  CODE   W   000000000000897A    3300   supermon832.asm
+ 86   binhex                           PRI  CODE   W   000000000000898A    3326   supermon832.asm
+ 87   binhex.0000010                   PRI  CODE   W   0000000000008994    3336   supermon832.asm
+ 88   binhex.0000020                   PRI  CODE   W   000000000000899A    3341   supermon832.asm
+ 89   bintonyb                         PRI  CODE   W   00000000000088EC    3166   supermon832.asm
+ 90   biosctx                          NON  DATA   W   00000000000000FC     276   supermon832.asm
+ 91   bitabs                           NON  DATA   W   000000000000002C     762   supermon832.asm
+ 92   bitsdig                          NON  DATA   W   00000000000000C0    1151   supermon832.asm
+ 93   bitsdtab                         PRI  CODE   W   0000000000008CE6    4416   supermon832.asm
+ 94   bitsntab                         PRI  CODE   W   0000000000008CEA    4417   supermon832.asm
+ 95   bitzp                            NON  DATA   W   0000000000000024     763   supermon832.asm
+ 96   bop1                             NON  DATA   W   0000000000000050     907   supermon832.asm
+ 97   bop2                             NON  DATA   W   0000000000000060     908   supermon832.asm
+ 98   btoamask                         NON  DATA   W   0000000000000030     845   supermon832.asm
+ 99   c_bin                            NON  DATA   W   0000000000000025     837   supermon832.asm
+100   c_dec                            NON  DATA   W   000000000000002B     838   supermon832.asm
+101   c_hex                            NON  DATA   W   0000000000000024     839   supermon832.asm
+102   c_oct                            NON  DATA   W   0000000000000040     840   supermon832.asm
+103   calccnt                          PRI  CODE   W   0000000000008A09    3455   supermon832.asm
+104   charcnt                          NON  DATA   W   00000000000000C4    1155   supermon832.asm
+105   clearlin                         PRI  CODE   W   000000000000876D    2695   supermon832.asm
+106   clrfaca                          PRI  CODE   W   000000000000899D    3348   supermon832.asm
+107   clrfacb                          PRI  CODE   W   00000000000089A6    3359   supermon832.asm
+108   clroper                          PRI  CODE   W   0000000000008A1E    3471   supermon832.asm
+109   clroper.0000010                  PRI  CODE   W   0000000000008A21    3474   supermon832.asm
+110   cpcode                           PRI  CODE   W   0000000000008A5E    3549   supermon832.asm
+111   cpfwsup                          PRI  CODE   W   0000000000008A2A    3486   supermon832.asm
+112   cprvsup                          PRI  CODE   W   0000000000008A31    3494   supermon832.asm
+113   cpsup                            PRI  CODE   W   0000000000008A36    3501   supermon832.asm
+114   cpsup.0000010                    PRI  CODE   W   0000000000008A3E    3507   supermon832.asm
+115   dc_bf                            PRI  CODE   W   000000000000900B    5178   supermon832.asm
+116   dc_bs                            PRI  CODE   W   0000000000009011    5181   supermon832.asm
+117   dc_cl                            PRI  CODE   W   0000000000009015    5185   supermon832.asm
+118   dc_cn                            PRI  CODE   W   0000000000009018    5188   supermon832.asm
+119   dc_co                            PRI  CODE   W   000000000000901C    5191   supermon832.asm
+120   dc_er                            PRI  CODE   W   0000000000009020    5194   supermon832.asm
+121   dc_lf                            PRI  CODE   W   0000000000009026    5197   supermon832.asm
+122   decdcnt                          PRI  CODE   W   0000000000008A67    3573   supermon832.asm
+123   decdcnt.0000010                  PRI  CODE   W   0000000000008A87    3594   supermon832.asm
+124   decdcnt.0000020                  PRI  CODE   W   0000000000008A88    3596   supermon832.asm
+125   disprfx                          NON  DATA   W   000000000000002E     856   supermon832.asm
+126   dpycaddr                         PRI  CODE   W   000000000000863F    2436   supermon832.asm
+127   dpycaddr.0000010                 PRI  CODE   W   0000000000008648    2442   supermon832.asm
+128   dpycaddr.0000020                 PRI  CODE   W   0000000000008653    2450   supermon832.asm
+129   dpycod01                         PRI  CODE   W   00000000000086AA    2548   supermon832.asm
+130   dpycod01.0000010                 PRI  CODE   W   00000000000086BE    2560   supermon832.asm
+131   dpycod01.0000020                 PRI  CODE   W   00000000000086D2    2572   supermon832.asm
+132   dpycod01.0000030                 PRI  CODE   W   00000000000086D9    2580   supermon832.asm
+133   dpycod01.0000040                 PRI  CODE   W   00000000000086DD    2583   supermon832.asm
+134   dpycod01.0000050                 PRI  CODE   W   00000000000086ED    2596   supermon832.asm
+135   dpycod02                         PRI  CODE   W   0000000000008709    2618   supermon832.asm
+136   dpycod02.0000010                 PRI  CODE   W   0000000000008713    2625   supermon832.asm
+137   dpycod02.0000020                 PRI  CODE   W   000000000000872A    2640   supermon832.asm
+138   dpycod02.0000030                 PRI  CODE   W   0000000000008733    2646   supermon832.asm
+139   dpycod02.0000040                 PRI  CODE   W   000000000000874C    2661   supermon832.asm
+140   dpycod02.0000050                 PRI  CODE   W   0000000000008752    2668   supermon832.asm
+141   dpycod03                         PRI  CODE   W   0000000000008757    2675   supermon832.asm
+142   dpycod03.0000010                 PRI  CODE   W   0000000000008767    2686   supermon832.asm
+143   dpycodaa                         PRI  CODE   W   000000000000865B    2488   supermon832.asm
+144   dpycodaa.0000010                 PRI  CODE   W   0000000000008699    2529   supermon832.asm
+145   dpycodaa.0000020                 PRI  CODE   W   000000000000869D    2533   supermon832.asm
+146   dpycodaa.0000030                 PRI  CODE   W   00000000000086A7    2541   supermon832.asm
+147   dpycodaa.0000040                 PRI  CODE   W   00000000000086A9    2543   supermon832.asm
+148   dpyerr                           PRI  CODE   W   00000000000087BE    2761   supermon832.asm
+149   dpyerraa                         PRI  CODE   W   00000000000087C1    2763   supermon832.asm
+150   dpyhex                           PRI  CODE   W   00000000000087E7    2820   supermon832.asm
+151   dpyhexw                          PRI  CODE   W   00000000000087D7    2797   supermon832.asm
+152   dpyibuf                          PRI  CODE   W   0000000000008772    2702   supermon832.asm
+153   dpymem                           PRI  CODE   W   0000000000008777    2716   supermon832.asm
+154   dpymem.0000010                   PRI  CODE   W   0000000000008789    2726   supermon832.asm
+155   dpymem.0000020                   PRI  CODE   W   000000000000879D    2739   supermon832.asm
+156   dpymem.0000030                   PRI  CODE   W   000000000000879F    2741   supermon832.asm
+157   enddest                          PRI  CODE   W   0000000000008A8B    3603   supermon832.asm
+158   enddest.0000010                  PRI  CODE   W   0000000000008AB0    3623   supermon832.asm
+159   eopsize                          NON  DATA   W   00000000000000CD    1161   supermon832.asm
+160   faca                             NON  DATA   W   00000000000000A7    1144   supermon832.asm
+161   facabcd                          PRI  CODE   W   00000000000089AF    3370   supermon832.asm
+162   facabcd.0000010                  PRI  CODE   W   00000000000089B1    3372   supermon832.asm
+163   facabcd.0000020                  PRI  CODE   W   00000000000089B9    3379   supermon832.asm
+164   facabcd.0000030                  PRI  CODE   W   00000000000089C5    3388   supermon832.asm
+165   facabcd.0000040                  PRI  CODE   W   00000000000089C8    3391   supermon832.asm
+166   facabcd.0000050                  PRI  CODE   W   00000000000089D2    3400   supermon832.asm
+167   facabcd.0000060                  PRI  CODE   W   00000000000089DC    3408   supermon832.asm
+168   facabcd.0000070                  PRI  CODE   W   00000000000089DE    3410   supermon832.asm
+169   facabcd.0000080                  PRI  CODE   W   00000000000089EF    3423   supermon832.asm
+170   facaddra                         PRI  CODE   W   0000000000008AB1    3629   supermon832.asm
+171   facaddra.0000010                 PRI  CODE   W   0000000000008AB3    3631   supermon832.asm
+172   facaddrb                         PRI  CODE   W   0000000000008ABB    3642   supermon832.asm
+173   facaddrb.0000010                 PRI  CODE   W   0000000000008ABD    3644   supermon832.asm
+174   facaoper                         PRI  CODE   W   0000000000008AC5    3655   supermon832.asm
+175   facaoper.0000010                 PRI  CODE   W   0000000000008AC7    3657   supermon832.asm
+176   facasize                         PRI  CODE   W   0000000000008ACF    3680   supermon832.asm
+177   facasize.0000010                 PRI  CODE   W   0000000000008AD3    3683   supermon832.asm
+178   facasize.0000020                 PRI  CODE   W   0000000000008ADA    3689   supermon832.asm
+179   facax                            NON  DATA   W   00000000000000AB    1145   supermon832.asm
+180   facb                             NON  DATA   W   00000000000000AF    1146   supermon832.asm
+181   facc                             NON  DATA   W   00000000000000B5    1147   supermon832.asm
+182   flimflag                         NON  DATA   W   00000000000000CE    1162   supermon832.asm
+183   flimmask                         NON  DATA   W   00000000000000C0     857   supermon832.asm
+184   gendbs                           PRI  CODE   W   00000000000087C5    2770   supermon832.asm
+185   getbyte                          PRI  CODE   W   0000000000008ADD    3697   supermon832.asm
+186 * getcha                           NON  DATA   W   0000000000008CB3     278   supermon832.asm
+187   getcha.0000010                   PRI  CODE   W   0000000000008CB9    4369   supermon832.asm
+188   getcha.0000020                   PRI  CODE   W   0000000000008CBA    4371   supermon832.asm
+189   getchar                          PRI  CODE   W   0000000000008BD2    4057   supermon832.asm
+190   getcharc                         PRI  CODE   W   0000000000008CA1    4302   supermon832.asm
+191   getcharr                         PRI  CODE   W   0000000000008BD0    4031   supermon832.asm
+192   getcharw                         PRI  CODE   W   0000000000008C30    4171   supermon832.asm
+193   getcharw.0000010                 PRI  CODE   W   0000000000008C3D    4180   supermon832.asm
+194   getparm                          PRI  CODE   W   0000000000008AE3    3715   supermon832.asm
+195   getparm.0000010                  PRI  CODE   W   0000000000008AF6    3728   supermon832.asm
+196   getparm.0000020                  PRI  CODE   W   0000000000008AFE    3734   supermon832.asm
+197   getparm.0000030                  PRI  CODE   W   0000000000008B00    3737   supermon832.asm
+198   getparm.0000040                  PRI  CODE   W   0000000000008B05    3742   supermon832.asm
+199   getparmr                         PRI  CODE   W   0000000000008AE1    3713   supermon832.asm
+200   getpat                           PRI  CODE   W   0000000000008BE4    4095   supermon832.asm
+201   getpat.0000010                   PRI  CODE   W   0000000000008BFC    4110   supermon832.asm
+202   getpat.0000020                   PRI  CODE   W   0000000000008BFE    4112   supermon832.asm
+203   getpat.0000030                   PRI  CODE   W   0000000000008C0E    4122   supermon832.asm
+204   getpat.0000040                   PRI  CODE   W   0000000000008C13    4125   supermon832.asm
+205   getpat.0000050                   PRI  CODE   W   0000000000008C21    4135   supermon832.asm
+206   getpat.0000060                   PRI  CODE   W   0000000000008C24    4137   supermon832.asm
+207   getpat.0000070                   PRI  CODE   W   0000000000008C29    4145   supermon832.asm
+208   getpat.0000080                   PRI  CODE   W   0000000000008C2D    4152   supermon832.asm
+209   halftab                          NON  DATA   W   0000000000000004    1115   supermon832.asm
+210   hwstack                          NON  DATA   W   0000000000003FFF     261   supermon832.asm
+211   ibuffer                          NON  DATA   W   0000000000000200     316   supermon832.asm
+212   ibufidx                          NON  DATA   W   00000000000000BF    1150   supermon832.asm
+213   incaddra                         PRI  CODE   W   0000000000008B20    3808   supermon832.asm
+214   incaddra.0000010                 PRI  CODE   W   0000000000008B2B    3816   supermon832.asm
+215   incoper                          PRI  CODE   W   0000000000008B2D    3823   supermon832.asm
+216   incoper.0000010                  PRI  CODE   W   0000000000008B3C    3834   supermon832.asm
+217   input                            PRI  CODE   W   0000000000008C3F    4203   supermon832.asm
+218   input.0000010                    PRI  CODE   W   0000000000008C4F    4214   supermon832.asm
+219   input.0000020                    PRI  CODE   W   0000000000008C58    4222   supermon832.asm
+220   input.0000030                    PRI  CODE   W   0000000000008C62    4231   supermon832.asm
+221   input.0000040                    PRI  CODE   W   0000000000008C6F    4244   supermon832.asm
+222   input.0000050                    PRI  CODE   W   0000000000008C78    4253   supermon832.asm
+223   input.0000060                    PRI  CODE   W   0000000000008C8A    4267   supermon832.asm
+224   instdata                         PRI  CODE   W   0000000000008B3F    3850   supermon832.asm
+225   instsize                         NON  DATA   W   00000000000000C6    1156   supermon832.asm
+226   iopsize                          NON  DATA   W   00000000000000CF    1178   supermon832.asm
+227   jcr                              PRI  CODE   W   0000000000008CB3    4362   supermon832.asm
+228   k_hex                            NON  DATA   W   0000000000000066     841   supermon832.asm
+229   lodbnk                           PRI  CODE   W   0000000000008C99    4283   supermon832.asm
+230   lzsttab                          PRI  CODE   W   0000000000008CEE    4418   supermon832.asm
+231   m_bits                           NON  DATA   W   0000000000000020     842   supermon832.asm
+232   m_cbits                          NON  DATA   W   0000000000000030     843   supermon832.asm
+233   mcftbnk                          NON  DATA   W   00000000000000D4    1187   supermon832.asm
+234   mcftopc                          NON  DATA   W   00000000000000D3    1186   supermon832.asm
+235   mcftwork                         NON  DATA   W   00000000000000D2    1185   supermon832.asm
+236   memprfx                          NON  DATA   W   000000000000003E    1116   supermon832.asm
+237   memsepch                         NON  DATA   W   000000000000003A    1117   supermon832.asm
+238   memsubch                         NON  DATA   W   000000000000002E    1118   supermon832.asm
+239   mm_brk                           PRI  CODE   W   0000000000009029    5204   supermon832.asm
+240   mm_entry                         PRI  CODE   W   0000000000009034    5210   supermon832.asm
+241   mm_err                           PRI  CODE   W   000000000000904D    5217   supermon832.asm
+242   mm_prmpt                         PRI  CODE   W   0000000000009056    5219   supermon832.asm
+243   mm_regs                          PRI  CODE   W   000000000000905F    5223   supermon832.asm
+244   mm_regs2                         PRI  CODE   W   00000000000090BB    5229   supermon832.asm
+245   mm_rts                           PRI  CODE   W   00000000000090D4    5234   supermon832.asm
+246   mne_adc                          NON  DATA   W   0000000000002144     922   supermon832.asm
+247   mne_adcx                         NON  DATA   W   0000000000000010    1018   supermon832.asm
+248   mne_and                          NON  DATA   W   0000000000002BC4     923   supermon832.asm
+249   mne_andx                         NON  DATA   W   000000000000001D    1019   supermon832.asm
+250   mne_asl                          NON  DATA   W   0000000000006D04     924   supermon832.asm
+251   mne_aslx                         NON  DATA   W   000000000000002C    1020   supermon832.asm
+252   mne_bcc                          NON  DATA   W   0000000000002106     925   supermon832.asm
+253   mne_bccx                         NON  DATA   W   000000000000000F    1021   supermon832.asm
+254   mne_bcs                          NON  DATA   W   000000000000A106     926   supermon832.asm
+255   mne_bcsx                         NON  DATA   W   0000000000000041    1022   supermon832.asm
+256   mne_beq                          NON  DATA   W   0000000000009186     927   supermon832.asm
+257   mne_beqx                         NON  DATA   W   000000000000003B    1023   supermon832.asm
+258   mne_bit                          NON  DATA   W   000000000000AA86     928   supermon832.asm
+259   mne_bitx                         NON  DATA   W   0000000000000046    1024   supermon832.asm
+260   mne_bmi                          NON  DATA   W   0000000000005386     929   supermon832.asm
+261   mne_bmix                         NON  DATA   W   0000000000000024    1025   supermon832.asm
+262   mne_bne                          NON  DATA   W   00000000000033C6     930   supermon832.asm
+263   mne_bnex                         NON  DATA   W   000000000000001F    1026   supermon832.asm
+264   mne_bpl                          NON  DATA   W   0000000000006C46     931   supermon832.asm
+265   mne_bplx                         NON  DATA   W   000000000000002A    1027   supermon832.asm
+266   mne_bra                          NON  DATA   W   00000000000014C6     932   supermon832.asm
+267   mne_brax                         NON  DATA   W   0000000000000005    1028   supermon832.asm
+268   mne_brk                          NON  DATA   W   00000000000064C6     933   supermon832.asm
+269   mne_brkx                         NON  DATA   W   0000000000000027    1029   supermon832.asm
+270   mne_brl                          NON  DATA   W   0000000000006CC6     934   supermon832.asm
+271   mne_brlx                         NON  DATA   W   000000000000002B    1030   supermon832.asm
+272   mne_bvc                          NON  DATA   W   00000000000025C6     935   supermon832.asm
+273   mne_bvcx                         NON  DATA   W   0000000000000017    1031   supermon832.asm
+274   mne_bvs                          NON  DATA   W   000000000000A5C6     936   supermon832.asm
+275   mne_bvsx                         NON  DATA   W   0000000000000044    1032   supermon832.asm
+276   mne_clc                          NON  DATA   W   0000000000002348     937   supermon832.asm
+277   mne_clcx                         NON  DATA   W   0000000000000014    1033   supermon832.asm
+278   mne_cld                          NON  DATA   W   0000000000002B48     938   supermon832.asm
+279   mne_cldx                         NON  DATA   W   000000000000001B    1034   supermon832.asm
+280   mne_cli                          NON  DATA   W   0000000000005348     939   supermon832.asm
+281   mne_clix                         NON  DATA   W   0000000000000023    1035   supermon832.asm
+282   mne_clv                          NON  DATA   W   000000000000BB48     940   supermon832.asm
+283   mne_clvx                         NON  DATA   W   0000000000000047    1036   supermon832.asm
+284   mne_cmp                          NON  DATA   W   0000000000008B88     941   supermon832.asm
+285   mne_cmpx                         NON  DATA   W   0000000000000035    1037   supermon832.asm
+286   mne_cop                          NON  DATA   W   0000000000008C08     942   supermon832.asm
+287   mne_copx                         NON  DATA   W   0000000000000037    1038   supermon832.asm
+288   mne_cpx                          NON  DATA   W   000000000000CC48     943   supermon832.asm
+289   mne_cpxx                         NON  DATA   W   000000000000004E    1039   supermon832.asm
+290   mne_cpy                          NON  DATA   W   000000000000D448     944   supermon832.asm
+291   mne_cpyx                         NON  DATA   W   0000000000000058    1040   supermon832.asm
+292   mne_dec                          NON  DATA   W   000000000000218A     945   supermon832.asm
+293   mne_decx                         NON  DATA   W   0000000000000012    1041   supermon832.asm
+294   mne_dex                          NON  DATA   W   000000000000C98A     946   supermon832.asm
+295   mne_dexx                         NON  DATA   W   000000000000004A    1042   supermon832.asm
+296   mne_dey                          NON  DATA   W   000000000000D18A     947   supermon832.asm
+297   mne_deyx                         NON  DATA   W   0000000000000054    1043   supermon832.asm
+298   mne_eor                          NON  DATA   W   0000000000009C0C     948   supermon832.asm
+299   mne_eorx                         NON  DATA   W   000000000000003D    1044   supermon832.asm
+300   mne_inc                          NON  DATA   W   00000000000023D4     949   supermon832.asm
+301   mne_incx                         NON  DATA   W   0000000000000015    1045   supermon832.asm
+302   mne_inx                          NON  DATA   W   000000000000CBD4     950   supermon832.asm
+303   mne_inxx                         NON  DATA   W   000000000000004D    1046   supermon832.asm
+304   mne_iny                          NON  DATA   W   000000000000D3D4     951   supermon832.asm
+305   mne_inyx                         NON  DATA   W   0000000000000057    1047   supermon832.asm
+306   mne_jml                          NON  DATA   W   0000000000006B96     952   supermon832.asm
+307   mne_jmlx                         NON  DATA   W   0000000000000028    1048   supermon832.asm
+308   mne_jmp                          NON  DATA   W   0000000000008B96     953   supermon832.asm
+309   mne_jmpx                         NON  DATA   W   0000000000000036    1049   supermon832.asm
+310   mne_jsl                          NON  DATA   W   0000000000006D16     954   supermon832.asm
+311   mne_jslx                         NON  DATA   W   000000000000002D    1050   supermon832.asm
+312   mne_jsr                          NON  DATA   W   0000000000009D16     955   supermon832.asm
+313   mne_jsrx                         NON  DATA   W   000000000000003F    1051   supermon832.asm
+314   mne_lda                          NON  DATA   W   000000000000115A     956   supermon832.asm
+315   mne_ldax                         NON  DATA   W   0000000000000001    1052   supermon832.asm
+316   mne_ldx                          NON  DATA   W   000000000000C95A     957   supermon832.asm
+317   mne_ldxx                         NON  DATA   W   0000000000000049    1053   supermon832.asm
+318   mne_ldy                          NON  DATA   W   000000000000D15A     958   supermon832.asm
+319   mne_ldyx                         NON  DATA   W   0000000000000053    1054   supermon832.asm
+320   mne_lsr                          NON  DATA   W   0000000000009D1A     959   supermon832.asm
+321   mne_lsrx                         NON  DATA   W   0000000000000040    1055   supermon832.asm
+322   mne_mvn                          NON  DATA   W   0000000000007DDC     960   supermon832.asm
+323   mne_mvnx                         NON  DATA   W   0000000000000030    1056   supermon832.asm
+324   mne_mvp                          NON  DATA   W   0000000000008DDC     961   supermon832.asm
+325   mne_mvpx                         NON  DATA   W   000000000000003A    1057   supermon832.asm
+326   mne_nop                          NON  DATA   W   0000000000008C1E     962   supermon832.asm
+327   mne_nopx                         NON  DATA   W   0000000000000038    1058   supermon832.asm
+328   mne_ora                          NON  DATA   W   00000000000014E0     963   supermon832.asm
+329   mne_orax                         NON  DATA   W   0000000000000006    1059   supermon832.asm
+330   mne_pea                          NON  DATA   W   00000000000011A2     964   supermon832.asm
+331   mne_peax                         NON  DATA   W   0000000000000002    1060   supermon832.asm
+332   mne_pei                          NON  DATA   W   00000000000051A2     965   supermon832.asm
+333   mne_peix                         NON  DATA   W   0000000000000021    1061   supermon832.asm
+334   mne_per                          NON  DATA   W   00000000000099A2     966   supermon832.asm
+335   mne_perx                         NON  DATA   W   000000000000003C    1062   supermon832.asm
+336   mne_pha                          NON  DATA   W   0000000000001262     967   supermon832.asm
+337   mne_phax                         NON  DATA   W   0000000000000003    1063   supermon832.asm
+338   mne_phb                          NON  DATA   W   0000000000001A62     968   supermon832.asm
+339   mne_phbx                         NON  DATA   W   000000000000000A    1064   supermon832.asm
+340   mne_phd                          NON  DATA   W   0000000000002A62     969   supermon832.asm
+341   mne_phdx                         NON  DATA   W   000000000000001A    1065   supermon832.asm
+342   mne_phk                          NON  DATA   W   0000000000006262     970   supermon832.asm
+343   mne_phkx                         NON  DATA   W   0000000000000026    1066   supermon832.asm
+344   mne_php                          NON  DATA   W   0000000000008A62     971   supermon832.asm
+345   mne_phpx                         NON  DATA   W   0000000000000033    1067   supermon832.asm
+346   mne_phx                          NON  DATA   W   000000000000CA62     972   supermon832.asm
+347   mne_phxx                         NON  DATA   W   000000000000004B    1068   supermon832.asm
+348   mne_phy                          NON  DATA   W   000000000000D262     973   supermon832.asm
+349   mne_phyx                         NON  DATA   W   0000000000000055    1069   supermon832.asm
+350   mne_pla                          NON  DATA   W   0000000000001362     974   supermon832.asm
+351   mne_plax                         NON  DATA   W   0000000000000004    1070   supermon832.asm
+352   mne_plb                          NON  DATA   W   0000000000001B62     975   supermon832.asm
+353   mne_plbx                         NON  DATA   W   000000000000000B    1071   supermon832.asm
+354   mne_pld                          NON  DATA   W   0000000000002B62     976   supermon832.asm
+355   mne_pldx                         NON  DATA   W   000000000000001C    1072   supermon832.asm
+356   mne_plp                          NON  DATA   W   0000000000008B62     977   supermon832.asm
+357   mne_plpx                         NON  DATA   W   0000000000000034    1073   supermon832.asm
+358   mne_plx                          NON  DATA   W   000000000000CB62     978   supermon832.asm
+359   mne_plxx                         NON  DATA   W   000000000000004C    1074   supermon832.asm
+360   mne_ply                          NON  DATA   W   000000000000D362     979   supermon832.asm
+361   mne_plyx                         NON  DATA   W   0000000000000056    1075   supermon832.asm
+362   mne_rep                          NON  DATA   W   00000000000089A6     980   supermon832.asm
+363   mne_repx                         NON  DATA   W   0000000000000031    1076   supermon832.asm
+364   mne_rol                          NON  DATA   W   0000000000006C26     981   supermon832.asm
+365   mne_rolx                         NON  DATA   W   0000000000000029    1077   supermon832.asm
+366   mne_ror                          NON  DATA   W   0000000000009C26     982   supermon832.asm
+367   mne_rorx                         NON  DATA   W   000000000000003E    1078   supermon832.asm
+368   mne_rti                          NON  DATA   W   0000000000005566     983   supermon832.asm
+369   mne_rtix                         NON  DATA   W   0000000000000025    1079   supermon832.asm
+370   mne_rtl                          NON  DATA   W   0000000000006D66     984   supermon832.asm
+371   mne_rtlx                         NON  DATA   W   000000000000002E    1080   supermon832.asm
+372   mne_rts                          NON  DATA   W   000000000000A566     985   supermon832.asm
+373   mne_rtsx                         NON  DATA   W   0000000000000043    1081   supermon832.asm
+374   mne_sbc                          NON  DATA   W   00000000000020E8     986   supermon832.asm
+375   mne_sbcx                         NON  DATA   W   000000000000000E    1082   supermon832.asm
+376   mne_sec                          NON  DATA   W   00000000000021A8     987   supermon832.asm
+377   mne_secx                         NON  DATA   W   0000000000000013    1083   supermon832.asm
+378   mne_sed                          NON  DATA   W   00000000000029A8     988   supermon832.asm
+379   mne_sedx                         NON  DATA   W   0000000000000019    1084   supermon832.asm
+380   mne_sei                          NON  DATA   W   00000000000051A8     989   supermon832.asm
+381   mne_seix                         NON  DATA   W   0000000000000022    1085   supermon832.asm
+382   mne_sep                          NON  DATA   W   00000000000089A8     990   supermon832.asm
+383   mne_sepx                         NON  DATA   W   0000000000000032    1086   supermon832.asm
+384   mne_sta                          NON  DATA   W   0000000000001568     991   supermon832.asm
+385   mne_stax                         NON  DATA   W   0000000000000007    1087   supermon832.asm
+386   mne_stp                          NON  DATA   W   0000000000008D68     992   supermon832.asm
+387   mne_stpx                         NON  DATA   W   0000000000000039    1088   supermon832.asm
+388   mne_stx                          NON  DATA   W   000000000000CD68     993   supermon832.asm
+389   mne_stxx                         NON  DATA   W   0000000000000050    1089   supermon832.asm
+390   mne_sty                          NON  DATA   W   000000000000D568     994   supermon832.asm
+391   mne_styx                         NON  DATA   W   0000000000000059    1090   supermon832.asm
+392   mne_stz                          NON  DATA   W   000000000000DD68     995   supermon832.asm
+393   mne_stzx                         NON  DATA   W   000000000000005B    1091   supermon832.asm
+394   mne_tax                          NON  DATA   W   000000000000C8AA     996   supermon832.asm
+395   mne_taxx                         NON  DATA   W   0000000000000048    1092   supermon832.asm
+396   mne_tay                          NON  DATA   W   000000000000D0AA     997   supermon832.asm
+397   mne_tayx                         NON  DATA   W   0000000000000052    1093   supermon832.asm
+398   mne_tcd                          NON  DATA   W   000000000000292A     998   supermon832.asm
+399   mne_tcdx                         NON  DATA   W   0000000000000018    1094   supermon832.asm
+400   mne_tcs                          NON  DATA   W   000000000000A12A     999   supermon832.asm
+401   mne_tcsx                         NON  DATA   W   0000000000000042    1095   supermon832.asm
+402   mne_tdc                          NON  DATA   W   000000000000216A    1000   supermon832.asm
+403   mne_tdcx                         NON  DATA   W   0000000000000011    1096   supermon832.asm
+404   mne_trb                          NON  DATA   W   0000000000001CEA    1001   supermon832.asm
+405   mne_trbx                         NON  DATA   W   000000000000000C    1097   supermon832.asm
+406   mne_tsb                          NON  DATA   W   0000000000001D2A    1002   supermon832.asm
+407   mne_tsbx                         NON  DATA   W   000000000000000D    1098   supermon832.asm
+408   mne_tsc                          NON  DATA   W   000000000000252A    1003   supermon832.asm
+409   mne_tscx                         NON  DATA   W   0000000000000016    1099   supermon832.asm
+410   mne_tsx                          NON  DATA   W   000000000000CD2A    1004   supermon832.asm
+411   mne_tsxx                         NON  DATA   W   000000000000004F    1100   supermon832.asm
+412   mne_txa                          NON  DATA   W   000000000000166A    1005   supermon832.asm
+413   mne_txax                         NON  DATA   W   0000000000000008    1101   supermon832.asm
+414   mne_txs                          NON  DATA   W   000000000000A66A    1006   supermon832.asm
+415   mne_txsx                         NON  DATA   W   0000000000000045    1102   supermon832.asm
+416   mne_txy                          NON  DATA   W   000000000000D66A    1007   supermon832.asm
+417   mne_txyx                         NON  DATA   W   000000000000005A    1103   supermon832.asm
+418   mne_tya                          NON  DATA   W   00000000000016AA    1008   supermon832.asm
+419   mne_tyax                         NON  DATA   W   0000000000000009    1104   supermon832.asm
+420   mne_tyx                          NON  DATA   W   000000000000CEAA    1009   supermon832.asm
+421   mne_tyxx                         NON  DATA   W   0000000000000051    1105   supermon832.asm
+422   mne_wai                          NON  DATA   W   00000000000050B0    1010   supermon832.asm
+423   mne_waix                         NON  DATA   W   0000000000000020    1106   supermon832.asm
+424   mne_wdm                          NON  DATA   W   0000000000007170    1011   supermon832.asm
+425   mne_wdmx                         NON  DATA   W   000000000000002F    1107   supermon832.asm
+426   mne_xba                          NON  DATA   W   00000000000010F2    1012   supermon832.asm
+427   mne_xbax                         NON  DATA   W   0000000000000000    1108   supermon832.asm
+428   mne_xce                          NON  DATA   W   0000000000003132    1013   supermon832.asm
+429   mne_xcex                         NON  DATA   W   000000000000001E    1109   supermon832.asm
+430   mnepck                           NON  DATA   W   00000000000000C8    1157   supermon832.asm
+431   mnetab                           PRI  CODE   W   0000000000008D03    4447   supermon832.asm
+432   mnetabam                         PRI  CODE   W   0000000000008EBB    4860   supermon832.asm
+433   mnetabix                         PRI  CODE   W   0000000000008DBB    4546   supermon832.asm
+434   mon                              PRI  CODE   W   0000000000008004    1205   supermon832.asm
+435   mon.0000010                      PRI  CODE   W   000000000000801E    1219   supermon832.asm
+436   mon.2                            PRI  CODE   W   0000000000008011    1211   supermon832.asm
+437   monasc                           PRI  CODE   W   000000000000816C    1481   supermon832.asm
+438   monasc.0000010                   PRI  CODE   W   000000000000816E    1483   supermon832.asm
+439   monasc.0000020                   PRI  CODE   W   0000000000008171    1488   supermon832.asm
+440   monasc.0000030                   PRI  CODE   W   000000000000817D    1499   supermon832.asm
+441   monasc.0000040                   PRI  CODE   W   0000000000008197    1517   supermon832.asm
+442   monasc.0000050                   PRI  CODE   W   00000000000081A3    1525   supermon832.asm
+443   monasc.0000060                   PRI  CODE   W   00000000000081A6    1527   supermon832.asm
+444   monasc.0000070                   PRI  CODE   W   00000000000081AB    1531   supermon832.asm
+445   monasc01                         PRI  CODE   W   00000000000081C8    1566   supermon832.asm
+446   monasc01.0000010                 PRI  CODE   W   00000000000081D8    1575   supermon832.asm
+447   monasc02                         PRI  CODE   W   00000000000081F8    1598   supermon832.asm
+448   monasc03                         PRI  CODE   W   00000000000081FA    1600   supermon832.asm
+449   monasc03.0000010                 PRI  CODE   W   000000000000820D    1613   supermon832.asm
+450   monasc03.0000020                 PRI  CODE   W   0000000000008219    1622   supermon832.asm
+451   monasc03.0000030                 PRI  CODE   W   0000000000008220    1626   supermon832.asm
+452   monasc03.0000040                 PRI  CODE   W   0000000000008222    1628   supermon832.asm
+453   monasc04                         PRI  CODE   W   000000000000822D    1636   supermon832.asm
+454   monasc05                         PRI  CODE   W   0000000000008230    1638   supermon832.asm
+455   monasc06                         PRI  CODE   W   000000000000823C    1645   supermon832.asm
+456   monasc06.0000010                 PRI  CODE   W   0000000000008243    1651   supermon832.asm
+457   monasc06.0000020                 PRI  CODE   W   000000000000824C    1657   supermon832.asm
+458   monasc06.0000030                 PRI  CODE   W   0000000000008252    1664   supermon832.asm
+459   monasc07                         PRI  CODE   W   0000000000008254    1666   supermon832.asm
+460   monasc07.0000010                 PRI  CODE   W   0000000000008262    1675   supermon832.asm
+461   monasc07.0000020                 PRI  CODE   W   0000000000008267    1680   supermon832.asm
+462   monasc07.0000030                 PRI  CODE   W   000000000000826C    1684   supermon832.asm
+463   monasc07.0000040                 PRI  CODE   W   0000000000008271    1687   supermon832.asm
+464   monasc07.0000050                 PRI  CODE   W   0000000000008276    1701   supermon832.asm
+465   monasc07.0000060                 PRI  CODE   W   0000000000008292    1717   supermon832.asm
+466   monasc07.0000070                 PRI  CODE   W   0000000000008299    1721   supermon832.asm
+467   monasc07.0000080                 PRI  CODE   W   000000000000829D    1724   supermon832.asm
+468   monasc07.0000090                 PRI  CODE   W   00000000000082A4    1733   supermon832.asm
+469   monasc07.0000100                 PRI  CODE   W   00000000000082AE    1741   supermon832.asm
+470   monasc07.0000110                 PRI  CODE   W   00000000000082BF    1753   supermon832.asm
+471   monasc07.0000120                 PRI  CODE   W   00000000000082C7    1759   supermon832.asm
+472   monasc07.0000130                 PRI  CODE   W   00000000000082CD    1767   supermon832.asm
+473   monasc07.0000140                 PRI  CODE   W   00000000000082DD    1778   supermon832.asm
+474   monasc07.0000150                 PRI  CODE   W   00000000000082E5    1784   supermon832.asm
+475   monasc07.0000160                 PRI  CODE   W   00000000000082EC    1793   supermon832.asm
+476   monasc08                         PRI  CODE   W   00000000000082F3    1801   supermon832.asm
+477   monasc08.0000010                 PRI  CODE   W   00000000000082FC    1808   supermon832.asm
+478   monasc08.0000020                 PRI  CODE   W   0000000000008304    1814   supermon832.asm
+479   monasc09                         PRI  CODE   W   0000000000008310    1824   supermon832.asm
+480   monasc09.0000010                 PRI  CODE   W   0000000000008314    1827   supermon832.asm
+481   monasc10                         PRI  CODE   W   0000000000008345    1851   supermon832.asm
+482   monbrk                           PRI  CODE   W   0000000000008042    1251   supermon832.asm
+483   monce                            PRI  CODE   W   0000000000008126    1417   supermon832.asm
+484   moncea                           PRI  CODE   W   000000000000812A    1420   supermon832.asm
+485   moncea.0000010                   PRI  CODE   W   0000000000008137    1426   supermon832.asm
+486   moncea.0000020                   PRI  CODE   W   0000000000008142    1435   supermon832.asm
+487   moncea.0000030                   PRI  CODE   W   0000000000008155    1447   supermon832.asm
+488   moncea.0000040                   PRI  CODE   W   000000000000815A    1452   supermon832.asm
+489   moncea.0000050                   PRI  CODE   W   0000000000008162    1457   supermon832.asm
+490   monchm                           PRI  CODE   W   0000000000008405    2007   supermon832.asm
+491   monchm.0000010                   PRI  CODE   W   000000000000841A    2021   supermon832.asm
+492   monchm.0000020                   PRI  CODE   W   0000000000008424    2028   supermon832.asm
+493   monchm.0000030                   PRI  CODE   W   000000000000842A    2031   supermon832.asm
+494   monchm.0000040                   PRI  CODE   W   000000000000842D    2033   supermon832.asm
+495   monchr                           PRI  CODE   W   00000000000085DD    2359   supermon832.asm
+496   monchr.0000010                   PRI  CODE   W   00000000000085E3    2364   supermon832.asm
+497   monchr.0000020                   PRI  CODE   W   00000000000085F6    2375   supermon832.asm
+498   monchr.0000030                   PRI  CODE   W   000000000000860F    2390   supermon832.asm
+499   monchr.0000040                   PRI  CODE   W   0000000000008612    2392   supermon832.asm
+500   monchr.0000050                   PRI  CODE   W   0000000000008615    2394   supermon832.asm
+501   moncmp                           PRI  CODE   W   0000000000008430    2043   supermon832.asm
+502   moncmp.0000010                   PRI  CODE   W   0000000000008439    2050   supermon832.asm
+503   moncmp.0000020                   PRI  CODE   W   0000000000008447    2059   supermon832.asm
+504   moncmp.0000030                   PRI  CODE   W   0000000000008458    2070   supermon832.asm
+505   moncmp.0000040                   PRI  CODE   W   000000000000845B    2072   supermon832.asm
+506   moncom                           PRI  CODE   W   0000000000008072    1292   supermon832.asm
+507   moncpy                           PRI  CODE   W   000000000000845E    2082   supermon832.asm
+508   moncpy.0000010                   PRI  CODE   W   0000000000008486    2109   supermon832.asm
+509   moncpy.0000020                   PRI  CODE   W   000000000000849A    2122   supermon832.asm
+510   moncpy.0000030                   PRI  CODE   W   00000000000084A6    2129   supermon832.asm
+511   moncpy.0000040                   PRI  CODE   W   00000000000084A9    2131   supermon832.asm
+512   moncpy.0000050                   PRI  CODE   W   00000000000084AC    2133   supermon832.asm
+513   mondmp                           PRI  CODE   W   00000000000084AF    2143   supermon832.asm
+514   mondmp.0000010                   PRI  CODE   W   00000000000084C0    2153   supermon832.asm
+515   mondmp.0000020                   PRI  CODE   W   00000000000084D7    2165   supermon832.asm
+516   mondmp.0000030                   PRI  CODE   W   00000000000084EB    2176   supermon832.asm
+517   mondmp.0000040                   PRI  CODE   W   00000000000084FB    2184   supermon832.asm
+518   mondmp.0000050                   PRI  CODE   W   00000000000084FE    2186   supermon832.asm
+519   mondsc                           PRI  CODE   W   000000000000834A    1862   supermon832.asm
+520   mondsc.0000010                   PRI  CODE   W   000000000000835D    1873   supermon832.asm
+521   mondsc.0000020                   PRI  CODE   W   0000000000008374    1885   supermon832.asm
+522   mondsc.0000030                   PRI  CODE   W   0000000000008388    1896   supermon832.asm
+523   mondsc.0000040                   PRI  CODE   W   0000000000008398    1904   supermon832.asm
+524   mondsc.0000050                   PRI  CODE   W   000000000000839B    1906   supermon832.asm
+525   monenv                           PRI  CODE   W   00000000000085AF    2321   supermon832.asm
+526   monenv.0000010                   PRI  CODE   W   00000000000085B8    2327   supermon832.asm
+527   monenv.0000020                   PRI  CODE   W   00000000000085DA    2347   supermon832.asm
+528   monerr                           PRI  CODE   W   0000000000008165    1464   supermon832.asm
+529   monerraa                         PRI  CODE   W   0000000000008167    1466   supermon832.asm
+530   monfil                           PRI  CODE   W   0000000000008501    2198   supermon832.asm
+531   monfil.0000010                   PRI  CODE   W   0000000000008561    2255   supermon832.asm
+532   monfil.0000020                   PRI  CODE   W   0000000000008564    2257   supermon832.asm
+533   monhnt                           PRI  CODE   W   0000000000008567    2267   supermon832.asm
+534   monhnt.0000010                   PRI  CODE   W   000000000000858E    2290   supermon832.asm
+535   monhnt.0000020                   PRI  CODE   W   0000000000008595    2295   supermon832.asm
+536   monhnt.0000030                   PRI  CODE   W   00000000000085A1    2304   supermon832.asm
+537   monhnt.0000040                   PRI  CODE   W   00000000000085A4    2306   supermon832.asm
+538   monhnt.0000050                   PRI  CODE   W   00000000000085A9    2309   supermon832.asm
+539   monhnt.0000060                   PRI  CODE   W   00000000000085AC    2311   supermon832.asm
+540   monjmp                           PRI  CODE   W   000000000000839E    1919   supermon832.asm
+541   monjmpaa                         PRI  CODE   W   00000000000083AD    1929   supermon832.asm
+542   monjmpab                         PRI  CODE   W   00000000000083CC    1949   supermon832.asm
+543   monjsr                           PRI  CODE   W   00000000000083CF    1964   supermon832.asm
+544   monreg                           PRI  CODE   W   000000000000807F    1309   supermon832.asm
+545   monreg.0000010                   PRI  CODE   W   0000000000008084    1313   supermon832.asm
+546   monreg.0000020                   PRI  CODE   W   00000000000080C9    1356   supermon832.asm
+547   monreg.0000030                   PRI  CODE   W   00000000000080D8    1370   supermon832.asm
+548   monxit                           PRI  CODE   W   0000000000008618    2404   supermon832.asm
+549   monxit.0000010                   PRI  CODE   W   000000000000862D    2415   supermon832.asm
+550   monxit.0000020                   PRI  CODE   W   000000000000863C    2424   supermon832.asm
+551   mpcextab                         PRI  CODE   W   0000000000008CC8    4398   supermon832.asm
+552   mpctab                           PRI  CODE   W   0000000000008CBB    4380   supermon832.asm
+553   ms_addrx                         PRI  CODE   W   0000000000008FD9    5161   supermon832.asm
+554   ms_addry                         PRI  CODE   W   0000000000008FDD    5162   supermon832.asm
+555   ms_imm                           PRI  CODE   W   0000000000008FE1    5163   supermon832.asm
+556   ms_ind                           PRI  CODE   W   0000000000008FE3    5164   supermon832.asm
+557   ms_indl                          PRI  CODE   W   0000000000008FE6    5165   supermon832.asm
+558   ms_indly                         PRI  CODE   W   0000000000008FE9    5166   supermon832.asm
+559   ms_indx                          PRI  CODE   W   0000000000008FEE    5167   supermon832.asm
+560   ms_indxly                        PRI  CODE   W   0000000000009006    5172   supermon832.asm
+561   ms_indy                          PRI  CODE   W   0000000000008FF3    5168   supermon832.asm
+562   ms_lutab                         PRI  CODE   W   0000000000008FBF    5144   supermon832.asm
+563   ms_move                          PRI  CODE   W   0000000000008FF8    5169   supermon832.asm
+564   ms_nam                           PRI  CODE   W   0000000000008FD7    5160   supermon832.asm
+565   ms_stk                           PRI  CODE   W   0000000000008FFB    5170   supermon832.asm
+566   ms_stky                          PRI  CODE   W   0000000000008FFF    5171   supermon832.asm
+567   multspc                          PRI  CODE   W   00000000000087F6    2846   supermon832.asm
+568   multspc.0000010                  PRI  CODE   W   00000000000087FA    2851   supermon832.asm
+569   multspc.0000020                  PRI  CODE   W   00000000000087FC    2853   supermon832.asm
+570   n_dbytes                         NON  DATA   W   0000000000000015     824   supermon832.asm
+571   n_dump                           NON  DATA   W   0000000000000008     825   supermon832.asm
+572   n_hccols                         NON  DATA   W   0000000000000008     827   supermon832.asm
+573   n_mbytes                         NON  DATA   W   00000000000000FF     826   supermon832.asm
+574   n_opcols                         NON  DATA   W   0000000000000009     828   supermon832.asm
+575   n_opslsr                         NON  DATA   W   0000000000000004     829   supermon832.asm
+576   n_shfenc                         NON  DATA   W   0000000000000005     830   supermon832.asm
+577   newline                          PRI  CODE   W   0000000000008805    2866   supermon832.asm
+578   numeral                          NON  DATA   W   00000000000000C1    1152   supermon832.asm
+579   numstab                          PRI  CODE   W   0000000000008CF2    4419   supermon832.asm
+580   nxtaddra                         PRI  CODE   W   0000000000008B0B    3774   supermon832.asm
+581   nxtaddra.0000010                 PRI  CODE   W   0000000000008B1F    3787   supermon832.asm
+582   nybtobin                         PRI  CODE   W   00000000000089F7    3435   supermon832.asm
+583   nybtobin.0000010                 PRI  CODE   W   0000000000008A06    3446   supermon832.asm
+584   nybtobin.0000020                 PRI  CODE   W   0000000000008A07    3448   supermon832.asm
+585   offtarg                          PRI  CODE   W   0000000000008B55    3884   supermon832.asm
+586   offtarg.0000010                  PRI  CODE   W   0000000000008B66    3897   supermon832.asm
+587   opc_mvn                          NON  DATA   W   0000000000000054     858   supermon832.asm
+588   opc_mvp                          NON  DATA   W   0000000000000044     859   supermon832.asm
+589   opc_rep                          NON  DATA   W   00000000000000C2     860   supermon832.asm
+590   opc_sep                          NON  DATA   W   00000000000000E2     861   supermon832.asm
+591   opcode                           NON  DATA   W   00000000000000CA    1158   supermon832.asm
+592   operand                          NON  DATA   W   00000000000000BB    1148   supermon832.asm
+593   ops0                             NON  DATA   W   0000000000000000     903   supermon832.asm
+594   ops1                             NON  DATA   W   0000000000000010     904   supermon832.asm
+595   ops2                             NON  DATA   W   0000000000000020     905   supermon832.asm
+596   ops3                             NON  DATA   W   0000000000000030     906   supermon832.asm
+597   ops5                             NON  DATA   W   0000000000010100     910   supermon832.asm
+598   opsmask                          NON  DATA   W   0000000000000030     916   supermon832.asm
+599   pfmxmask                         NON  DATA   W   0000000000000030     862   supermon832.asm
+600   phds                             PRI  CODE   W   0000000000008043    1252   supermon832.asm
+601   printbyt                         PRI  CODE   W   000000000000880A    2873   supermon832.asm
+602   printcmn                         PRI  CODE   W   0000000000008817    2891   supermon832.asm
+603   printspc                         PRI  CODE   W   0000000000008815    2889   supermon832.asm
+604   prntladr                         PRI  CODE   W   00000000000087CA    2777   supermon832.asm
+605   putcha                           NON  DATA   W   000000000000FE06     292   supermon832.asm
+606   radix                            NON  DATA   W   00000000000000C2    1153   supermon832.asm
+607   radxtab                          PRI  CODE   W   0000000000008CF6    4420   supermon832.asm
+608   range                            NON  DATA   W   00000000000000D0    1179   supermon832.asm
+609   rcvltab                          PRI  CODE   W   0000000000008CFA    4429   supermon832.asm
+610   reg_ax                           NON  DATA   W   0000000000000089    1130   supermon832.asm
+611   reg_csx                          NON  DATA   W   0000000000000080    1125   supermon832.asm
+612   reg_dbx                          NON  DATA   W   000000000000009B    1136   supermon832.asm
+613   reg_dpx                          NON  DATA   W   000000000000009C    1137   supermon832.asm
+614   reg_dsx                          NON  DATA   W   0000000000000082    1126   supermon832.asm
+615   reg_pbx                          NON  DATA   W   0000000000000088    1129   supermon832.asm
+616   reg_pcx                          NON  DATA   W   0000000000000086    1128   supermon832.asm
+617   reg_spx                          NON  DATA   W   0000000000000095    1133   supermon832.asm
+618   reg_srx                          NON  DATA   W   0000000000000099    1134   supermon832.asm
+619   reg_srxx                         NON  DATA   W   000000000000009A    1135   supermon832.asm
+620   reg_ssx                          NON  DATA   W   0000000000000084    1127   supermon832.asm
+621   reg_xx                           NON  DATA   W   000000000000008D    1131   supermon832.asm
+622   reg_yx                           NON  DATA   W   0000000000000091    1132   supermon832.asm
+623   s_addr                           NON  DATA   W   0000000000000003     809   supermon832.asm
+624   s_auxbuf                         NON  DATA   W   0000000000000020     810   supermon832.asm
+625   s_bibyte                         NON  DATA   W   0000000000000008     756   supermon832.asm
+626   s_bnybbl                         NON  DATA   W   0000000000000004     757   supermon832.asm
+627   s_byte                           NON  DATA   W   0000000000000001     747   supermon832.asm
+628   s_dword                          NON  DATA   W   0000000000000004     750   supermon832.asm
+629   s_mnemon                         NON  DATA   W   0000000000000003     812   supermon832.asm
+630   s_mnepck                         NON  DATA   W   0000000000000002     813   supermon832.asm
+631   s_mnetab                         NON  DATA   W   00000000000000B8    4540   supermon832.asm
+632   s_mpudbx                         NON  DATA   W   0000000000000001     769   supermon832.asm
+633   s_mpudpx                         NON  DATA   W   0000000000000002     770   supermon832.asm
+634   s_mpupbx                         NON  DATA   W   0000000000000001     771   supermon832.asm
+635   s_mpupcx                         NON  DATA   W   0000000000000002     772   supermon832.asm
+636   s_mpuspx                         NON  DATA   W   0000000000000002     773   supermon832.asm
+637   s_mpusrx                         NON  DATA   W   0000000000000001     774   supermon832.asm
+638   s_mvinst                         NON  DATA   W   0000000000000003     814   supermon832.asm
+639   s_opcode                         NON  DATA   W   0000000000000001     815   supermon832.asm
+640   s_oper                           NON  DATA   W   0000000000000003     816   supermon832.asm
+641   s_pfac                           NON  DATA   W   0000000000000004     817   supermon832.asm
+642   s_rampag                         NON  DATA   W   0000000000000100     751   supermon832.asm
+643   s_sfac                           NON  DATA   W   0000000000000006     818   supermon832.asm
+644   s_word                           NON  DATA   W   0000000000000002     748   supermon832.asm
+645   s_xword                          NON  DATA   W   0000000000000003     749   supermon832.asm
+646   setxaddr                         PRI  CODE   W   0000000000008B74    3910   supermon832.asm
+647   setxaddr.0000010                 PRI  CODE   W   0000000000008B89    3923   supermon832.asm
+648   setxaddr.0000020                 PRI  CODE   W   0000000000008B8A    3925   supermon832.asm
+649   sprint                           PRI  CODE   W   000000000000881D    2930   supermon832.asm
+650   sprint.0000010                   PRI  CODE   W   0000000000008825    2943   supermon832.asm
+651   sprint.0000020                   PRI  CODE   W   0000000000008832    2954   supermon832.asm
+652   sprint.reetaddr                  NON  DATA   W   0000000000000001    2934   supermon832.asm
+653   sprint.src                       NON  DATA   W   0000000000000003    2936   supermon832.asm
+654   sr_16                            NON  DATA   W   0000000000000100     787   supermon832.asm
+655   sr_32                            NON  DATA   W   0000000000000200     788   supermon832.asm
+656   sr_amw                           NON  DATA   W   0000000000000020     784   supermon832.asm
+657   sr_bdm                           NON  DATA   W   0000000000000008     782   supermon832.asm
+658   sr_car                           NON  DATA   W   0000000000000001     779   supermon832.asm
+659   sr_irq                           NON  DATA   W   0000000000000004     781   supermon832.asm
+660   sr_ixw                           NON  DATA   W   0000000000000010     783   supermon832.asm
+661   sr_neg                           NON  DATA   W   0000000000000080     786   supermon832.asm
+662   sr_ovl                           NON  DATA   W   0000000000000040     785   supermon832.asm
+663   sr_zer                           NON  DATA   W   0000000000000002     780   supermon832.asm
+664   srinit                           NON  DATA   W   0000000000000030    1119   supermon832.asm
+665   status                           NON  DATA   W   00000000000000CB    1159   supermon832.asm
+666   stopkey                          NON  DATA   W   0000000000000003     306   supermon832.asm
+667   targoff                          PRI  CODE   W   0000000000008B8B    3945   supermon832.asm
+668   targoff.0000010                  PRI  CODE   W   0000000000008BB0    3984   supermon832.asm
+669   targoff.0000020                  PRI  CODE   W   0000000000008BB4    3991   supermon832.asm
+670   targoff.0000030                  PRI  CODE   W   0000000000008BB7    3994   supermon832.asm
+671   targoff.0000040                  PRI  CODE   W   0000000000008BBB    4001   supermon832.asm
+672   targoff.0000050                  PRI  CODE   W   0000000000008BCB    4021   supermon832.asm
+673   targoff.0000060                  PRI  CODE   W   0000000000008BCE    4024   supermon832.asm
+674   targoff.btype                    NON  DATA   W   00000000000000BA    3950   supermon832.asm
+675   teststop                         PRI  CODE   W   0000000000008CB3    4360   supermon832.asm
+676   toupper                          PRI  CODE   W   0000000000008CA6    4323   supermon832.asm
+677   toupper.0000010                  PRI  CODE   W   0000000000008CB1    4332   supermon832.asm
+678   touppera                         PRI  CODE   W   0000000000008CB2    4334   supermon832.asm
+679   vecbrki                          NON  DATA   W   0000000000000102     236   supermon832.asm
+680   vecbrkia                         NON  DATA   W   0000000000000105     237   supermon832.asm
+681   vecexit                          NON  DATA   W   000000000000FE03     228   supermon832.asm
+682   vopidx                           PRI  CODE   W   0000000000008FBB    5135   supermon832.asm
+683   vops                             NON  DATA   W   0000000000000090     909   supermon832.asm
+684   vopsflag                         NON  DATA   W   00000000000000D1    1180   supermon832.asm
+685   vopsmask                         NON  DATA   W   00000000000000C0     917   supermon832.asm
+686   xrtemp                           NON  DATA   W   00000000000000CC    1160   supermon832.asm
+687   zeropage                         NON  DATA   W   0000000000000080     270   supermon832.asm
+
+
+File:FAC1ToString.asm
+
+Hash Table:
+ #  Name                            Nargs  Line   File
+  0   A_MILLION                        PRI  CODE   W   0000000000009367     496   FAC1ToString.asm
+  1   AddPoint5                        PRI  CODE   W   00000000000092EB     431   FAC1ToString.asm
+  2   CONST_100000                     PRI  CODE   W   0000000000009373     504   FAC1ToString.asm
+  3   CONST_9375                       PRI  CODE   W   0000000000009397     533   FAC1ToString.asm
+  4   CONST_POINT5                     PRI  CODE   W   00000000000093A3     542   FAC1ToString.asm
+  5   Cvarah                           NON  DATA   W   00000000000000C7      29   FAC1ToString.asm
+  6   Cvaral                           NON  DATA   W   00000000000000C6      28   FAC1ToString.asm
+  7   Decss                            NON  DATA   W   00000000000003A0      35   FAC1ToString.asm
+  8   Decssp1                          NON  DATA   W   00000000000003A1      36   FAC1ToString.asm
+  9   FAC1ToString.0001                PRI  CODE   W   00000000000090FC      86   FAC1ToString.asm
+ 10   FAC1ToString.0002                PRI  CODE   W   00000000000090F6      83   FAC1ToString.asm
+ 11   FAC1_1                           NON  DATA   W   0000000000FEA208      59   FAC1ToString.asm
+ 12   FAC1_2                           NON  DATA   W   0000000000FEA206      58   FAC1ToString.asm
+ 13   FAC1_3                           NON  DATA   W   0000000000FEA204      57   FAC1ToString.asm
+ 14   FAC1_4                           NON  DATA   W   0000000000FEA202      56   FAC1ToString.asm
+ 15   FAC1_5                           NON  DATA   W   0000000000FEA200      55   FAC1ToString.asm
+ 16   FAC1_e                           NON  DATA   W   0000000000FEA20A      61   FAC1ToString.asm
+ 17   FAC1_msw                         NON  DATA   W   0000000000FEA208      60   FAC1ToString.asm
+ 18   FAC2                             NON  DATA   W   0000000000FEA210      62   FAC1ToString.asm
+ 19   FIXED10                          PRI  CODE   W   00000000000093DF     573   FAC1ToString.asm
+ 20   FIXED_ADD                        NON  DATA   W   0000000000000081      47   FAC1ToString.asm
+ 21   FIXED_MUL                        NON  DATA   W   0000000000000083      46   FAC1ToString.asm
+ 22   FIXED_SUB                        NON  DATA   W   0000000000000082      48   FAC1ToString.asm
+ 23   FMUL                             PRI  CODE   W   00000000000092C7     406   FAC1ToString.asm
+ 24   FPCommandWait.0001               PRI  CODE   W   000000000000931F     463   FAC1ToString.asm
+ 25   FP_ABS                           NON  DATA   W   0000000000000007      43   FAC1ToString.asm
+ 26   FP_ADD                           NON  DATA   W   0000000000000001      37   FAC1ToString.asm
+ 27   FP_CMDREG                        NON  DATA   W   0000000000FEA20E      52   FAC1ToString.asm
+ 28   FP_DIV                           NON  DATA   W   0000000000000004      40   FAC1ToString.asm
+ 29   FP_FIX2FLT                       NON  DATA   W   0000000000000005      41   FAC1ToString.asm
+ 30   FP_FLT2FIX                       NON  DATA   W   0000000000000006      42   FAC1ToString.asm
+ 31   FP_MUL                           NON  DATA   W   0000000000000003      39   FAC1ToString.asm
+ 32   FP_NEG                           NON  DATA   W   0000000000000010      44   FAC1ToString.asm
+ 33   FP_STATREG                       NON  DATA   W   0000000000FEA20E      53   FAC1ToString.asm
+ 34   FP_SUB                           NON  DATA   W   0000000000000002      38   FAC1ToString.asm
+ 35   FP_SWAP                          NON  DATA   W   0000000000000011      45   FAC1ToString.asm
+ 36   FloatToFixed                     PRI  CODE   W   00000000000092E5     427   FAC1ToString.asm
+ 37   LAB_25FB                         PRI  CODE   W   00000000000092A8     390   FAC1ToString.asm
+ 38   LAB_25FB.0002                    PRI  CODE   W   00000000000092B2     395   FAC1ToString.asm
+ 39   LAB_2989                         PRI  CODE   W   000000000000910B     107   FAC1ToString.asm
+ 40   LAB_299A                         PRI  CODE   W   0000000000009134     129   FAC1ToString.asm
+ 41   LAB_29B2                         PRI  CODE   W   0000000000009167     166   FAC1ToString.asm
+ 42   LAB_29B9                         PRI  CODE   W   000000000000914B     148   FAC1ToString.asm
+ 43   LAB_29C0                         PRI  CODE   W   000000000000916E     173   FAC1ToString.asm
+ 44   LAB_29C3                         PRI  CODE   W   000000000000916E     175   FAC1ToString.asm
+ 45   LAB_29D8                         PRI  CODE   W   0000000000009183     191   FAC1ToString.asm
+ 46   LAB_29D9                         PRI  CODE   W   0000000000009184     193   FAC1ToString.asm
+ 47   LAB_29E4                         PRI  CODE   W   0000000000009190     202   FAC1ToString.asm
+ 48   LAB_29F5                         PRI  CODE   W   00000000000091A3     213   FAC1ToString.asm
+ 49   LAB_29F7                         PRI  CODE   W   00000000000091A5     216   FAC1ToString.asm
+ 50   LAB_29FB                         PRI  CODE   W   00000000000091A8     223   FAC1ToString.asm
+ 51   LAB_29FB.0005                    PRI  CODE   W   00000000000091C7     236   FAC1ToString.asm
+ 52   LAB_2A3B                         PRI  CODE   W   00000000000091DA     248   FAC1ToString.asm
+ 53   LAB_2A3B.RemoveTrailingZeros     PRI  CODE   W   00000000000091E4     256   FAC1ToString.asm
+ 54   LAB_2A58                         PRI  CODE   W   00000000000091F6     268   FAC1ToString.asm
+ 55   LAB_2A68                         PRI  CODE   W   000000000000920B     285   FAC1ToString.asm
+ 56   LAB_2A68.0001                    PRI  CODE   W   000000000000921D     297   FAC1ToString.asm
+ 57   LAB_2A68.00010                   PRI  CODE   W   000000000000924A     323   FAC1ToString.asm
+ 58   LAB_2A68.00011                   PRI  CODE   W   0000000000009269     343   FAC1ToString.asm
+ 59   LAB_2A68.00012                   PRI  CODE   W   0000000000009288     363   FAC1ToString.asm
+ 60   LAB_2A68.0002                    PRI  CODE   W   0000000000009238     314   FAC1ToString.asm
+ 61   LAB_2A68.0003                    PRI  CODE   W   0000000000009257     334   FAC1ToString.asm
+ 62   LAB_2A68.0004                    PRI  CODE   W   0000000000009276     354   FAC1ToString.asm
+ 63   LAB_2A68.0005                    PRI  CODE   W   0000000000009234     311   FAC1ToString.asm
+ 64   LAB_2A68.0006                    PRI  CODE   W   0000000000009253     331   FAC1ToString.asm
+ 65   LAB_2A68.0007                    PRI  CODE   W   0000000000009272     351   FAC1ToString.asm
+ 66   LAB_2A68.0008                    PRI  CODE   W   0000000000009291     371   FAC1ToString.asm
+ 67   LAB_2A89                         PRI  CODE   W   000000000000929E     378   FAC1ToString.asm
+ 68   LAB_2A8C                         PRI  CODE   W   00000000000092A1     381   FAC1ToString.asm
+ 69   LAB_2A91                         PRI  CODE   W   00000000000092A7     385   FAC1ToString.asm
+ 70   LAB_2A9A                         PRI  CODE   W   00000000000093AF     552   FAC1ToString.asm
+ 71   LAB_2A9B                         NON  DATA   W   00000000000093B0     553   FAC1ToString.asm
+ 72   LAB_2A9C                         NON  DATA   W   00000000000093B1     554   FAC1ToString.asm
+ 73   LOAD_FAC2                        PRI  CODE   W   00000000000092CD     409   FAC1ToString.asm
+ 74   LOAD_FAC2.0002                   PRI  CODE   W   00000000000092D3     415   FAC1ToString.asm
+ 75   LOOP_DB10                        PRI  CODE   W   0000000000009136     138   FAC1ToString.asm
+ 76   LOOP_MB10                        PRI  CODE   W   0000000000009152     156   FAC1ToString.asm
+ 77   LOOP_MBMILLION                   PRI  CODE   W   0000000000009115     112   FAC1ToString.asm
+ 78   MAX_BEFORE_SCI                   PRI  CODE   W   000000000000937F     514   FAC1ToString.asm
+ 79   MultiplyByTen                    PRI  CODE   W   00000000000092F8     438   FAC1ToString.asm
+ 80   Sendh                            NON  DATA   W   00000000000000C5      33   FAC1ToString.asm
+ 81   Sendl                            NON  DATA   W   00000000000000C4      32   FAC1ToString.asm
+ 82   SwapFACs                         PRI  CODE   W   0000000000009315     453   FAC1ToString.asm
+ 83   TEN_AS_FLOAT                     PRI  CODE   W   000000000000938B     522   FAC1ToString.asm
+ 84   expcnt                           NON  DATA   W   00000000000000C2      31   FAC1ToString.asm
+ 85   numexp                           NON  DATA   W   00000000000000C0      30   FAC1ToString.asm
+
+
+File:invaders.asm
+
+Hash Table:
+ #  Name                            Nargs  Line   File
+  0   ActivateAllInvaders              PRI  CODE   W   0000000000009628     378   invaders.asm
+  1   ActivateAllInvaders.0001         PRI  CODE   W   000000000000962E     381   invaders.asm
+  2   CanDropBomb                      PRI  CODE   W   00000000000094FC     186   invaders.asm
+  3   CanDropBomb.0001                 PRI  CODE   W   000000000000950D     195   invaders.asm
+  4   CanDropBomb.0002                 PRI  CODE   W   000000000000951C     203   invaders.asm
+  5   CanDropBomb.0003                 PRI  CODE   W   0000000000009529     210   invaders.asm
+  6   CanDropBomb.0004                 PRI  CODE   W   0000000000009534     216   invaders.asm
+  7   CanMoveDown                      PRI  CODE   W   0000000000009560     253   invaders.asm
+  8   CanMoveDown.0001                 PRI  CODE   W   0000000000009573     265   invaders.asm
+  9   CanMoveLeft                      PRI  CODE   W   0000000000009538     223   invaders.asm
+ 10   CanMoveLeft.0001                 PRI  CODE   W   0000000000009548     232   invaders.asm
+ 11   CanMoveRight                     PRI  CODE   W   000000000000954C     238   invaders.asm
+ 12   CanMoveRight.0001                PRI  CODE   W   000000000000955C     247   invaders.asm
+ 13   FindEmptyBomb                    PRI  CODE   W   0000000000009453      89   invaders.asm
+ 14   FindEmptyBomb.0001               PRI  CODE   W   0000000000009456      91   invaders.asm
+ 15   FindEmptyBomb.0002               PRI  CODE   W   0000000000009465      99   invaders.asm
+ 16   GetBombOffset                    PRI  CODE   W   000000000000948A     123   invaders.asm
+ 17   Initialize                       PRI  CODE   W   00000000000095D0     338   invaders.asm
+ 18   Initialize.0001                  PRI  CODE   W   00000000000095E6     348   invaders.asm
+ 19   Initialize.0002                  PRI  CODE   W   0000000000009600     358   invaders.asm
+ 20   Initialize.0003                  PRI  CODE   W   0000000000009612     367   invaders.asm
+ 21   InvBomb                          PRI  CODE   W   000000000000941D      64   invaders.asm
+ 22   InvBomb.0001                     PRI  CODE   W   0000000000009420      66   invaders.asm
+ 23   InvBomb.0002                     PRI  CODE   W   000000000000944B      81   invaders.asm
+ 24   InvBomb.0003                     PRI  CODE   W   0000000000009452      86   invaders.asm
+ 25   InvaderCol                       PRI  CODE   W   00000000000099A1     721   invaders.asm
+ 26   InvaderRow                       PRI  CODE   W   0000000000009951     675   invaders.asm
+ 27   InvaderType                      PRI  CODE   W   0000000000009A91     863   invaders.asm
+ 28   InvadersTask.0001                PRI  CODE   W   00000000000098F1     633   invaders.asm
+ 29   InvadersTask.0002                PRI  CODE   W   0000000000009907     642   invaders.asm
+ 30   InvadersTask.0003                PRI  CODE   W   0000000000009943     668   invaders.asm
+ 31   InvadersTask.0004                PRI  CODE   W   000000000000990C     644   invaders.asm
+ 32   InvadersTask.0005                PRI  CODE   W   000000000000993F     665   invaders.asm
+ 33   InvadersTask.0006                PRI  CODE   W   000000000000990F     646   invaders.asm
+ 34   InvadersX                        NON  DATA   W   0000000000000100      21   invaders.asm
+ 35   InvadersY                        NON  DATA   W   0000000000000200      22   invaders.asm
+ 36   IsAllDestroyed                   PRI  CODE   W   0000000000009638     389   invaders.asm
+ 37   IsAllDestroyed.0001              PRI  CODE   W   0000000000009669     407   invaders.asm
+ 38   IsAllDestroyed.0002              PRI  CODE   W   000000000000969A     425   invaders.asm
+ 39   IsAllDestroyed.0003              PRI  CODE   W   00000000000096A7     432   invaders.asm
+ 40   IsAllDestroyed.0004              PRI  CODE   W   00000000000096AE     436   invaders.asm
+ 41   IsAllDestroyed.allDestroyed      PRI  CODE   W   00000000000096B8     442   invaders.asm
+ 42   IsBottomRowDestroyed             PRI  CODE   W   00000000000096DC     469   invaders.asm
+ 43   IsColumnDestroyed                PRI  CODE   W   00000000000096C2     452   invaders.asm
+ 44   IsLeftmostColumnDestroyed        PRI  CODE   W   00000000000096BC     447   invaders.asm
+ 45   IsRightmostColumnDestroyed       PRI  CODE   W   00000000000096C0     450   invaders.asm
+ 46   IsRowDestroyed                   PRI  CODE   W   00000000000096DE     471   invaders.asm
+ 47   IsTopRowDestroyed                PRI  CODE   W   00000000000096D8     466   invaders.asm
+ 48   MAN_EXPLODING                    NON  DATA   W   0000000000000001       6   invaders.asm
+ 49   Move                             PRI  CODE   W   00000000000095A1     312   invaders.asm
+ 50   Move.0001                        PRI  CODE   W   00000000000095B9     324   invaders.asm
+ 51   Move.0002                        PRI  CODE   W   00000000000095AF     319   invaders.asm
+ 52   Move.0003                        PRI  CODE   W   00000000000095C8     331   invaders.asm
+ 53   Move.0004                        PRI  CODE   W   00000000000095CC     334   invaders.asm
+ 54   MoveBombs                        PRI  CODE   W   0000000000009466     102   invaders.asm
+ 55   MoveBombs.0001                   PRI  CODE   W   0000000000009482     116   invaders.asm
+ 56   MoveBombs.0002                   PRI  CODE   W   0000000000009469     104   invaders.asm
+ 57   MoveBombs.0003                   PRI  CODE   W   000000000000947C     113   invaders.asm
+ 58   MoveDown                         PRI  CODE   W   0000000000009593     298   invaders.asm
+ 59   MoveDown.0002                    PRI  CODE   W   0000000000009596     300   invaders.asm
+ 60   MoveLeft                         PRI  CODE   W   0000000000009577     272   invaders.asm
+ 61   MoveLeft.0002                    PRI  CODE   W   000000000000957A     274   invaders.asm
+ 62   MoveRight                        PRI  CODE   W   0000000000009585     285   invaders.asm
+ 63   MoveRight.0002                   PRI  CODE   W   0000000000009588     287   invaders.asm
+ 64   PRNG_ADV                         NON  DATA   W   0000000000FEA10E       5   invaders.asm
+ 65   PRNG_NUM                         NON  DATA   W   0000000000FEA108       4   invaders.asm
+ 66   RenderBombs                      PRI  CODE   W   000000000000949D     134   invaders.asm
+ 67   RenderBombs.0001                 PRI  CODE   W   00000000000094A0     136   invaders.asm
+ 68   RenderBombs.0002                 PRI  CODE   W   00000000000094B1     142   invaders.asm
+ 69   RenderInvaders                   PRI  CODE   W   0000000000009701     500   invaders.asm
+ 70   RenderInvaders.0001              PRI  CODE   W   00000000000098E5     623   invaders.asm
+ 71   RenderInvaders.0002              PRI  CODE   W   000000000000971A     512   invaders.asm
+ 72   RenderInvaders.0003              PRI  CODE   W   000000000000970A     505   invaders.asm
+ 73   RenderInvaders.0004              PRI  CODE   W   0000000000009789     551   invaders.asm
+ 74   RenderInvaders.0005              PRI  CODE   W   000000000000976A     543   invaders.asm
+ 75   RenderInvaders.0006              PRI  CODE   W   000000000000976C     545   invaders.asm
+ 76   RenderInvaders.0007              PRI  CODE   W   0000000000009873     606   invaders.asm
+ 77   RenderInvaders.0008              PRI  CODE   W   0000000000009812     583   invaders.asm
+ 78   RenderInvaders.0009              PRI  CODE   W   00000000000097D3     569   invaders.asm
+ 79   RenderInvaders.0010              PRI  CODE   W   0000000000009855     599   invaders.asm
+ 80   ShiftTick                        PRI  CODE   W   00000000000096F6     490   invaders.asm
+ 81   StartX                           PRI  CODE   W   0000000000009A41     817   invaders.asm
+ 82   StartY                           PRI  CODE   W   00000000000099F1     769   invaders.asm
+ 83   TestBombIntercept                PRI  CODE   W   00000000000094C7     159   invaders.asm
+ 84   TestBombIntercept.0001           PRI  CODE   W   00000000000094F2     177   invaders.asm
+ 85   TestBombIntercept.0002           PRI  CODE   W   00000000000094F3     179   invaders.asm
+ 86   TestBombIntercept.0003           PRI  CODE   W   00000000000094EA     172   invaders.asm
+ 87   TestBombsIntercept               PRI  CODE   W   00000000000094B9     149   invaders.asm
+ 88   TestBombsIntercept.0001          PRI  CODE   W   00000000000094BC     151   invaders.asm
+ 89   active                           NON  DATA   W   0000000000000000      10   invaders.asm
+ 90   bombX                            NON  DATA   W   0000000000000320      25   invaders.asm
+ 91   bombY                            NON  DATA   W   0000000000000330      26   invaders.asm
+ 92   bottom_row                       NON  DATA   W   0000000000000064      14   invaders.asm
+ 93   inv_state                        NON  DATA   W   0000000000000400      27   invaders.asm
+ 94   inv_tick                         NON  DATA   W   000000000000006A      16   invaders.asm
+ 95   inv_tick2                        NON  DATA   W   000000000000006C      17   invaders.asm
+ 96   left_right                       NON  DATA   W   000000000000005E      11   invaders.asm
+ 97   leftmost_column                  NON  DATA   W   0000000000000062      13   invaders.asm
+ 98   manState                         NON  DATA   W   0000000000000072      20   invaders.asm
+ 99   manX                             NON  DATA   W   000000000000006E      18   invaders.asm
+100   manY                             NON  DATA   W   0000000000000070      19   invaders.asm
+101   max_left                         NON  DATA   W   0000000000000310      24   invaders.asm
+102   min_right                        NON  DATA   W   0000000000000300      23   invaders.asm
+103   rightmost_column                 NON  DATA   W   0000000000000060      12   invaders.asm
+104   st_min_right                     PRI  CODE   W   00000000000093F7      34   invaders.asm
+105   top_row                          NON  DATA   W   0000000000000066      15   invaders.asm
+
+
+
+Hash Table:
+ #  Name                            Nargs  Line   File
+  0 shortx                             0     630  
+  1 sbcily                             1     530  
+  2 stas                               1     598  
+  3 ldxw                               1     452  
+  4 adcs                               1     542  
+  5 cpxw                               1     432  
+  6 adcw                               1     412  
+  7 orasi                              1     586  
+  8 brl                                1     334  
+  9 ldyw                               1     457  
+ 10 sbcs                               1     590  
+ 11 lf                                 0     681  
+ 12 sbcw                               1     467  
+ 13 cpyw                               1     437  
+ 14 phb                                0     360  
+ 15 ldas                               1     574  
+ 16 tsc                                0     392  
+ 17 ldaw                               1     447  
+ 18 phk                                0     364  
+ 19 longa                              0     606  
+ 20 ldaily                             1     514  
+ 21 eors                               1     566  
+ 22 eorw                               1     442  
+ 23 staily                             1     538  
+ 24 orail                              1     518  
+ 25 bitw                               1     422  
+ 26 ldasi                              1     578  
+ 27 longr                              0     610  
+ 28 bf                                 0     690  
+ 29 longx                              0     614  
+ 30 adcsi                              1     546  
+ 31 oraily                             1     522  
+ 32 bs                                 0     657  
+ 33 softvers                           0     137  
+ 34 cl                                 0     662  
+ 35 cn                                 0     669  
+ 36 co                                 0     673  
+ 37 andsi                              1     554  
+ 38 cr                                 0     677  
+ 39 plb                                0     368  
+ 40 mvn                                2     347  
+ 41 mvp                                2     351  
+ 42 adcily                             1     482  
+ 43 oras                               1     582  
+ 44 ldail                              1     510  
+ 45 oraw                               1     462  
+ 46 rep                                1     372  
+ 47 dcuc                               0     708  
+ 48 cmps                               1     558  
+ 49 cmpw                               1     427  
+ 50 eorsi                              1     570  
+ 51 wai                                0     404  
+ 52 rb                                 0     715  
+ 53 adcil                              1     478  
+ 54 cmpily                             1     498  
+ 55 er                                 0     695  
+ 56 sbcsi                              1     594  
+ 57 txy                                0     396  
+ 58 andil                              1     486  
+ 59 sf                                 0     700  
+ 60 cmpsi                              1     562  
+ 61 eorily                             1     506  
+ 62 tyx                                0     400  
+ 63 stasi                              1     602  
+ 64 andily                             1     490  
+ 65 eoril                              1     502  
+ 66 ldalx                              1     472  
+ 67 sep                                1     376  
+ 68 shorta                             0     618  
+ 69 sbcil                              1     526  
+ 70 tcd                                0     380  
+ 71 _asm24_                            1     330  
+ 72 shorti                             0     622  
+ 73 xba                                0     408  
+ 74 pea                                1     355  
+ 75 ands                               1     550  
+ 76 cmpil                              1     494  
+ 77 andw                               1     417  
+ 78 shortr                             0     626  
+ 79 tdc                                0     388  
+ 80 tcs                                0     384  
+ 81 stail                              1     534  
